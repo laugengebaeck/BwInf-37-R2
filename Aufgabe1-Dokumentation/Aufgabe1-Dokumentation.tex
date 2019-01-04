@@ -1,0 +1,58 @@
+\documentclass[a4paper, notitlepage, 12pt]{scrartcl}
+\author{Lukas Rost \\ \small{Teilnahme-ID: 48125}}
+\title{Aufgabe 1 \\ \glqq Lisa rennt\grqq  - Dokumentation}
+\subtitle{37. Bundeswettbewerb Informatik 2018/19 - 2. Runde \\~\\}
+\date{29. April 2018}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage[top=2.5cm, bottom=1.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{fancyvrb}
+\usepackage{caption}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage{minted}
+\fvset{breaklines=true}
+
+\pagestyle{fancy}
+\lhead{Lukas Rost, Teilnahme-ID: 48125}
+\rhead{Aufgabe 1, Seite \thepage ~von \pageref{LastPage}}
+\cfoot{ }
+
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
+
+\newmintedfile{java}{frame=single,linenos,samepage=false,firstnumber=1,rulecolor=\color{Gray},autogobble,breakafter=.u,fontsize=\small}
+
+\begin{document}
+\renewcommand{\contentsname}{\centerline{Inhaltsverzeichnis}}
+ \maketitle
+ \tableofcontents
+ \thispagestyle{empty}
+ \newpage
+ \setcounter{page}{1}
+ 
+ \section{Lösungsidee}
+ \subsection{Das Geometric-Shortest-Path-Problem}
+ \subsection{Erzeugung eines Sichtbarkeitsgraphen}
+ \subsection{Lösung des Problems ohne Hindernisse}
+ \subsection{Kombination der Ansätze}
+\begin{thebibliography}{xx}
+\bibitem[1] {Src:qwert} Wikipedia-Artikel zur NP-Vollständigkeit, \url{https://de.wikipedia.org/wiki/NP-Vollst\%C3\%A4ndigkeit}
+\end{thebibliography}
+
+\section{Umsetzung}
+\subsection{Allgemeine Hinweise zur Benutzung}
+
+\section{Beispiele}
+
+ \section{Quellcode}
+ \renewcommand{\listingscaption}{Quellcode}
+ 
+ \end{document}

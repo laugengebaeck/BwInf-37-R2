@@ -1,0 +1,10 @@
+\babel@toc {ngerman}{}
+\contentsline {section}{\numberline {1}L\IeC {\"o}sungsidee}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Das Geometric-Shortest-Path-Problem}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Erzeugung eines Sichtbarkeitsgraphen}{1}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}L\IeC {\"o}sung des Problems ohne Hindernisse}{1}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Kombination der Ans\IeC {\"a}tze}{1}{subsection.1.4}
+\contentsline {section}{\numberline {2}Umsetzung}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}Allgemeine Hinweise zur Benutzung}{1}{subsection.2.1}
+\contentsline {section}{\numberline {3}Beispiele}{1}{section.3}
+\contentsline {section}{\numberline {4}Quellcode}{1}{section.4}
