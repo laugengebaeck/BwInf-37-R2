@@ -1,29 +1,47 @@
 package de.lukasrost.bwinf37.gspalg
 
-class Graph {
-    val adjacencyMap: HashMap<Int, HashSet<Pair<Int,Double>>> = HashMap()
+import java.util.*
 
-    fun addEdge(sourceVertex: Int, destinationVertex: Int, weight: Double) {
-        // Add edge to source vertex / node.
-        adjacencyMap
-            .computeIfAbsent(sourceVertex) { HashSet() }
-            .add(Pair(destinationVertex,weight))
-        // Add edge to destination vertex / node.
-        adjacencyMap
-            .computeIfAbsent(destinationVertex) { HashSet() }
-            .add(Pair(sourceVertex,weight))
+class Graph {
+    val pointMap: HashMap<Point,Int> = HashMap()
+    var pointIndex = 0
+    val adjacencyList: ArrayList<ArrayList<Pair<Int,Double>>> = ArrayList()
+
+    fun addEdge(source: Point, destination: Point) {
+        val weight = Math.sqrt((source.x - destination.x) * (source.x - destination.x) + (source.y - destination.y) * (source.y - destination.y).toDouble())
+        // Punkte zu Transformations-Map hinzufügen, falls noch nicht geschehen
+        if (!pointMap.containsKey(source)) {
+            pointMap[source] = pointIndex
+            pointIndex++
+        }
+        if (!pointMap.containsKey(destination)) {
+            pointMap[destination] = pointIndex
+            pointIndex++
+        }
+        // Kante von source zu destination
+        adjacencyList[pointMap[source]!!].add(Pair(pointMap[destination]!!,weight))
+        // Kante von destination zu source
+        adjacencyList[pointMap[destination]!!].add(Pair(pointMap[source]!!,weight))
     }
 
-    override fun toString(): String = StringBuffer().apply {
-        for (key in adjacencyMap.keys) {
-            append("$key -> ")
-            append(adjacencyMap[key]?.joinToString(", ", "[", "]\n"))
+    fun dijkstra(from: Point): Pair<List<Double>,List<Int>>{
+        val nfrom = pointMap[from]!!
+        val dist = MutableList(adjacencyList.size){if (it == nfrom) 0.0 else Double.MAX_VALUE}
+        val parent = MutableList(adjacencyList.size){-1}
+        val Q = PriorityQueue<Pair<Int,Double>>()
+        Q.add(Pair(nfrom,0.0))
+        while(!Q.isEmpty()){
+            val u = Q.poll().first
+            for (p in adjacencyList[u]){
+                val v = p.first
+                val w = p.second
+                if(dist[u]+w < dist[v]){
+                    dist[v] = dist[u]+w
+                    parent[v] = u
+                    Q.add(Pair(v,dist[v]))
+                }
+            }
         }
-    }.toString()
-
-    fun dijkstra(from: Int): List<Double>{
-        val dist = List<Double>(adjacencyMap.size){if (it == from) 0.0 else Double.MAX_VALUE}
-        //do dijkstra
-        return dist
+        return Pair(dist,parent)
     }
 }

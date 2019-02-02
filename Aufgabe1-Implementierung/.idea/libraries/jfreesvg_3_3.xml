@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="tornadofx-1.7.18">
+  <library name="jfreesvg-3.3">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/tornadofx-1.7.18.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jfreesvg-3.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
