@@ -1,0 +1,66 @@
+\documentclass[a4paper, notitlepage, 12pt]{scrartcl}
+\author{Lukas Rost \\ \small{Teilnahme-ID: 48125}}
+\title{Aufgabe 3 \\ \glqq Schach dem Wildschwein\grqq  - Dokumentation}
+\subtitle{37. Bundeswettbewerb Informatik 2018/19 - 2. Runde \\~\\}
+\date{29. April 2018}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage[top=2.5cm, bottom=1.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{fancyvrb}
+\usepackage{caption}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage{minted}
+\fvset{breaklines=true}
+
+\pagestyle{fancy}
+\lhead{Lukas Rost, Teilnahme-ID: 48125}
+\rhead{Aufgabe 3, Seite \thepage ~von \pageref{LastPage}}
+\cfoot{ }
+
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
+
+\newmintedfile{java}{frame=single,linenos,samepage=false,firstnumber=1,rulecolor=\color{Gray},autogobble,breakafter=.u,fontsize=\small}
+
+\begin{document}
+\renewcommand{\contentsname}{\centerline{Inhaltsverzeichnis}}
+ \maketitle
+ \tableofcontents
+ \thispagestyle{empty}
+ \newpage
+ \setcounter{page}{1}
+ 
+ \section{Lösungsidee}
+ \subsection{...?}
+ \subsection{Das Drei-Springer-Endspiel}
+ \subsection{...}
+ \subsection{Laufzeitbetrachtung}
+\begin{thebibliography}{xx}
+\bibitem[1] {Src:BCE} Fine, Reuben: Basic Chess Endings, McKay-Verlag, 1941, ISBN 978-0-8129-3493-9
+\end{thebibliography}
+
+\section{Umsetzung}
+\subsection{Allgemeine Hinweise zur Benutzung}
+\subsection{Struktur des Programms}
+\subsection{Implementierung der wichtigsten Algorithmen}
+
+\section{Beispiele}
+\subsection{Beispiel 1}
+\subsection{Beispiel 2}
+\subsection{Beispiel 3}
+\subsection{Beispiel 4}
+\subsection{Beispiel 5}
+\subsection{Eigene Beispiele}
+
+ \section{Quellcode}
+ \renewcommand{\listingscaption}{Quellcode}
+ 
+ \end{document}

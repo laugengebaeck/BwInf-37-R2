@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.2.26)  15 MAR 2019 18:11
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.2.26)  28 FEB 2019 11:13
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**Aufgabe1-Dokumentation.tex
-(./Aufgabe1-Dokumentation.tex
+**Aufgabe3-Dokumentation.tex
+(./Aufgabe3-Dokumentation.tex
 LaTeX2e <2018-12-01>
 (/usr/share/texmf-dist/tex/latex/koma-script/scrartcl.cls
 Document Class: scrartcl 2019/02/01 v3.26b KOMA-Script document class (article)
@@ -674,11 +674,11 @@ Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
 (/usr/share/texmf-dist/tex/generic/oberdiek/catchfile.sty
 Package: catchfile 2016/05/16 v1.7 Catch the contents of a file (HO)
 )
-runsystem(uname -s > "Aufgabe1-Dokumentation.w18")...executed.
+runsystem(uname -s > "Aufgabe3-Dokumentation.w18")...executed.
 
 
-(./Aufgabe1-Dokumentation.w18)
-runsystem(rm -- "Aufgabe1-Dokumentation.w18")...executed.
+(./Aufgabe3-Dokumentation.w18)
+runsystem(rm -- "Aufgabe3-Dokumentation.w18")...executed.
 
 )
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.sty
@@ -848,15 +848,15 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@listing=\toks27
 \c@listing=\count152
 )
-runsystem(mkdir -p _minted-Aufgabe1-Dokumentation)...executed.
+runsystem(mkdir -p _minted-Aufgabe3-Dokumentation)...executed.
 
-runsystem(which pygmentize && touch Aufgabe1-Dokumentation.aex)...executed.
+runsystem(which pygmentize && touch Aufgabe3-Dokumentation.aex)...executed.
 
-runsystem(rm Aufgabe1-Dokumentation.aex)...executed.
+runsystem(rm Aufgabe3-Dokumentation.aex)...executed.
 
 
-(./Aufgabe1-Dokumentation.aux)
-\openout1 = `Aufgabe1-Dokumentation.aux'.
+(./Aufgabe3-Dokumentation.aux)
+\openout1 = `Aufgabe3-Dokumentation.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
 LaTeX Font Info:    ... okay on input line 33.
@@ -896,9 +896,9 @@ LaTeX Info: Redefining \ref on input line 33.
 LaTeX Info: Redefining \pageref on input line 33.
 LaTeX Info: Redefining \nameref on input line 33.
 
-(./Aufgabe1-Dokumentation.out) (./Aufgabe1-Dokumentation.out)
+(./Aufgabe3-Dokumentation.out) (./Aufgabe3-Dokumentation.out)
 \@outlinefile=\write5
-\openout5 = `Aufgabe1-Dokumentation.out'.
+\openout5 = `Aufgabe3-Dokumentation.out'.
 
 Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           Using `bookmark' together with `hyperref' is recommended,
@@ -964,9 +964,9 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 36.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-(./Aufgabe1-Dokumentation.toc)
+(./Aufgabe3-Dokumentation.toc)
 \tf@toc=\write6
-\openout6 = `Aufgabe1-Dokumentation.toc'.
+\openout6 = `Aufgabe3-Dokumentation.toc'.
 
 
 (/usr/share/texmf-dist/tex/generic/oberdiek/se-ascii-print.def
@@ -976,66 +976,26 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 
 
 ]
-File: pics/gsp.png Graphic file (type bmp)
-<pics/gsp.png>
-
-Overfull \hbox (3.62318pt too wide) in paragraph at lines 48--49
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--50
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--50
-
- []
-
-[1]
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
-[]\TU/lmr/m/n/12 Reksten-Monsen, Christian: Distance Tables Part 1 - Defi-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
-\TU/lmr/m/n/12 ning the Problem, []$[][][][][] [] [] [] [][][][][][][][][] [] [
-][][][][][] [] [][] [] [][][][] [] [][] [] [][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 60--61
-[]\TU/lmr/m/n/12 Reksten-Monsen, Christian: Distance Tables Part 2: Lee’s Visib
-i-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 60--61
-\TU/lmr/m/n/12 lity Graph Algorithm, []$[][][][][] [] [] [] [][][][][][][][][] 
-[] [][][][][][] [] [][] [] [][][][] [] [][] [] [][] []
- []
-
 
 AED: lastpage setting LastPage
-[2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 79.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 79.
- (./Aufgabe1-Dokumentation.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 79.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 79.
-Package rerunfilecheck Info: File `Aufgabe1-Dokumentation.out' has not changed.
+[1]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 66.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
+ (./Aufgabe3-Dokumentation.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 66.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 66.
+Package rerunfilecheck Info: File `Aufgabe3-Dokumentation.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 79.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
  ) 
 Here is how much of TeX's memory you used:
- 17868 strings out of 492933
- 287733 string characters out of 6138667
- 561964 words of memory out of 5000000
- 21675 multiletter control sequences out of 15000+600000
- 11994 words of font info for 60 fonts, out of 8000000 for 9000
+ 17823 strings out of 492933
+ 287052 string characters out of 6138667
+ 559972 words of memory out of 5000000
+ 21648 multiletter control sequences out of 15000+600000
+ 10663 words of font info for 49 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 47i,11n,51p,9151b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 47i,11n,51p,9151b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Aufgabe1-Dokumentation.pdf (3 pages).
+Output written on Aufgabe3-Dokumentation.pdf (2 pages).
