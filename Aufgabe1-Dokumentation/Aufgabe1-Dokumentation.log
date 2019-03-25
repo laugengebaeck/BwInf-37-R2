@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.2.26)  15 MAR 2019 18:11
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.2.26)  25 MAR 2019 19:52
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -157,15 +157,7 @@ File: babel.def 2018/11/13 3.27 Babel common definitions
 )
 Package babel Info: Making " an active character on input line 121.
 )))
-(/usr/share/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2018/08/11 v1.3c Input encoding file
-\inpenc@prehook=\toks15
-\inpenc@posthook=\toks16
-
-
-Package inputenc Warning: inputenc package ignored with utf8 based engines.
-
-) (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
@@ -190,7 +182,7 @@ File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
 \WF@size=\dimen107
 \c@WF@wrappedlines=\count91
 \WF@box=\box29
-\WF@everypar=\toks17
+\WF@everypar=\toks15
 Package: wrapfig 2003/01/31  v 3.6
 )
 (/usr/share/texmf-dist/tex/latex/graphics/color.sty
@@ -359,7 +351,7 @@ Package: geometry 2018/04/16 v5.8 Page Geometry
 \Gm@layoutheight=\dimen117
 \Gm@layouthoffset=\dimen118
 \Gm@layoutvoffset=\dimen119
-\Gm@dimlist=\toks18
+\Gm@dimlist=\toks16
 )
 (/usr/share/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2019/01/15
@@ -421,7 +413,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks19
+\@emptytoks=\toks17
 \ex@=\dimen129
 ))
 (/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
@@ -451,21 +443,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \dotsspace@=\muskip11
 \c@parentequation=\count122
 \dspbrk@lvl=\count123
-\tag@help=\toks20
+\tag@help=\toks18
 \row@=\count124
 \column@=\count125
 \maxfields@=\count126
-\andhelp@=\toks21
+\andhelp@=\toks19
 \eqnshift@=\dimen132
 \alignsep@=\dimen133
 \tagshift@=\dimen134
 \tagwidth@=\dimen135
 \totwidth@=\dimen136
 \lineht@=\dimen137
-\@envbody=\toks22
+\@envbody=\toks20
 \multlinegap=\skip62
 \multlinetaggap=\skip63
-\mathdisplay@stack=\toks23
+\mathdisplay@stack=\toks21
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
 )
@@ -523,18 +515,53 @@ s
 (/usr/share/texmf-dist/tex/latex/lastpage/lastpage.sty
 Package: lastpage 2015/03/29 v1.2m Refers to last page's name (HMM; JPG)
 )
-(/usr/share/texmf-dist/tex/latex/minted/minted.sty
+(/usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count128
+\float@exts=\toks22
+\float@box=\box34
+\@float@everytoks=\toks23
+\@floatcapt=\box35
+)
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks24
+\c@algorithm=\count129
+)
+(/usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/share/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count130
+\c@ALG@rem=\count131
+\c@ALG@nested=\count132
+\ALG@tlm=\skip74
+\ALG@thistlm=\skip75
+\c@ALG@Lnr=\count133
+\c@ALG@blocknr=\count134
+\c@ALG@storecount=\count135
+\c@ALG@tmpcounter=\count136
+\ALG@tmplength=\skip76
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/share/texmf-dist/tex/latex/minted/minted.sty
 Package: minted 2017/07/19 v2.5 Yet another Pygments shim for LaTeX
 
 (/usr/share/texmf-dist/tex/latex/fvextra/fvextra.sty
 Package: fvextra 2019/02/04 v1.4 fvextra - extensions and patches for fancyvrb
 
-(/usr/share/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
 (/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count128
+\etb@tempcnta=\count137
 )
 (/usr/share/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
@@ -625,43 +652,43 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 (/usr/share/texmf-dist/tex/latex/lineno/lineno.sty
 Package: lineno 2005/11/02 line numbers on paragraphs v4.41
 Invalid UTF-8 byte or sequence at line 296 replaced by U+FFFD.
-\linenopenalty=\count129
-\output=\toks24
-\linenoprevgraf=\count130
+\linenopenalty=\count138
+\output=\toks25
+\linenoprevgraf=\count139
 \linenumbersep=\dimen145
 \linenumberwidth=\dimen146
-\c@linenumber=\count131
-\c@pagewiselinenumber=\count132
-\c@LN@truepage=\count133
-\c@internallinenumber=\count134
-\c@internallinenumbers=\count135
+\c@linenumber=\count140
+\c@pagewiselinenumber=\count141
+\c@LN@truepage=\count142
+\c@internallinenumber=\count143
+\c@internallinenumbers=\count144
 \quotelinenumbersep=\dimen147
 \bframerule=\dimen148
 \bframesep=\dimen149
-\bframebox=\box34
+\bframebox=\box36
 LaTeX Info: Redefining \\ on input line 3056.
 )
-\c@FV@TrueTabGroupLevel=\count136
-\c@FV@TrueTabCounter=\count137
-\FV@TabBox@Group=\box35
-\FV@TmpLength=\skip74
-\c@FV@HighlightLinesStart=\count138
-\c@FV@HighlightLinesStop=\count139
-\FV@LoopCount=\count140
-\FV@NCharsBox=\box36
+\c@FV@TrueTabGroupLevel=\count145
+\c@FV@TrueTabCounter=\count146
+\FV@TabBox@Group=\box37
+\FV@TmpLength=\skip77
+\c@FV@HighlightLinesStart=\count147
+\c@FV@HighlightLinesStop=\count148
+\FV@LoopCount=\count149
+\FV@NCharsBox=\box38
 \FV@BreakIndent=\dimen150
-\FV@BreakIndentNChars=\count141
+\FV@BreakIndentNChars=\count150
 \FV@BreakSymbolSepLeft=\dimen151
-\FV@BreakSymbolSepLeftNChars=\count142
+\FV@BreakSymbolSepLeftNChars=\count151
 \FV@BreakSymbolSepRight=\dimen152
-\FV@BreakSymbolSepRightNChars=\count143
+\FV@BreakSymbolSepRightNChars=\count152
 \FV@BreakSymbolIndentLeft=\dimen153
-\FV@BreakSymbolIndentLeftNChars=\count144
+\FV@BreakSymbolIndentLeftNChars=\count153
 \FV@BreakSymbolIndentRight=\dimen154
-\FV@BreakSymbolIndentRightNChars=\count145
-\c@FancyVerbLineBreakLast=\count146
-\FV@LineBox=\box37
-\FV@LineIndentBox=\box38
+\FV@BreakSymbolIndentRightNChars=\count154
+\c@FancyVerbLineBreakLast=\count155
+\FV@LineBox=\box39
+\FV@LineIndentBox=\box40
 \FV@LineWidth=\dimen155
 )
 (/usr/share/texmf-dist/tex/latex/tools/shellesc.sty
@@ -683,9 +710,9 @@ runsystem(rm -- "Aufgabe1-Dokumentation.w18")...executed.
 )
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.tex
-\integerpart=\count147
+\integerpart=\count156
 Invalid UTF-8 byte or sequence at line 35 replaced by U+FFFD.
-\decimalpart=\count148
+\decimalpart=\count157
 Invalid UTF-8 byte or sequence at line 79 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 79 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 83 replaced by U+FFFD.
@@ -826,30 +853,23 @@ Package: xstring 2019/02/06 v1.83 String manipulations (CT)
 )
 (/usr/share/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip75
+\OuterFrameSep=\skip78
 \fb@frw=\dimen156
 \fb@frh=\dimen157
 \FrameRule=\dimen158
 \FrameSep=\dimen159
 )
-(/usr/share/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count149
-\float@exts=\toks25
-\float@box=\box39
-\@float@everytoks=\toks26
-\@floatcapt=\box40
-)
 \minted@appexistsfile=\read2
 \minted@bgbox=\box41
 \minted@code=\write4
-\c@minted@FancyVerbLineTemp=\count150
-\c@minted@pygmentizecounter=\count151
-\@float@every@listing=\toks27
-\c@listing=\count152
+\c@minted@FancyVerbLineTemp=\count158
+\c@minted@pygmentizecounter=\count159
+\@float@every@listing=\toks26
+\c@listing=\count160
 )
 runsystem(mkdir -p _minted-Aufgabe1-Dokumentation)...executed.
 
+\colveccount=\count161
 runsystem(which pygmentize && touch Aufgabe1-Dokumentation.aex)...executed.
 
 runsystem(rm Aufgabe1-Dokumentation.aex)...executed.
@@ -858,43 +878,43 @@ runsystem(rm Aufgabe1-Dokumentation.aex)...executed.
 (./Aufgabe1-Dokumentation.aux)
 \openout1 = `Aufgabe1-Dokumentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 55.
  (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    ... okay on input line 55.
 \AtBeginShipoutBox=\box42
-Package hyperref Info: Link coloring OFF on input line 33.
+Package hyperref Info: Link coloring OFF on input line 55.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
 (/usr/share/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count153
+\c@section@level=\count162
 )
-LaTeX Info: Redefining \ref on input line 33.
-LaTeX Info: Redefining \pageref on input line 33.
-LaTeX Info: Redefining \nameref on input line 33.
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
 
 (./Aufgabe1-Dokumentation.out) (./Aufgabe1-Dokumentation.out)
 \@outlinefile=\write5
@@ -906,14 +926,14 @@ Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           You can avoid loading `bookmark' with KOMA-Script option
 (scrartcl)           `bookmarkpackage=false' before \begin{document} and
 (scrartcl)           you can avoid this message with `\usepackage{bookmark}'
-(scrartcl)           before \begin{document} on input line 33.
+(scrartcl)           before \begin{document} on input line 55.
 
 (/usr/share/texmf-dist/tex/latex/oberdiek/bookmark.sty
 Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
 
 (/usr/share/texmf-dist/tex/latex/oberdiek/bkm-dvipdfm.def
 File: bkm-dvipdfm.def 2016/05/17 v1.26 bookmark driver for dvipdfm (HO)
-\BKM@id=\count154
+\BKM@id=\count163
 ))
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -954,12 +974,12 @@ Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 33.
-LaTeX Font Info:    Try loading font information for U+msa on input line 36.
+(lastpage)             ! on input line 55.
+LaTeX Font Info:    Try loading font information for U+msa on input line 58.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 36.
+LaTeX Font Info:    Try loading font information for U+msb on input line 58.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -979,63 +999,214 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 File: pics/gsp.png Graphic file (type bmp)
 <pics/gsp.png>
 
-Overfull \hbox (3.62318pt too wide) in paragraph at lines 48--49
+Overfull \hbox (3.62318pt too wide) in paragraph at lines 69--70
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 43--50
+Underfull \hbox (badness 10000) in paragraph at lines 65--71
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 43--50
+Underfull \hbox (badness 10000) in paragraph at lines 65--71
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--76
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--76
 
  []
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 98.
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--99
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--117
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--117
+
+ []
+
+[2]
+File: pics/lee_figure1.png Graphic file (type bmp)
+<pics/lee_figure1.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--125
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--125
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--125
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 126--165
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 166--181
+
+ []
+
+[4]
+Overfull \hbox (24.55669pt too wide) in paragraph at lines 182--183
+[]\TU/lmr/m/n/12 Diese Funktion \TU/lmtt/m/n/12 visible \TU/lmr/m/n/12 prüft da
+bei ganz einfach die Sichtbarkeit eines Knotens. $\OML/cmm/m/it/12 smallest\OT1
+/cmr/m/n/12 (\OML/cmm/m/it/12 T\OT1/cmr/m/n/12 )$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--203
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 204--208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--212
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--212
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 214--238
+
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 241--243
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 243.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 243.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 243.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--247
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--247
+
+ []
+
+[7]
+Underfull \hbox (badness 2443) in paragraph at lines 248--249
+\TU/lmr/m/n/12 2016 (Präsentation), []$[][][][] [] [] [] [][][][][][][][][] [] 
+[][][][][][][][][][][][][][] [] [][] [] [][][][][][][] [] [][][] [] [][][][] []
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 []\TU/lmr/m/n/12 Reksten-Monsen, Christian: Distance Tables Part 1 - Defi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 \TU/lmr/m/n/12 ning the Problem, []$[][][][][] [] [] [] [][][][][][][][][] [] [
 ][][][][][] [] [][] [] [][][][] [] [][] [] [][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--61
-[]\TU/lmr/m/n/12 Reksten-Monsen, Christian: Distance Tables Part 2: Lee’s Visib
-i-
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
+[]\TU/lmr/m/n/12 Reksten-Monsen, Christian: Distance Tables Part 2 - Lee’s Visi
+bi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--61
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 \TU/lmr/m/n/12 lity Graph Algorithm, []$[][][][][] [] [] [] [][][][][][][][][] 
 [] [][][][][][] [] [][] [] [][][][] [] [][] [] [][] []
  []
 
 
+Underfull \hbox (badness 5119) in paragraph at lines 253--254
+[]\TU/lmr/m/n/12 Bygi, Mojtaba Nouri; Ghodsi, Mohammad (Sharif University of Te
+chno-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 253--254
+\TU/lmr/m/n/12 logy): 3D Visibility Graph, []$[][][][][] [] [] [] [][][][] [] [
+][][][][][][][][][][][][][][] [] [][][] [] [][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
+[] [] [][][][] [] [][][][][][][][][][][][][][][] [] [][][] [] [][][][] [] [][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 3635) in paragraph at lines 256--257
+[]\TU/lmr/m/n/12 Skript der Uni Freiburg zur Minkowski-Summe, []$[][][][] [] []
+ [] [][][][] [] [][][][][][][][][][] []
+ []
+
+
 AED: lastpage setting LastPage
-[2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 79.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 79.
+[8] [9]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 276.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 276.
  (./Aufgabe1-Dokumentation.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 79.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 79.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 276.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 276.
 Package rerunfilecheck Info: File `Aufgabe1-Dokumentation.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 79.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 276.
  ) 
 Here is how much of TeX's memory you used:
- 17868 strings out of 492933
- 287733 string characters out of 6138667
- 561964 words of memory out of 5000000
- 21675 multiletter control sequences out of 15000+600000
- 11994 words of font info for 60 fonts, out of 8000000 for 9000
+ 18445 strings out of 492933
+ 296318 string characters out of 6138667
+ 577145 words of memory out of 5000000
+ 22235 multiletter control sequences out of 15000+600000
+ 13574 words of font info for 70 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 47i,11n,51p,9151b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 47i,12n,51p,9151b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Aufgabe1-Dokumentation.pdf (3 pages).
+Output written on Aufgabe1-Dokumentation.pdf (10 pages).
