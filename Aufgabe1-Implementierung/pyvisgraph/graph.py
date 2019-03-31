@@ -27,7 +27,7 @@ from collections import defaultdict
 class Point(object):
     __slots__ = ('x', 'y', 'polygon_id')
 
-    def __init__(self, x, y, polygon_id=-1):
+    def __init__(self, x, y, polygon_id="P0"):
         self.x = float(x)
         self.y = float(y)
         self.polygon_id = polygon_id
