@@ -8,22 +8,20 @@
 \contentsline {subsection}{\numberline {1.4}Lösung des Problems ohne Hindernisse}{5}{subsection.1.4}% 
 \contentsline {subsection}{\numberline {1.5}Kombination der Ansätze}{7}{subsection.1.5}% 
 \contentsline {subsection}{\numberline {1.6}Laufzeitbetrachtung}{7}{subsection.1.6}% 
-\contentsline {subsection}{\numberline {1.7}Erweiterungen}{7}{subsection.1.7}% 
-\contentsline {subsubsection}{\numberline {1.7.1}Anpassbare Geschwindigkeiten}{7}{subsubsection.1.7.1}% 
-\contentsline {subsubsection}{\numberline {1.7.2}Andere Zielgeraden}{7}{subsubsection.1.7.2}% 
-\contentsline {subsubsection}{\numberline {1.7.3}Polygonale Lisa}{7}{subsubsection.1.7.3}% 
-\contentsline {subsubsection}{\numberline {1.7.4}Nicht-polygonale Hindernisse}{8}{subsubsection.1.7.4}% 
-\contentsline {subsubsection}{\numberline {1.7.5}Das Problem im $\mathbb {R}^{3}$}{9}{subsubsection.1.7.5}% 
-\contentsline {section}{\numberline {2}Umsetzung}{10}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Allgemeine Hinweise zur Benutzung}{10}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Struktur des Programms}{10}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Implementierung der wichtigsten Algorithmen}{10}{subsection.2.3}% 
-\contentsline {section}{\numberline {3}Beispiele}{10}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}Beispiel 1}{10}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Beispiel 2}{10}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}Beispiel 3}{10}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}Beispiel 4}{10}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Beispiel 5}{10}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}Eigene Beispiele}{10}{subsection.3.6}% 
-\contentsline {subsection}{\numberline {3.7}Beispiele für die Erweiterungen}{10}{subsection.3.7}% 
-\contentsline {section}{\numberline {4}Quellcode}{10}{section.4}% 
+\contentsline {subsection}{\numberline {1.7}Erweiterungen}{8}{subsection.1.7}% 
+\contentsline {subsubsection}{\numberline {1.7.1}Anpassbare Geschwindigkeiten}{8}{subsubsection.1.7.1}% 
+\contentsline {subsubsection}{\numberline {1.7.2}Polygonale Lisa}{8}{subsubsection.1.7.2}% 
+\contentsline {subsubsection}{\numberline {1.7.3}Nicht-polygonale Hindernisse}{10}{subsubsection.1.7.3}% 
+\contentsline {subsubsection}{\numberline {1.7.4}Das Problem im $\mathbb {R}^{3}$}{10}{subsubsection.1.7.4}% 
+\contentsline {section}{\numberline {2}Umsetzung}{11}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Allgemeine Hinweise zur Benutzung}{11}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Struktur des Programms und Implementierung der Algorithmen}{12}{subsection.2.2}% 
+\contentsline {section}{\numberline {3}Beispiele}{12}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Beispiel 1}{12}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Beispiel 2}{12}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Beispiel 3}{12}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Beispiel 4}{12}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Beispiel 5}{12}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Eigene Beispiele}{12}{subsection.3.6}% 
+\contentsline {subsection}{\numberline {3.7}Beispiele für die Erweiterungen}{12}{subsection.3.7}% 
+\contentsline {section}{\numberline {4}Quellcode}{12}{section.4}% 

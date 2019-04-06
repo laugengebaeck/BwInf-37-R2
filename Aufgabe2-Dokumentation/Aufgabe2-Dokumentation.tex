@@ -1,0 +1,92 @@
+\documentclass[a4paper, notitlepage, 12pt]{scrartcl}
+\author{Lukas Rost \\ \small{Teilnahme-ID: 48125}}
+\title{Aufgabe 2 \\ \glqq Dreiecksbeziehungen\grqq  - Dokumentation}
+\subtitle{37. Bundeswettbewerb Informatik 2018/19 - 2. Runde \\~\\}
+\date{29. April 2019}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage[top=2.5cm, bottom=1.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{fancyvrb}
+\usepackage{caption}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage{minted}
+\fvset{breaklines=true}
+
+\pagestyle{fancy}
+\lhead{Lukas Rost, Teilnahme-ID: 48125}
+\rhead{Aufgabe 2, Seite \thepage ~von \pageref{LastPage}}
+\cfoot{ }
+
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
+
+\newmintedfile{cpp}{frame=single,linenos,samepage=false,firstnumber=1,rulecolor=\color{Gray},autogobble,breakafter=.u,fontsize=\small}
+
+\begin{document}
+\renewcommand{\contentsname}{\centerline{Inhaltsverzeichnis}}
+ \maketitle
+ \tableofcontents
+ \thispagestyle{empty}
+ \newpage
+ \setcounter{page}{1}
+ 
+ \section{Lösungsidee}
+ \subsection{Mathematische Präzisierung der Aufgabenstellung}
+ Bei der Eingabe handelt es sich um eine Menge $D = \{d_1,...,d_n\}$ von Dreiecken $d_i$. Jedes Dreieck ist dabei durch seine drei Eckpunkte vollständig definiert ($d_i = \{p_1,p_2,p_3\}$). Ein Eckpunkt ist dabei wiederum ein Punkt $p_i = (x_i,y_i)$ des $\mathbb{R}^2$. \\ \\
+ Die Aufgabenstellung fordert nun, dass eine Abbildung $D' = f(D)$ gefunden werden soll. Diese ordnet der Menge $D$ eine Bildmenge $D'$ zu. Für diese müssen bestimmte Bedingungen gelten:
+ \begin{itemize}
+ 	\item Für jedes $d \in D'$ gilt:
+ 	\begin{equation}
+ 	\forall ~(x,y) \in d: y \geq 0 \wedge x \geq 0
+ 	\end{equation}
+ 	Alle Punkte müssen also über oder auf der x-Achse sowie rechts oder auf der y-Achse liegen.
+ 	\item Für jedes $d \in D'$ gilt:
+ 	\begin{equation}
+ 	\exists ~(x,y) \in d: y = 0
+ 	\end{equation}
+ 	Es muss also in jedem Dreieck mindestens einen Punkt geben, der auf der x-Achse liegt. Die Menge aller solchen Punkte eines Dreiecks sei $N_i$ (anschaulich die Menge der Straßenecken).
+ 	\item Für jedes $d \in D'$ und jedes $e \in D'$ gilt:
+ 	\begin{equation}
+ 	d \cap e = \emptyset
+ 	\end{equation}
+ 	$d \cap e$ stellt dabei die Schnittfläche der beiden Dreiecke dar. Es dürfen sich also keine zwei Dreiecke überlappen.\\ \\
+ 	Eine Dreiecksanordnung wird als \textbf{erlaubt} bezeichnet, wenn sie diese Bedingungen erfüllt. Die Menge der erlaubten Dreiecksanordnungen sei dabei $E$.
+  \end{itemize}
+Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine optimale Dreiecksanordnung sei dabei folgendermaßen definiert:
+\begin{itemize}
+	\item $D'$ minimiert den folgenden Wert über alle erlaubten Dreiecksanordnungen $E$:
+	\begin{equation}
+	\max_{d_i \in D' ~ d_j \in D'} \min_{n \in N_i ~ m \in N_j} | n.x - m.x |
+	\end{equation}
+	Der Minimums-Term bildet dabei den Abstand zwischen zwei Dreiecken als minimalen Abstand der Straßenecken, während der Maximums-Term den maximalen solchen Abstand berechnet.
+\end{itemize}
+ Die optimale Dreiecksanordnung $D'$ bildet die Ausgabe des Algorithmus, der $f(D)$ möglichst effizient berechnen soll.
+ \subsection{Intuitive Beschreibung der Lösungsidee}
+ \subsection{Mathematische Präzisierung des Algorithmus}
+ \subsection{Laufzeitbetrachtung und NP-Vollständigkeit}
+ \subsection{Erweiterungen}
+
+\section{Umsetzung}
+\subsection{Allgemeine Hinweise zur Benutzung}
+\subsection{Struktur des Programms und Implementierung der Algorithmen}
+
+\section{Beispiele}
+\subsection{Beispiel 1}
+\subsection{Beispiel 2}
+\subsection{Beispiel 3}
+\subsection{Beispiel 4}
+\subsection{Beispiel 5}
+\subsection{Eigene Beispiele}
+
+ \section{Quellcode}
+ \renewcommand{\listingscaption}{Quellcode}
+ 
+ \end{document}

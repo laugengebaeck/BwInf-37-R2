@@ -1,0 +1,50 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Main program}
+\PYG{k+kn}{import} \PYG{n+nn}{argparse}
+\PYG{k+kn}{import} \PYG{n+nn}{pyvisgraph} \PYG{k+kn}{as} \PYG{n+nn}{vg}
+
+\PYG{c+c1}{\PYGZsh{}Commandline\PYGZhy{}Argumente parsen}
+\PYG{n}{parser} \PYG{o}{=} \PYG{n}{argparse}\PYG{o}{.}\PYG{n}{ArgumentParser}\PYG{p}{(}\PYG{n}{description}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Lösung zu Lisa rennt, Aufgabe 1, Runde 2, 37. BwInf von Lukas Rost\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}i\PYGZsq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZdq{}}\PYG{p}{,}\PYG{n}{dest}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}input\PYGZdq{}}\PYG{p}{,}\PYG{n}{default}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}lisarennt1.txt\PYGZdq{}}\PYG{p}{,}\PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Eingabedatei\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}o\PYGZsq{}}\PYG{p}{,}\PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZdq{}}\PYG{p}{,}\PYG{n}{dest}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}output\PYGZdq{}}\PYG{p}{,}\PYG{n}{default}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}lisarennt1\PYGZus{}output.txt\PYGZdq{}}\PYG{p}{,}\PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Ausgabedatei\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}so\PYGZsq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZdq{}}\PYG{p}{,}\PYG{n}{dest}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}svg\PYGZdq{}}\PYG{p}{,}\PYG{n}{default}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}lisarennt1\PYGZus{}svg.svg\PYGZdq{}}\PYG{p}{,}\PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}SVG\PYGZhy{}Ausgabedatei\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}d\PYGZsq{}}\PYG{p}{,}\PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZus{}true\PYGZdq{}}\PYG{p}{,}\PYG{n}{default}\PYG{o}{=}\PYG{n+nb+bp}{False}\PYG{p}{,}\PYG{n}{dest}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}debug\PYGZdq{}}\PYG{p}{,}\PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Debug\PYGZhy{}Ausgaben aktivieren\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}vlisa\PYGZsq{}}\PYG{p}{,}\PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZdq{}}\PYG{p}{,}\PYG{n}{dest}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}velocity\PYGZus{}lisa\PYGZdq{}}\PYG{p}{,}\PYG{n}{default}\PYG{o}{=}\PYG{l+m+mi}{15}\PYG{p}{,}\PYG{n+nb}{type}\PYG{o}{=}\PYG{n+nb}{float}\PYG{p}{,}\PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Erweiterung Geschwindigkeiten: Lisa in km/h\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}vbus\PYGZsq{}}\PYG{p}{,}\PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZdq{}}\PYG{p}{,}\PYG{n}{dest}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}velocity\PYGZus{}bus\PYGZdq{}}\PYG{p}{,}\PYG{n}{default}\PYG{o}{=}\PYG{l+m+mi}{30}\PYG{p}{,}\PYG{n+nb}{type}\PYG{o}{=}\PYG{n+nb}{float}\PYG{p}{,}\PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Erweiterung Geschwindigkeiten: Bus in km/h\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{parser}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}minkowski\PYGZsq{}}\PYG{p}{,}\PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZdq{}}\PYG{p}{,}\PYG{n}{default}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{,}\PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Erweiterung Minkowski\PYGZhy{}Summe: Eingabedatei (1 Polygon im gleichen Format wie in der normalen Eingabe)\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{args} \PYG{o}{=} \PYG{n}{parser}\PYG{o}{.}\PYG{n}{parse\PYGZus{}args}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Polygone einlesen}
+\PYG{n}{infile} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{args}\PYG{o}{.}\PYG{n}{input}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}r\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{numpoly} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{infile}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{())}
+\PYG{n}{polylist} \PYG{o}{=} \PYG{p}{[]}
+
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{numpoly}\PYG{p}{):}
+    \PYG{n}{pointlist} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{line} \PYG{o}{=} \PYG{n}{infile}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{()}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{index} \PYG{o}{=} \PYG{l+m+mi}{1}
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{line}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]):}
+        \PYG{n}{pointlist}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{vg}\PYG{o}{.}\PYG{n}{Point}\PYG{p}{(}\PYG{n}{line}\PYG{p}{[}\PYG{n}{index}\PYG{p}{],}\PYG{n}{line}\PYG{p}{(}\PYG{n}{index}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{n}{polygon\PYGZus{}id}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}P\PYGZdq{}}\PYG{o}{+}\PYG{p}{(}\PYG{n}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)))}
+        \PYG{n}{index} \PYG{o}{+=} \PYG{l+m+mi}{2}
+    \PYG{n}{polylist}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pointlist}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Lisas Position einlesen}
+\PYG{n}{pos} \PYG{o}{=} \PYG{n}{infile}\PYG{o}{.}\PYG{n}{readline}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{p}{)}
+\PYG{n}{infile}\PYG{o}{.}\PYG{n}{close}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{}Graph erstellen}
+\PYG{n}{graph} \PYG{o}{=} \PYG{n}{vg}\PYG{o}{.}\PYG{n}{VisGraph}\PYG{p}{()}
+\PYG{n}{graph}\PYG{o}{.}\PYG{n}{build}\PYG{p}{(}\PYG{n}{polylist}\PYG{p}{)}
+\PYG{n}{shortest} \PYG{o}{=} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{shortest\PYGZus{}path}\PYG{p}{(}\PYG{n}{vg}\PYG{o}{.}\PYG{n}{Point}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{pos}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}\PYG{n}{polygon\PYGZus{}id}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}L\PYGZdq{}}\PYG{p}{))} \PYG{c+c1}{\PYGZsh{}TODO change visgraph library}
+
+\PYG{c+c1}{\PYGZsh{}Debug\PYGZhy{}Ausgaben}
+\PYG{n}{graph}\PYG{o}{.}\PYG{n}{save}\PYG{p}{(}\PYG{n}{args}\PYG{o}{.}\PYG{n}{input} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZus{}pickle.pk1\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Ausgabe}
+\PYG{c+c1}{\PYGZsh{}TODO}
+\PYG{c+c1}{\PYGZsh{}TODO Zeitmessungen}
+
+\PYG{c+c1}{\PYGZsh{}TODO Erweiterungen}
+\end{Verbatim}

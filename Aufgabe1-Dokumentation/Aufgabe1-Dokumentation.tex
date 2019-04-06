@@ -15,6 +15,7 @@
 \usepackage{caption}
 \usepackage{mathtools}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{algorithm}
@@ -27,6 +28,7 @@
 \usepackage{microtype}
 
 \usepackage{tikz}
+\usepackage{svg}
 
 \pagestyle{fancy}
 \lhead{Lukas Rost, Teilnahme-ID: 48125}
@@ -35,7 +37,7 @@
 
 \newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
-\newmintedfile{python}{frame=single,linenos,samepage=false,firstnumber=1,rulecolor=\color{Gray},autogobble,breakafter=.,fontsize=\small}
+\newmintedfile{python}{frame=single,linenos,samepage=false,firstnumber=1,rulecolor=\color{Gray},autogobble,breakafter={,.},fontsize=\small}
 
 \floatname{algorithm}{Algorithmus}
 
@@ -199,10 +201,19 @@ Diese Funktion \texttt{visible} prüft dabei ganz einfach die Sichtbarkeit eines
 Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log |V|)$ (bei Implementierung mit einer Vorrangwarteschlange). Da der Algorithmus den entsprechenden Weg durch das Setzen eines Vorgängers ebenfalls bestimmt, kann auch dieser selbst ausgegeben werden.
  \subsection{Lösung des Problems ohne Hindernisse}
  Damit man nun diese spezielle Abwandlung des Problems lösen kann, sollte man zunächst einmal versuchen, das Problem ohne Hindernisse zu lösen, wie dies die Aufgabenstellung auch \emph{sehr} unauffällig nahelegt. \\ \\
- Zunächst lässt sich feststellen, dass es ausschließlich sinnvoll ist, Punkte mit einer y-Koordinate $\geq$ der y-Koordinate von Lisas Haus als Zielpunkte zu wählen. Sonst würde der Abstand zwischen Start- und Zielpunkt größer, während die Abfahrtszeit des Busses früher läge, was insgesamt für Lisa ein früheres Aufstehen bedeuten würde. \\ \\
-\begin{wrapfigure}{r}{0.4\textwidth}
+ Zunächst lässt sich feststellen, dass es ausschließlich sinnvoll ist, Punkte mit einer y-Koordinate $\geq$ der y-Koordinate von Lisas Haus als Zielpunkte zu wählen. Sonst würde der Abstand zwischen Start- und Zielpunkt größer, während die Abfahrtszeit des Busses früher läge, was insgesamt für Lisa ein früheres Aufstehen bedeuten würde. \\
+\begin{wrapfigure}{r}{0.25\textwidth}
 	\begin{tikzpicture}
-		%TODO
+		\coordinate[label=left:$A$] (A) at (0,1);
+		\coordinate[label=right:$P$] (P) at (3,1);
+		\coordinate[label=left:$C$] (C) at (0,2);
+		\draw (A) -- node[below] {$x$} (P);
+		\draw (P) -- node[above] {$l$} (C);
+		\fill (A) circle (2pt);
+		\fill (P) circle (2pt);
+		\fill (C) circle (2pt);
+		\draw [<->,thick] (0,1.5) node[left] {$b$} (0,3) node (yaxis) [above] {$y$}
+		|- (3.5,0) node (xaxis) [right] {$x$};
 	\end{tikzpicture}
 \end{wrapfigure}
  Betrachten wir nun die nebenstehende Situation, in der $P(x_p|y_p)$ Lisas Haus darstellt und $C(x_c|y_c)$ den optimalen Zielpunkt mit $y_c \geq y_p$. Die Zeit, die der Bus für die Strecke $b$ benötigt, berechnet sich mit $v_b$ als Geschwindigkeit des Busses zu
@@ -231,24 +242,42 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
  b^2 &= \frac{v_L^2}{v_B^2} \cdot \frac{1}{(1 - \frac{v_L^2}{v_B^2})} \cdot x^2 \\
  b &= \frac{v_L}{v_B} \cdot \frac{1}{\sqrt{1 - \frac{v_L^2}{v_B^2}}} \cdot x
  \end{align}
- Für den optimalen Zielpunkt $C$ gilt somit $x_c = 0$ und $y_c = y_p + \frac{v_L}{v_B} \cdot \frac{1}{\sqrt{1 - \frac{v_L^2}{v_B^2}}} \cdot x_p$. Setzt man die in der Aufgabenstellung gegebenen Geschwindigkeiten ein. ergibt sich: $y_c = y_p + \frac{\sqrt{3}}{3} \cdot x_p$
+ Für den optimalen Zielpunkt $C$ gilt somit $x_c = 0$ und $y_c = y_p + \frac{v_L}{v_B} \cdot \frac{1}{\sqrt{1 - \frac{v_L^2}{v_B^2}}} \cdot x_p$. \footnote{Ich habe keine Ahnung, warum das wie der Lorentzfaktor aus der Relativitätstheorie aussieht.} Setzt man die in der Aufgabenstellung gegebenen Geschwindigkeiten ein. ergibt sich: $y_c = y_p + \frac{\sqrt{3}}{3} \cdot x_p$
  \subsection{Kombination der Ansätze}
  Um das Problem nun lösen zu können, muss man beide Ansätze (mit und ohne Hindernisse) kombinieren. Dazu bestimmt man zu jedem Knoten/Punkt $p$ in der Eingabe einen (von mir so bezeichneten) \textit{Companion}-Punkt $c$, indem man die im vorigen Abschnitt berechnete Gleichung auf diesen Punkt anwendet. Dieser Punkt $c$ ist dann der optimale Punkt, um von $p$ aus die y-Achse zu erreichen und dabei möglichst spät starten zu müssen. \\ \\
  Da es jedoch sein kann, dass $c$ von $p$ nicht sichtbar ist (ein Hindernis liegt dazwischen), muss man eine Sichtbarkeitsprüfung durchführen. Dazu betrachtet man $c$ einfach bei der Erstellung des Sichtbarkeitsgraphen, genauer bei der Ermittlung der sichtbaren Punkte von $p$ aus (und nur dabei, denn für alle anderen Punkte hat $c$ keine Relevanz). \\ \\
  Nun kann man mithilfe des Dijkstra-Algorithmus' die kürzesten Wege zu allen Companion-Knoten berechnen. Aus diesen und der Lage der Companion-Punkte (aus dieser bestimmt sich die Zeit, an der der Bus dort vorbeifährt) lässt sich dann für jeden Companion-Punkt die spätestmögliche Startzeit am Startpunkt $s$ bestimmen, wenn man an diesem Companion-Punkt auf den Bus treffen will. \\ \\
  Der Companion-Punkt mit der spätesten spätestmöglichen Startzeit ist der Punkt, an dem Lisa auf den Bus treffen sollte, und der Weg zu ihm der optimale Weg.
- %TODO Beweis: wenn keine Sichtbarkeit p und c dann irrelevant
- %TODO Veranschaulichung
+ \begin{figure}[H]
+ 	\centering \includesvg[width=0.25\textwidth]{pics/lisarennt1.svg}
+ 	\caption{Veranschaulichung eines kompletten Sichtbarkeitsgraphen mit Companion-Punkten für Beispiel 1 des BwInf (blaue Linien sind Kanten des Graphen)}
+ \end{figure}
+ Hierbei soll noch kurz informell bewiesen werden, warum von einem Punkt $p$ aus nur der Punkt $c$ optimal sein kann und, wenn keine Sichtbarkeit zwischen diesen beiden Punkten besteht, $c$ einfach ignoriert werden kann. Nehmen wir an, von $p$ aus sei $c$ nicht sichtbar, d.h. der Strahl von $p$ in Richtung $c$ führt durch ein Polygon. Nun können wir den Strahl so nach unten (gegen den Uhrzeigersinn) rotieren, dass er gerade kein Polygon mehr schneidet. \\ \\
+ Nun schneidet er jedoch in jedem Fall einen Eckpunkt eines Polygons, hier $d$ genannt. Die Strecke zwischen $p$ und $d$ muss im Sichtbarkeitsgraphen enthalten sein, muss also hier nicht erneut betrachtet werden. Von $d$ aus gesehen gibt es einen eigenen Companion-Punkt $c_2$, der optimal ist. Also muss auch die Teilstrecke zwischen $d$ und dem neuen Schnittpunkt des Strahls mit der y-Achse nicht beachtet werden.
  \subsection{Laufzeitbetrachtung}
- %TODO ausführlich
+ In den einzelnen Abschnitten wurde teilweise schon auf die Laufzeiten der Teilalgorithmen eingegangen. Hier soll dies noch einmal zusammengefasst werden.
+ \begin{proof}[Algorithmus von Lee]
+ 	Die Funktion \texttt{visible\_vertices} im Algorithmus von Lee läuft offensichtlich in $\mathcal{O}(n \cdot \log n)$. Der Grund dafür ist, dass die einzelnen Schritte folgende Laufzeiten haben:
+ 	\begin{itemize}
+ 		\item \textbf{Sortieren der Knoten}: kann in $\mathcal{O}(n \cdot \log n)$ erfolgen (mit z.B. Quicksort), wobei $\Omega(n \cdot \log n)$ wie allgemein bekannt auch die Untergrenze für die Worst-Case-Laufzeit eines Sortieralgorithmus ist.
+ 		\item  \textbf{Schnittprüfung von Sweep line und Kanten}: Diese muss anfangs für $n$ Polygonkanten durchgeführt werden, hier ergibt sich also $\mathcal{O}(n)$.
+ 		\item  \textbf{Überprüfen aller Knoten}: Dies wird für alle $\mathcal{O}(n)$ Knoten durchgeführt. Dabei benötigt die Sichtbarkeitsprüfung $\mathcal{O}(\log n)$ (durch die Verwendung eines Suchbaumes). Danach müssen noch konstant viele Kanten dem Baum hinzugefügt bzw. entfernt werden\footnote{Normalerweise höchstens 2, in Sonderfällen können es aber auch bis zu 4 sein. Diese Sonderfälle treten dann auf, wenn sich zwei Polygone eine Kante oder einen Knoten teilen.} Das Hinzufügen bzw. Entfernen benötigt wieder $\mathcal{O}(\log n)$. Insgesamt ergibt sich also auch hier wieder $\mathcal{O}(n \cdot \log n)$.
+ 	\end{itemize}
+ 	Wie eindeutig sichtbar ist, dominiert hier $\mathcal{O}(n \cdot \log n)$. Da die Funktion für alle $n$ Knoten aufgerufen wird, ergibt sich für den Gesamtalgorithmus eine Laufzeit in $\mathcal{O}(n^2 \cdot \log n)$
+ \end{proof}
+\begin{proof}[Algorithmus von Dijkstra]
+	Der Dijkstra-Algorithmus hat bei der allgemein übliche Implementierung mit einer Priority Queue eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log |V|)$, wobei $V$ die Knotenmenge und $E$ die Kantenmenge ist. Da in diesem Fall $|V| \in \mathcal{O}(n)$ und $|E| \in \mathcal{O}(n^2)$ gilt, ergibt sich hier eine Laufzeit in $\mathcal{O}(n^2 \cdot \log n)$.
+\end{proof}
+\begin{proof}[Kombination der Ansätze]
+	Da bei der Berechnung des Companion-Punktes nur einfache Grundrechenoperationen durchgeführt werden, kann dieser in konstanter Zeit, also $\mathcal{O}(1)$ berechnet werden. Für die $n$ Punkte bzw. Knoten ergibt sich dann $\mathcal{O}(n)$. Alle weiteren Schritte aus dem Abschnitt \emph{Kombination der Ansätze} sind in die Algorithmen von Dijkstra bzw. Lee integriert, tragen also nicht weiter zur Laufzeit bei. Nur die Berechnung der Startzeit muss für jeden Punkt noch separat erfolgen, hier ergibt sich wieder $\mathcal{O}(n)$.
+\end{proof}
+Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}(n^2 \cdot \log n + n^2 \cdot \log n + n) = \mathcal{O}(n^2 \cdot \log n)$.
  \subsection{Erweiterungen}
  \subsubsection{Anpassbare Geschwindigkeiten}
- Es ist relativ einfach möglich, die Geschwindigkeiten, mit denen sich Lisa und der Bus bewegen, zu verändern. Dazu muss einfach in allen Gleichungen, die aus Weg und Geschwindigkeit die benötigte Zeit berechnen, die Geschwindigkeit entsprechend gewählt werden. Da bei der \emph{Lösung des Problems ohne Hindernisse} bereits die Geschwindigkeiten als Parameter verwendet wurden, ist dies auch dort ohne Probleme möglich. \\ \\
- Diese Erweiterung läuft in $\mathcal{O}(1)$ und wurde \textbf{implementiert} (siehe Umsetzung).
- \subsubsection{Andere Zielgeraden}
- Auch die Gerade bzw. der Strahl, auf der bzw. dem der Bus fährt, kann geändert werden. Dazu muss einfach das Koordinatensystem so transformiert werden, dass die Gerade im ursprünglichen Koordinatensystem der y-Achse im transformierten Koordinatensystem entspricht. Dies kann durch Drehungen und Parallelverschiebungen geschehen. \\ \\
- %TODO wie und algorithmus
- Die Erweiterung läuft pro Punkt in konstanter Laufzeit, also insgesamt in $\mathcal{O}(n)$. Diese Erweiterung wurde \textbf{implementiert}.
+ Es ist relativ einfach möglich, die Geschwindigkeiten, mit denen sich Lisa und der Bus bewegen, zu verändern. Dazu muss einfach in allen Gleichungen, die aus Weg und Geschwindigkeit die benötigte Zeit berechnen, die Geschwindigkeit entsprechend gewählt werden. Da bei der \emph{Lösung des Problems ohne Hindernisse} bereits die Geschwindigkeiten als Parameter verwendet wurden, ist dies auch dort ohne Probleme möglich. Diese Erweiterung läuft in $\mathcal{O}(1)$ und wurde \textbf{implementiert} (siehe Umsetzung).
+ %\subsubsection{Andere Zielgeraden}
+ %Auch die Gerade bzw. der Strahl, auf der bzw. dem der Bus fährt, kann geändert werden. Dazu muss %einfach das Koordinatensystem so transformiert werden, dass die Gerade im ursprünglichen %Koordinatensystem der y-Achse im transformierten Koordinatensystem entspricht. Dies kann durch %Drehungen und Parallelverschiebungen geschehen. \\ \\
+ %Die Erweiterung läuft pro Punkt in konstanter Laufzeit, also insgesamt in $\mathcal{O}(n)$, da jeder Punkt transformiert werden muss. Anschließend muss eine Rücktransformation erfolgen Diese Erweiterung wurde \textbf{implementiert}.
  %ggf. https://en.wikipedia.org/wiki/Translation_of_axes und https://en.wikipedia.org/wiki/Rotation_of_axes
   \subsubsection{Polygonale Lisa}
  Nun modellieren wir Lisa nicht mehr als Punkt, sondern als Polygon. Wieso? Möglicherweise handelt es sich bei einem der Hindernispolygone um das örtliche Fastfoodrestaurant und Lisa besucht dieses sehr oft, sodass sie extrem zugenommen hat. \\ \\
@@ -258,30 +287,29 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
  A + B := \{a+b\,|\,a \in A, b \in B\}
  \end{equation}
  Sie ist also die Menge aller Elemente, die Summen von je einem Element aus $A$ und einem aus $B$ sind.\cite{Src:minkowski} Dies entspricht im Prinzip dem Entlangfahren des Lisa-Polygons am Rand des Hindernispolygons. Dabei wird das Hindernis so verbreitert, dass Lisa nun wieder als punktförmig angenommen und der ursprüngliche Algorithmus ausgeführt werden kann. \\ \\
- Seien nun das Hindernispolygon $P = (v_1,...,v_n)$ und das Lisa-Polygon $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten, wobei $v_1$ und $w_1$ die Punkte mit der minimalen y-Koordinate sind. Für diese zwei konvexen Polygone (im weiteren werden für diese Erweiterung nur solche betrachtet) im $\mathbb{R}^{2}$ kann die Minkowski-Summe wie folgt berechnet werden:
+ Seien nun das Hindernispolygon $P = (v_1,...,v_k)$ und das Lisa-Polygon $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten\footnote{gegen den Uhrzeigersinn geordnet}, wobei $v_1$ und $w_1$ die Punkte mit der minimalen y-Koordinate\footnote{Falls dies mehrere sind, derjenige mit der minimalen x-Koordinate.} sind. Für diese zwei konvexen Polygone (im weiteren werden für diese Erweiterung nur solche betrachtet) im $\mathbb{R}^{2}$ kann die Minkowski-Summe wie folgt berechnet werden:
  \begin{algorithm}[H]
 \begin{algorithmic}
 	\Function{minkowskiSum}{$P$,$L$}
 	\State $i \gets 1$; $j \gets 1$
-	\State $v_{n+1} = v_1$; $w_{m+1} = w_1$
+	\State $v_{k+1} = v_1$; $v_{k+2} = v_2$; $w_{m+1} = w_1$; $w_{m+2} = w_2$
 	\State $S = \emptyset$ \Comment{leeres Polygon}
 	\Repeat
 	\State $S = S \cup \{v_i + w_j\}$
 	\If{\Call{winkel}{$v_i,v_{i+1}$} $<$ \Call{winkel}{$w_j,w_{j+1}$}}
 	\State $i \gets i + 1$
-	\EndIf
-	\If{\Call{winkel}{$v_i,v_{i+1}$} $>$ \Call{winkel}{$w_j,w_{j+1}$}}
+	\ElsIf{\Call{winkel}{$v_i,v_{i+1}$} $>$ \Call{winkel}{$w_j,w_{j+1}$}}
 	\State $j \gets j + 1$
-	\EndIf
-	\If{\Call{winkel}{$v_i,v_{i+1}$} $=$ \Call{winkel}{$w_j,w_{j+1}$}}
+	\Else
 	\State $i \gets i + 1$; $j \gets j + 1$
 	\EndIf
-	\Until{$i = n + 1$ and $j = m + 1$}
+	\Until{$i = k + 1$ and $j = m + 1$}
 	\EndFunction
 \end{algorithmic}
 \caption{Bestimmung der Minkowski-Summe}
 \end{algorithm}
-\hspace*{-1em}Dieser Algorithmus läuft offensichtlich in $\mathcal{O}(n + m)$, denn $i$ wird höchstens $n$ Mal inkrementiert und $j$ $m$ Mal. Da er $n_{Polygon}$ Mal\footnote{Anzahl der Polygone} ausgeführt wird, erhält man $\mathcal{O}(\sum_{1}^{n_{Polygon}} (n_i + m_i)) = \mathcal{O}(n_{Orig} + n_{Polygon} \cdot m)$, wobei $n_{Orig}$ das ursprüngliche $n$ als Anzahl aller Eckpunkte aller Polygone ist. Diese Erweiterung wurde \textbf{implementiert}.
+\hspace*{-1em}Dabei gibt die Funktion $winkel(p,q)$ den Winkel zwischen der positiven x-Achse und dem Vektor $pq$ zurück.\\ \\
+Dieser Algorithmus läuft offensichtlich in $\mathcal{O}(k + m)$, denn $i$ wird höchstens $k$ Mal inkrementiert und $j$ $m$ Mal. Da er $n_{Polygon}$ Mal\footnote{Anzahl der Polygone} ausgeführt wird, erhält man $\mathcal{O}(\sum_{1}^{n_{Polygon}} (k_i + m_i)) = \mathcal{O}(n + n_{Polygon} \cdot m)$, wobei $n$ die Anzahl aller Eckpunkte aller Polygone ist. Diese Erweiterung wurde \textbf{implementiert}.
  \subsubsection{Nicht-polygonale Hindernisse}
  Es wäre auch möglich, die Art der Hindernisse auf Flächen, die keine Polygone sind, zu erweitern. Dies könnten beispielsweise Ovale oder Kreise sein. Eine Möglichkeit, den Sichtbarkeitsgraph darauf zu erweitern, ist in \cite{Src:arcvis} beschrieben. Dabei muss man anstelle des klassischen Sichtbarkeitsgraphen einen Tangenten-Sichtbarkeitsgraphen verwenden. Da dies jedoch relativ kompliziert ist, wird an dieser Stelle nicht genauer darauf eingegangen. \\ \\
  Diese Erweiterung wurde \textbf{nicht implementiert}.
@@ -304,8 +332,28 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
 \section{Umsetzung}
 %TODO Eingabegeschwindigkeiten km/h -> m/s
 \subsection{Allgemeine Hinweise zur Benutzung}
-\subsection{Struktur des Programms}
-\subsection{Implementierung der wichtigsten Algorithmen}
+Das Programm wurde in der Programmiersprache Python 3.7 implementiert. Zur Verwaltung und Erstellung des Sichtbarkeitsgraphen wurde die Bibliothek \texttt{pyvisgraph} von Christian Reksten-Monsen benutzt. Dabei kommt jedoch eine von mir erheblich veränderte Version zum Einsatz, die an das hier zu lösende Problem angepasst ist. Diese Version ist die einzige mit dem Programm kompatible und ist in die Einsendung integriert. \\ \\ Diese Bibliothek benötigt wiederum die Bibliothek tqdm (\texttt{sudo pip3 install tqdm}). Alle weiteren verwendeten Bibliotheken sind üblicherweise vorinstalliert. \\ \\
+Die Eingabe und Ausgabe des Programms erfolgt in Dateien, die mithilfe der Konsolenparameter frei gewählt werden können. Die weitere Bedienung sollte selbsterklärend sein. Es gibt folgende Konsolenparameter:
+\begin{verbatim}
+usage: main.py [-h] [-i INPUT] [-o OUTPUT] [-so SVG] [-d]
+[-vlisa VELOCITY_LISA] [-vbus VELOCITY_BUS]
+[-minkowski MINKOWSKI]
+
+Lösung zu Lisa rennt, Aufgabe 1, Runde 2, 37. BwInf von Lukas Rost
+
+optional arguments:
+-h, --help            show this help message and exit
+-i INPUT              Eingabedatei
+-o OUTPUT             Ausgabedatei
+-so SVG               SVG-Ausgabedatei
+-d                    Debug-Ausgaben aktivieren
+-vlisa VELOCITY_LISA  Erweiterung Geschwindigkeiten: Lisa in km/h
+-vbus VELOCITY_BUS    Erweiterung Geschwindigkeiten: Bus in km/h
+-minkowski MINKOWSKI  Erweiterung Minkowski-Summe: Eingabedatei (1 Polygon
+im gleichen Format wie in der normalen Eingabe)
+\end{verbatim}
+Die Eingabedatei für die Minkowski-Erweiterung ist im Format der anderen Eingaben gestaltet. Durch Leerzeichen getrennt wird zunächst die Anzahl der Eckpunkte und anschließend für jeden Eckpunkt x- und y-Koordinate angegeben. Dabei stehen alle Eingaben in einer Zeile (Beispiel: \texttt{4 0 0 0 1 1 1 1 0}).
+\subsection{Struktur des Programms und Implementierung der Algorithmen}
 
 \section{Beispiele}
 \subsection{Beispiel 1}
@@ -318,5 +366,12 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
 
  \section{Quellcode}
  \renewcommand{\listingscaption}{Quellcode}
+ 
+ \begin{longlisting}
+ 	\pythonfile[]{../Aufgabe1-Implementierung/main.py}
+ 	\caption{Auszug aus dem Hauptprogramm (\textit{main.py}), soweit möglich ohne Eingabe und Ausgabe}
+ \end{longlisting}
+
+%TODO Quellcode Minkowski und Pyvisgraph
  
  \end{document}
