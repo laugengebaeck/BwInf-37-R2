@@ -1,0 +1,21 @@
+ <svg version="1.1" viewBox="0 0 1000 960 " xmlns="http://www.w3.org/2000/svg">
+    <g transform="scale(1 -1)">
+    <g transform="translate(0 -960)">
+	    <line id="y" x1="0" x2="0" y1="0" y2=" 960" fill="none" stroke="#212121" stroke-width="3"/> 
+<polygon id="P1" points="400.0 185.0 650.0 185.0 650.0 255.0 400.0 255.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P2" points="497.0 10.0 598.0 19.0 604.0 102.0 549.0 165.0 447.0 141.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P3" points="320.0 165.0 380.0 165.0 380.0 285.0 510.0 285.0 510.0 305.0 420.0 305.0 320.0 305.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P4" points="300.0 55.0 360.0 45.0 380.0 135.0 320.0 145.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P5" points="200.0 35.0 280.0 35.0 280.0 215.0 200.0 215.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P6" points="170.0 215.0 300.0 265.0 300.0 325.0 180.0 305.0 150.0 245.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P7" points="90.0 35.0 130.0 95.0 170.0 55.0 180.0 155.0 120.0 195.0 70.0 135.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P8" points="400.0 125.0 430.0 145.0 410.0 175.0 380.0 155.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P9" points="90.0 225.0 140.0 225.0 130.0 265.0 90.0 285.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P10" points="540.0 280.0 541.0 280.0 800.0 280.0 800.0 400.0 540.0 400.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P11" points="380.0 340.0 381.0 340.0 520.0 340.0 460.0 380.0 540.0 440.0 720.0 460.0 420.0 460.0 140.0 440.0 140.0 300.0 280.0 380.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P12" points="80.0 300.0 81.0 300.0 140.0 280.0 120.0 360.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+ <circle id="L" cx="621.0" cy="162.0" r="10" fill="#F42121" stroke="#000080" stroke-width="1"/>
+ <polyline id="R" points="621.0 162.0 410.0 175.0 380.0 165.0 320.0 165.0 280.0 215.0 170.0 215.0 130.0 265.0 0.0 340.06 " fill="none" stroke="#000080" stroke-width="4"/>
+</g>
+    </g>
+    </svg>

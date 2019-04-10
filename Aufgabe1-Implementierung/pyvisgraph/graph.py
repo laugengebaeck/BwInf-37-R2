@@ -1,7 +1,7 @@
 """
 The MIT License (MIT)
 
-Copyright (c) 2016 Christian August Reksten-Monsen
+Copyright (c) 2016 Christian August Reksten-Monsen & 2019 Lukas Rost
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,12 +25,14 @@ from collections import defaultdict
 
 
 class Point(object):
-    __slots__ = ('x', 'y', 'polygon_id')
+    """Punkt als Objekt mit Koordinaten und Polygon-ID (real_polygon_id). polygon_id wird nur intern verwendet. """
+    __slots__ = ('x', 'y', 'polygon_id', 'real_polygon_id')
 
     def __init__(self, x, y, polygon_id=0):
         self.x = float(x)
         self.y = float(y)
-        self.polygon_id = polygon_id
+        self.polygon_id = 0
+        self.real_polygon_id = polygon_id
 
     def __eq__(self, point):
         return point and self.x == point.x and self.y == point.y
@@ -39,10 +41,6 @@ class Point(object):
         return not self.__eq__(point)
 
     def __lt__(self, point):
-        """ This is only needed for shortest path calculations where heapq is
-            used. When there are two points of equal distance, heapq will
-            instead evaluate the Points, which doesnt work in Python 3 and
-            throw a TypeError."""
         return hash(self) < hash(point)
 
     def __str__(self):
@@ -56,6 +54,7 @@ class Point(object):
 
 
 class Edge(object):
+    """Kante (sowohl in Polygonen als auch im Sichtbarkeitsgraph) als Objekt. """
     __slots__ = ('p1', 'p2')
 
     def __init__(self, point1, point2):
@@ -92,19 +91,7 @@ class Edge(object):
 
 class Graph(object):
     """
-    A Graph is represented by a dict where the keys are Points in the Graph
-    and the dict values are sets containing Edges incident on each Point.
-    A separate set *edges* contains all Edges in the graph.
-
-    The input must be a list of polygons, where each polygon is a list of
-    in-order (clockwise or counter clockwise) Points. If only one polygon,
-    it must still be a list in a list, i.e. [[Point(0,0), Point(2,0),
-    Point(2,1)]].
-
-    *polygons* dictionary: key is a integer polygon ID and values are the
-    edges that make up the polygon. Note only polygons with 3 or more Points
-    will be classified as a polygon. Non-polygons like just one Point will be
-    given a polygon ID of -1 and not maintained in the dict.
+    Graph als Dict modelliert. Keys sind die Punkte, über die auf die zu ihnen inzidenten Kanten zugegriffen werden kann. Das Set edges enthält alle Kanten. Das *polygons* Dictionary enthält für jedes Polygon (ID) die Kanten des Polygons.
     """
 
     def __init__(self, polygons):

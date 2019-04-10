@@ -29,6 +29,7 @@
 
 \usepackage{tikz}
 \usepackage{svg}
+\usepackage{multicol}
 
 \pagestyle{fancy}
 \lhead{Lukas Rost, Teilnahme-ID: 48125}
@@ -249,7 +250,7 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
  Nun kann man mithilfe des Dijkstra-Algorithmus' die kürzesten Wege zu allen Companion-Knoten berechnen. Aus diesen und der Lage der Companion-Punkte (aus dieser bestimmt sich die Zeit, an der der Bus dort vorbeifährt) lässt sich dann für jeden Companion-Punkt die spätestmögliche Startzeit am Startpunkt $s$ bestimmen, wenn man an diesem Companion-Punkt auf den Bus treffen will. \\ \\
  Der Companion-Punkt mit der spätesten spätestmöglichen Startzeit ist der Punkt, an dem Lisa auf den Bus treffen sollte, und der Weg zu ihm der optimale Weg.
  \begin{figure}[H]
- 	\centering \includesvg[width=0.25\textwidth]{pics/lisarennt1.svg}
+ 	\centering \includesvg[width=0.25\textwidth]{pics/lisarennt-ha.svg}
  	\caption{Veranschaulichung eines kompletten Sichtbarkeitsgraphen mit Companion-Punkten für Beispiel 1 des BwInf (blaue Linien sind Kanten des Graphen)}
  \end{figure}
  Hierbei soll noch kurz informell bewiesen werden, warum von einem Punkt $p$ aus nur der Punkt $c$ optimal sein kann und, wenn keine Sichtbarkeit zwischen diesen beiden Punkten besteht, $c$ einfach ignoriert werden kann. Nehmen wir an, von $p$ aus sei $c$ nicht sichtbar, d.h. der Strahl von $p$ in Richtung $c$ führt durch ein Polygon. Nun können wir den Strahl so nach unten (gegen den Uhrzeigersinn) rotieren, dass er gerade kein Polygon mehr schneidet. \\ \\
@@ -272,7 +273,7 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
 	Da bei der Berechnung des Companion-Punktes nur einfache Grundrechenoperationen durchgeführt werden, kann dieser in konstanter Zeit, also $\mathcal{O}(1)$ berechnet werden. Für die $n$ Punkte bzw. Knoten ergibt sich dann $\mathcal{O}(n)$. Alle weiteren Schritte aus dem Abschnitt \emph{Kombination der Ansätze} sind in die Algorithmen von Dijkstra bzw. Lee integriert, tragen also nicht weiter zur Laufzeit bei. Nur die Berechnung der Startzeit muss für jeden Punkt noch separat erfolgen, hier ergibt sich wieder $\mathcal{O}(n)$.
 \end{proof}
 Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}(n^2 \cdot \log n + n^2 \cdot \log n + n) = \mathcal{O}(n^2 \cdot \log n)$.
- \subsection{Erweiterungen}
+ \subsection{Mögliche und implementierte Erweiterungen}
  \subsubsection{Anpassbare Geschwindigkeiten}
  Es ist relativ einfach möglich, die Geschwindigkeiten, mit denen sich Lisa und der Bus bewegen, zu verändern. Dazu muss einfach in allen Gleichungen, die aus Weg und Geschwindigkeit die benötigte Zeit berechnen, die Geschwindigkeit entsprechend gewählt werden. Da bei der \emph{Lösung des Problems ohne Hindernisse} bereits die Geschwindigkeiten als Parameter verwendet wurden, ist dies auch dort ohne Probleme möglich. Diese Erweiterung läuft in $\mathcal{O}(1)$ und wurde \textbf{implementiert} (siehe Umsetzung).
  %\subsubsection{Andere Zielgeraden}
@@ -292,7 +293,7 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
 \begin{algorithmic}
 	\Function{minkowskiSum}{$P$,$L$}
 	\State $i \gets 1$; $j \gets 1$
-	\State $v_{k+1} = v_1$; $v_{k+2} = v_2$; $w_{m+1} = w_1$; $w_{m+2} = w_2$
+	\State $v_{k+1} \gets v_1$; $v_{k+2} \gets v_2$; $w_{m+1} \gets w_1$; $w_{m+2} \gets w_2$
 	\State $S = \emptyset$ \Comment{leeres Polygon}
 	\Repeat
 	\State $S = S \cup \{v_i + w_j\}$
@@ -357,10 +358,150 @@ Die Eingabedatei für die Minkowski-Erweiterung ist im Format der anderen Eingab
 
 \section{Beispiele}
 \subsection{Beispiel 1}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H]
+		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/lisarennt1-visgraph.svg}
+		\caption{Der Sichtbarkeitsgraph für das Beispiel 1}
+	\end{figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/lisarennt1.svg}
+		\caption{Die optimale Route für das Beispiel 1}
+	\end{figure}
+\end{minipage}
+ \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 1},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt1-out.txt}
 \subsection{Beispiel 2}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H]
+		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/lisarennt2-visgraph.svg}
+		\caption{Der Sichtbarkeitsgraph für das Beispiel 2}
+	\end{figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/lisarennt2.svg}
+		\caption{Die optimale Route für das Beispiel 2}
+	\end{figure}
+\end{minipage}
+ \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 2},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt2-out.txt}
 \subsection{Beispiel 3}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H]
+		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/lisarennt3-visgraph.svg}
+		\caption{Der Sichtbarkeitsgraph für das Beispiel 3}
+	\end{figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/lisarennt3.svg}
+		\caption{Die optimale Route für das Beispiel 3}
+	\end{figure}
+\end{minipage}
+ \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 3},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt3-out.txt}
 \subsection{Beispiel 4}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H]
+		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/lisarennt4-visgraph.svg}
+		\caption{Der Sichtbarkeitsgraph für das Beispiel 4}
+	\end{figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/lisarennt4.svg}
+		\caption{Die optimale Route für das Beispiel 4}
+	\end{figure}
+\end{minipage}
+ \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 4},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt4-out.txt}
 \subsection{Beispiel 5}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H]
+		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/lisarennt5-visgraph.svg}
+		\caption{Der Sichtbarkeitsgraph für das Beispiel 5}
+	\end{figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/lisarennt5.svg}
+		\caption{Die optimale Route für das Beispiel 5}
+	\end{figure}
+\end{minipage}
+ \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 5},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt5-out.txt}
 \subsection{Eigene Beispiele}
 \subsection{Beispiele für die Erweiterungen}
 
@@ -372,6 +513,7 @@ Die Eingabedatei für die Minkowski-Erweiterung ist im Format der anderen Eingab
  	\caption{Auszug aus dem Hauptprogramm (\textit{main.py}), soweit möglich ohne Eingabe und Ausgabe}
  \end{longlisting}
 
-%TODO Quellcode Minkowski und Pyvisgraph
+%TODO Main raus, Quellcode Minkowski und Pyvisgraph
+%TODO Beispiele Laufzeit messen
  
  \end{document}

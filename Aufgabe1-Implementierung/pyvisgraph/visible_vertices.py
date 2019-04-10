@@ -1,7 +1,7 @@
 """
 The MIT License (MIT)
 
-Copyright (c) 2016 Christian August Reksten-Monsen
+Copyright (c) 2016 Christian August Reksten-Monsen & 2019 Lukas Rost
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,20 +26,13 @@ from math import pi, sqrt, atan, acos
 from pyvisgraph.graph import Point
 
 INF = 10000
-"""Due to floating point representation error, some functions need to
-   truncate floating point numbers to a certain tolerance."""
+# Toleranz für Gleitkommazahlen
 COLIN_TOLERANCE = 10
 T = 10**COLIN_TOLERANCE
 T2 = 10.0**COLIN_TOLERANCE
 
 def visible_vertices(point, graph, origin=None, destination=None, scan='full'):
-    """Returns list of Points in graph visible by point.
-
-    If origin and/or destination Points are given, these will also be checked
-    for visibility. scan 'full' will check for visibility against all points in
-    graph, 'half' will check for visibility against half the points. This saves
-    running time when building a complete visibility graph, as the points
-    that are not checked will eventually be 'point'.
+    """Gibt Liste der von point sichtbaren Punkte zurück. origin und destination werden dabei ebenfalls mit einbezogen. scan='full' überprüft die Sichtbarkeit aller Punkte und wird hier ausschließlich verwendet.
     """
     edges = graph.get_edges()
     points = graph.get_points()
@@ -47,8 +40,7 @@ def visible_vertices(point, graph, origin=None, destination=None, scan='full'):
     if destination: points.append(destination)
     points.sort(key=lambda p: (angle(point, p), edge_distance(point, p)))
 
-    # Initialize open_edges with any intersecting edges on the half line from
-    # point along the positive x-axis
+    # open_edges initialisieren (alle Kanten, die die anfaengliche Sweep line schneiden)
     open_edges = []
     point_inf = Point(INF, point.y)
     for e in edges:
@@ -66,7 +58,7 @@ def visible_vertices(point, graph, origin=None, destination=None, scan='full'):
         if p == point: continue
         if scan == 'half' and angle(point, p) > pi: break
 
-        # Remove clock wise edges incident on p
+        #Inzidente Kanten, die in Uhrzeigerrichtung liegen, entfernen
         if open_edges:
             for edge in graph[p]:
                 if ccw(point, p, edge.get_adjacent(p)) == -1:
@@ -75,19 +67,20 @@ def visible_vertices(point, graph, origin=None, destination=None, scan='full'):
                     if len(open_edges) > 0 and open_edges[index] == k:
                         del open_edges[index]
 
-        # Check if p is visible from point
+        # Sichtbarkeit von p von point aus überprüfen
         is_visible = False
-        # ...Non-collinear points
+        # p und vorheriger Punkt (prev) nicht auf einer Geraden
         if prev is None or ccw(point, prev, p) != 0 or not on_segment(point, prev, p):
+            #keine offenen Kanten -> sichtbar
             if len(open_edges) == 0:
                 is_visible = True
+            #Strecke schneidet erste Kante nicht -> sichtbar
             elif not edge_intersect(point, p, open_edges[0].edge):
                 is_visible = True
-        # ...For collinear points, if previous point was not visible, p is not
+        # ...liegen auf einer Geraden *und* vorheriger Punkt war nicht sichtbar -> nicht sichtbar
         elif not prev_visible:
             is_visible = False
-        # ...For collinear points, if previous point was visible, need to check
-        # that the edge from prev to p does not intersect any open edge.
+        # ...liegen auf einer Geraden *und* vorheriger Punkt war sichtbar -> alle offenen Kanten überprüfen
         else:
             is_visible = True
             for e in open_edges:
@@ -97,13 +90,13 @@ def visible_vertices(point, graph, origin=None, destination=None, scan='full'):
             if is_visible and edge_in_polygon(prev, p, graph):
                     is_visible = False
 
-        # Check if the visible edge is interior to its polygon
+        # Strecke liegt komplett in einem Polygon -> nicht sichtbar
         if is_visible and p not in graph.get_adjacent_points(point):
             is_visible = not edge_in_polygon(point, p, graph)
 
         if is_visible: visible.append(p)
 
-        # Add counter clock wise edges incident on p to open_edges
+        # Inzidente Kanten, die gegen Uhrzeigerrichtung liegen, hinzufügen
         for edge in graph[p]:
             if (point not in edge) and ccw(point, p, edge.get_adjacent(p)) == 1:
                 k = EdgeKey(point, p, edge)
@@ -115,9 +108,7 @@ def visible_vertices(point, graph, origin=None, destination=None, scan='full'):
 
 
 def polygon_crossing(p1, poly_edges):
-    """Returns True if Point p1 is internal to the polygon The polygon is
-    defined by the Edges in poly_edges. Uses crossings algorithm and takes into
-    account edges that are collinear to p1."""
+    """Überprüft, ob Punkt in Polygon liegt und verwendet dazu die Strahl-Methode (https://de.wikipedia.org/wiki/Punkt-in-Polygon-Test_nach_Jordan). """
     p2 = Point(INF, p1.y)
     intersect_count = 0
     co_flag = False
@@ -125,7 +116,6 @@ def polygon_crossing(p1, poly_edges):
     for edge in poly_edges:
         if p1.y < edge.p1.y and p1.y < edge.p2.y: continue
         if p1.y > edge.p1.y and p1.y > edge.p2.y: continue
-        # Deal with points colinear to p1
         co0 = (ccw(p1, edge.p1, p2) == 0) and (edge.p1.x > p1.x)
         co1 = (ccw(p1, edge.p2, p2) == 0) and (edge.p2.x > p1.x)
         if co0 and co1: continue
@@ -150,6 +140,7 @@ def polygon_crossing(p1, poly_edges):
 
 
 def edge_in_polygon(p1, p2, graph):
+    """Überprüft, ob Kante zwischen zwei Polygon-Punkten innerhalb eines Polygons liegt. """
     if p1.polygon_id != p2.polygon_id:
         return False
     if p1.polygon_id == -1 or p2.polygon_id == -1:
@@ -159,67 +150,19 @@ def edge_in_polygon(p1, p2, graph):
 
 
 def point_in_polygon(p, graph):
+    """Überprüft, ob Punkt innerhalb irgendeines Polygons liegt. """
     for polygon in graph.polygons:
         if polygon_crossing(p, graph.polygons[polygon]):
             return polygon
     return -1
 
-
-def unit_vector(c, p):
-    magnitude = edge_distance(c, p)
-    return Point((p.x - c.x) / magnitude, (p.y - c.y) / magnitude)
-
-
-def closest_point(p, graph, polygon_id, length=0.001):
-    """Assumes p is interior to the polygon with polygon_id. Returns the
-    closest point c outside the polygon to p, where the distance from c to
-    the intersect point from p to the edge of the polygon is length."""
-    polygon_edges = graph.polygons[polygon_id]
-    close_point = None
-    close_edge = None
-    close_dist = None
-    # Finds point closest to p, but on a edge of the polygon.
-    # Solution from http://stackoverflow.com/a/6177788/4896361
-    for i, e in enumerate(polygon_edges):
-        num = ((p.x-e.p1.x)*(e.p2.x-e.p1.x) + (p.y-e.p1.y)*(e.p2.y-e.p1.y))
-        denom = ((e.p2.x - e.p1.x)**2 + (e.p2.y - e.p1.y)**2)
-        u = num/denom
-        pu = Point(e.p1.x + u*(e.p2.x - e.p1.x), e.p1.y + u*(e.p2.y- e.p1.y))
-        pc = pu
-        if u < 0:
-            pc = e.p1
-        elif u > 1:
-            pc = e.p2
-        d = edge_distance(p, pc)
-        if i == 0 or d < close_dist:
-            close_dist = d
-            close_point = pc
-            close_edge = e
-
-    # Extend the newly found point so it is outside the polygon by `length`.
-    if close_point in close_edge:
-        c = close_edge.p1 if close_point == close_edge.p1 else close_edge.p2
-        edges = list(graph[c])
-        v1 = unit_vector(c, edges[0].get_adjacent(c))
-        v2 = unit_vector(c, edges[1].get_adjacent(c))
-        vsum = unit_vector(Point(0, 0), Point(v1.x + v2.x, v1.y + v2.y))
-        close1 = Point(c.x + (vsum.x * length), c.y + (vsum.y * length))
-        close2 = Point(c.x - (vsum.x * length), c.y - (vsum.y * length))
-        if point_in_polygon(close1, graph) == -1:
-            return close1
-        return close2
-    else:
-        v = unit_vector(p, close_point)
-        return Point(close_point.x + v.x*length, close_point.y + v.y*length)
-
-
 def edge_distance(p1, p2):
-    """Return the Euclidean distance between two Points."""
+    """Euklidische Distanz zwischen zwei Punkten."""
     return sqrt((p2.x - p1.x)**2 + (p2.y - p1.y)**2)
 
 
 def intersect_point(p1, p2, edge):
-    """Return intersect Point where the edge from p1, p2 intersects edge"""
+    """Schnittpunkt von p1p2 und edge."""
     if p1 in edge: return p1
     if p2 in edge: return p2
     if edge.p1.x == edge.p2.x:
@@ -246,8 +189,7 @@ def intersect_point(p1, p2, edge):
 
 
 def point_edge_distance(p1, p2, edge):
-    """Return the Eucledian distance from p1 to intersect point with edge.
-    Assumes the line going from p1 to p2 intersects edge before reaching p2."""
+    """Distanz von p1 bis zum Schnittpunkt von p1p2 mit edge."""
     ip = intersect_point(p1, p2, edge)
     if ip is not None:
         return edge_distance(p1, ip)
@@ -255,7 +197,7 @@ def point_edge_distance(p1, p2, edge):
 
 
 def angle(center, point):
-    """Return the angle (radian) of point from center of the radian circle.
+    """Winkel eines Punkts vom Mittelpunkt eines Kreises aus.
      ------p
      |   /
      |  /
@@ -279,7 +221,7 @@ def angle(center, point):
 
 
 def angle2(point_a, point_b, point_c):
-    """Return angle B (radian) between point_b and point_c.
+    """Implementierung des Cosinussatzes.
            c
          /  \
        /    B\
@@ -293,7 +235,7 @@ def angle2(point_a, point_b, point_c):
 
 
 def ccw(A, B, C):
-    """Return 1 if counter clockwise, -1 if clock wise, 0 if collinear """
+    """Ueberprueft, ob C gegen den Uhrzeigersinn bezueglich des Strahls AB liegt (1 wenn ja, -1 wenn im Uhrzeigersinn, 0 wenn auf dem Strahl) """
     #  Rounding this way is faster than calling round()
     area = int(((B.x - A.x) * (C.y - A.y) - (B.y - A.y) * (C.x - A.x))*T)/T2
     if area > 0: return 1
@@ -302,8 +244,7 @@ def ccw(A, B, C):
 
 
 def on_segment(p, q, r):
-    """Given three colinear points p, q, r, the function checks if point q
-    lies on line segment 'pr'."""
+    """Ueberprüft, ob q auf pr liegt."""
     if (q.x <= max(p.x, r.x)) and (q.x >= min(p.x, r.x)):
         if (q.y <= max(p.y, r.y)) and (q.y >= min(p.y, r.y)):
             return True
@@ -311,7 +252,7 @@ def on_segment(p, q, r):
 
 
 def edge_intersect(p1, q1, edge):
-    """Return True if edge from A, B interects edge.
+    """Ueberprueft ob p1q1 und edge sich schneiden.
     http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/"""
     p2 = edge.p1
     q2 = edge.p2
@@ -339,6 +280,7 @@ def edge_intersect(p1, q1, edge):
 
 
 def insort(a, x):
+    """Einfügen in den binaeren Suchbaum. """
     lo = 0
     hi = len(a)
     while lo < hi:
@@ -349,6 +291,7 @@ def insort(a, x):
 
 
 def bisect(a, x):
+    """Binaere Suche für den Suchbaum."""
     lo = 0
     hi = len(a)
     while lo < hi:
@@ -359,6 +302,7 @@ def bisect(a, x):
 
 
 class EdgeKey(object):
+    """Element des Suchbaums. """
     def __init__(self, p1, p2, edge):
         self.p1 = p1
         self.p2 = p2

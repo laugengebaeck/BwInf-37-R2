@@ -1,7 +1,7 @@
 """
 The MIT License (MIT)
 
-Copyright (c) 2016 Christian August Reksten-Monsen
+Copyright (c) 2016 Christian August Reksten-Monsen & 2019 Lukas Rost
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,8 @@ SOFTWARE.
 """
 from heapq import heapify, heappush, heappop
 from pyvisgraph.visible_vertices import edge_distance
+from pyvisgraph.graph import Point
+import math
 
 try:
     dict.iteritems
@@ -35,10 +37,11 @@ else:
     def iteritems(d):
         return d.iteritems()
 
-
+#Implementierung des Dijkstra-Algorithmus
+#mit einem Priority-Dict (aehnlich Priority-Queue) umgesetzt
 def dijkstra(graph, origin):
-    D = {}
-    P = {}
+    D = {} #Distanz
+    P = {} #Elternknoten
     Q = priority_dict()
     Q[origin] = 0
 
@@ -57,23 +60,37 @@ def dijkstra(graph, origin):
                 P[w] = v
     return (D, P)
 
-
-def shortest_path(graph, origin):
+#Kuerzesten Weg vom Startpunkt zur y-Achse bestimmen
+#Idee ist in Kapitel 1.5 beschrieben
+def shortest_path(graph, origin, vlisa, vbus):
+    #Dijkstra für alle Knoten ausführen
     D, P = dijkstra(graph, origin)
+    mintime = -math.inf
+    minpoint = Point(0,0)
+    min_bus_time = 0.0
+    #Besten Companion-Punkt bestimmen...
     for point in graph.get_points():
-        #Companion-Punkt
         if point.x == 0:
-            #TODO calculate time
-            pass
+            bus_time = point.y / vbus
+            lisa_time = D[point] / vlisa
+            #... mithilfe der spätesten Startzeit
+            #Zeitangabe: negativ vor 7.30, positiv danach
+            total_time = bus_time - lisa_time
+            if(total_time > mintime):
+                mintime = round(total_time,2)
+                minpoint = point
+                min_bus_time = round(bus_time,2)
+    #Pfad zum Punkt finden und zurückgeben
     path = []
+    destination = minpoint
     while 1:
         path.append(destination)
         if destination == origin: break
         destination = P[destination]
     path.reverse()
-    return path
+    return path,mintime,min_bus_time, minpoint,round(D[minpoint],2)
 
-
+#Priority-Dict als Implementierung einer Priority-Queue
 class priority_dict(dict):
     """Dictionary that can be used as a priority queue.
 
