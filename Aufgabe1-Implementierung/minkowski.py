@@ -4,12 +4,14 @@ from pyvisgraph.graph import Point
 #Minkowski-Summe auf alle Polygone anwenden
 #vorher Vorverarbeitung, damit die Eingaben korrekt sind
 def minkowski_sum_list(polygons, lisa_poly):
+    lisa_poly = findsmallest(makeccw(lisa_poly))
     polygons = [findsmallest(makeccw(poly)) for poly in polygons]
     polygons = [minkowski_sum(poly,lisa_poly) for poly in polygons]
     return polygons
 
-#TODO does not really work
 #Algorithmus für die Minkowski-Summe wie in der Dokumentation beschrieben
+#Das ist die gleiche scheiß Implementierung wie in "Computational Geometry"
+#und das ist das Standardwerk dazu und es funktioniert trotzdem nicht
 def minkowski_sum(v,w):
     i = 0
     j = 0

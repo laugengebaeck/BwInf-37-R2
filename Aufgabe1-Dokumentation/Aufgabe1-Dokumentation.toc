@@ -16,12 +16,18 @@
 \contentsline {section}{\numberline {2}Umsetzung}{11}{section.2}% 
 \contentsline {subsection}{\numberline {2.1}Allgemeine Hinweise zur Benutzung}{11}{subsection.2.1}% 
 \contentsline {subsection}{\numberline {2.2}Struktur des Programms und Implementierung der Algorithmen}{12}{subsection.2.2}% 
-\contentsline {section}{\numberline {3}Beispiele}{12}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}Beispiel 1}{12}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Beispiel 2}{13}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}Beispiel 3}{14}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}Beispiel 4}{15}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Beispiel 5}{16}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}Eigene Beispiele}{16}{subsection.3.6}% 
-\contentsline {subsection}{\numberline {3.7}Beispiele für die Erweiterungen}{16}{subsection.3.7}% 
-\contentsline {section}{\numberline {4}Quellcode}{16}{section.4}% 
+\contentsline {subsubsection}{\numberline {2.2.1}Die Datei \texttt {main.py}}{12}{subsubsection.2.2.1}% 
+\contentsline {subsubsection}{\numberline {2.2.2}Die Datei \texttt {svggen.py}}{12}{subsubsection.2.2.2}% 
+\contentsline {subsubsection}{\numberline {2.2.3}Die Datei \texttt {graph.py}}{12}{subsubsection.2.2.3}% 
+\contentsline {subsubsection}{\numberline {2.2.4}Die Datei \texttt {vis\_graph.py}}{12}{subsubsection.2.2.4}% 
+\contentsline {subsubsection}{\numberline {2.2.5}Die Datei \texttt {shortest\_path.py}}{12}{subsubsection.2.2.5}% 
+\contentsline {subsubsection}{\numberline {2.2.6}Die Datei \texttt {visible\_vertices.py}}{13}{subsubsection.2.2.6}% 
+\contentsline {subsubsection}{\numberline {2.2.7}Die Datei \texttt {minkowski.py}}{13}{subsubsection.2.2.7}% 
+\contentsline {section}{\numberline {3}Beispiele}{13}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Beispiel 1}{14}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Beispiel 2}{15}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Beispiel 3}{16}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Beispiel 4}{17}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Beispiel 5}{18}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Beispiele für die Erweiterungen}{20}{subsection.3.6}% 
+\contentsline {section}{\numberline {4}Quellcode}{21}{section.4}% 

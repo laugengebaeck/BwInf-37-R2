@@ -30,7 +30,6 @@ from warnings import warn
 from pyvisgraph.graph import Graph, Edge, Point
 from pyvisgraph.shortest_path import shortest_path
 from pyvisgraph.visible_vertices import visible_vertices, point_in_polygon
-from pyvisgraph.visible_vertices import closest_point
 
 import math
 
@@ -71,7 +70,7 @@ class VisGraph(object):
         for batch in tqdm([points[i:i + batch_size]
                             for i in xrange(0, len(points), batch_size)],
                         disable=not status):
-            for edge in self._vis_graph(self.graph, batch):
+            for edge in self._vis_graph(batch):
                 self.visgraph.add_edge(edge)
 
     def find_visible(self, point):
@@ -93,12 +92,12 @@ class VisGraph(object):
         except KeyboardInterrupt:
             pass
 
-    def _vis_graph(self, graph, points):
+    def _vis_graph(self, points):
         """Sichtbarkeitsgraph für points berechnen. Dabei wird für jeden Punkt der Companion-Punkt berechnet. Anschließend wird dieser Punkt bei der Berechnung der visible vertices mit betrachtet. """
         visible_edges = []
         for p1 in points:
             dest_point_y = p1.y + (self.vlisa / self.vbus) * (1 / math.sqrt(1 - ((self.vlisa * self.vlisa) / (self.vbus * self.vbus)))) * p1.x
             dest_point = Point(0,round(dest_point_y,2), polygon_id="Y")
-            for p2 in visible_vertices(p1, graph, origin=self.lisa_point,destination=dest_point):
+            for p2 in visible_vertices(p1, self.graph, origin=self.lisa_point,destination=dest_point):
                 visible_edges.append(Edge(p1, p2))
         return visible_edges

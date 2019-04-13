@@ -1,6 +1,6 @@
-Lisa startet um 07:28:31 und erreicht den Bus um 07:30:56.
-Sie trifft bei der y-Koordinate 464.01 auf den Bus.
-Die Route dauert 3.45 Minuten und ist 862.58 Meter lang.
+Lisa startet um 07:27:29 und erreicht den Bus um 07:30:56.
+Sie trifft bei der y-Koordinate 464.04 auf den Bus.
+Die Route dauert 3.45 Minuten und ist 862.60 Meter lang.
 Die Route besteht aus folgenden Punkten:
 479.0 168.0 L
 519.0 238.0 P2
@@ -10,4 +10,4 @@ Die Route besteht aus folgenden Punkten:
 390.0 288.0 P5
 352.0 287.0 P6
 291.0 296.0 P6
-0.0 464.01 Y
+0.0 464.04 Y

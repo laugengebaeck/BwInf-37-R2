@@ -1,0 +1,342 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{The MIT License (MIT)}
+
+\PYG{l+s+sd}{Copyright (c) 2016 Christian August Reksten\PYGZhy{}Monsen \PYGZam{} 2019 Lukas Rost}
+
+\PYG{l+s+sd}{Permission is hereby granted, free of charge, to any person obtaining a copy}
+\PYG{l+s+sd}{of this software and associated documentation files (the \PYGZdq{}Software\PYGZdq{}), to deal}
+\PYG{l+s+sd}{in the Software without restriction, including without limitation the rights}
+\PYG{l+s+sd}{to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}
+\PYG{l+s+sd}{copies of the Software, and to permit persons to whom the Software is}
+\PYG{l+s+sd}{furnished to do so, subject to the following conditions:}
+
+\PYG{l+s+sd}{The above copyright notice and this permission notice shall be included in all}
+\PYG{l+s+sd}{copies or substantial portions of the Software.}
+
+\PYG{l+s+sd}{THE SOFTWARE IS PROVIDED \PYGZdq{}AS IS\PYGZdq{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}
+\PYG{l+s+sd}{IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}
+\PYG{l+s+sd}{FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}
+\PYG{l+s+sd}{AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}
+\PYG{l+s+sd}{LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}
+\PYG{l+s+sd}{OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}
+\PYG{l+s+sd}{SOFTWARE.}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{k+kn}{from} \PYG{n+nn}{\PYGZus{}\PYGZus{}future\PYGZus{}\PYGZus{}} \PYG{k+kn}{import} \PYG{n}{division}
+\PYG{k+kn}{from} \PYG{n+nn}{math} \PYG{k+kn}{import} \PYG{n}{pi}\PYG{p}{,} \PYG{n}{sqrt}\PYG{p}{,} \PYG{n}{atan}\PYG{p}{,} \PYG{n}{acos}
+\PYG{k+kn}{from} \PYG{n+nn}{pyvisgraph.graph} \PYG{k+kn}{import} \PYG{n}{Point}
+
+\PYG{n}{INF} \PYG{o}{=} \PYG{l+m+mi}{10000}
+\PYG{c+c1}{\PYGZsh{} Toleranz für Gleitkommazahlen}
+\PYG{n}{COLIN\PYGZus{}TOLERANCE} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{T} \PYG{o}{=} \PYG{l+m+mi}{10}\PYG{o}{**}\PYG{n}{COLIN\PYGZus{}TOLERANCE}
+\PYG{n}{T2} \PYG{o}{=} \PYG{l+m+mf}{10.0}\PYG{o}{**}\PYG{n}{COLIN\PYGZus{}TOLERANCE}
+
+\PYG{k}{def} \PYG{n+nf}{visible\PYGZus{}vertices}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{graph}\PYG{p}{,} \PYG{n}{origin}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{destination}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{scan}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}full\PYGZsq{}}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Gibt Liste der von point sichtbaren Punkte zurück. origin und destination werden dabei ebenfalls mit einbezogen. scan=\PYGZsq{}full\PYGZsq{} überprüft die Sichtbarkeit aller Punkte und wird hier ausschließlich verwendet.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{edges} \PYG{o}{=} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{get\PYGZus{}edges}\PYG{p}{()}
+    \PYG{n}{points} \PYG{o}{=} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{get\PYGZus{}points}\PYG{p}{()}
+    \PYG{k}{if} \PYG{n}{origin}\PYG{p}{:} \PYG{n}{points}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{origin}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{destination}\PYG{p}{:} \PYG{n}{points}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{destination}\PYG{p}{)}
+    \PYG{n}{points}\PYG{o}{.}\PYG{n}{sort}\PYG{p}{(}\PYG{n}{key}\PYG{o}{=}\PYG{k}{lambda} \PYG{n}{p}\PYG{p}{:} \PYG{p}{(}\PYG{n}{angle}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{),} \PYG{n}{edge\PYGZus{}distance}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{)))}
+
+    \PYG{c+c1}{\PYGZsh{} open\PYGZus{}edges initialisieren (alle Kanten, die die anfaengliche Sweep line schneiden)}
+    \PYG{n}{open\PYGZus{}edges} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{point\PYGZus{}inf} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{INF}\PYG{p}{,} \PYG{n}{point}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{e} \PYG{o+ow}{in} \PYG{n}{edges}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{point} \PYG{o+ow}{in} \PYG{n}{e}\PYG{p}{:} \PYG{k}{continue}
+        \PYG{k}{if} \PYG{n}{edge\PYGZus{}intersect}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{point\PYGZus{}inf}\PYG{p}{,} \PYG{n}{e}\PYG{p}{):}
+            \PYG{k}{if} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{e}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{point\PYGZus{}inf}\PYG{p}{):} \PYG{k}{continue}
+            \PYG{k}{if} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{e}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{point\PYGZus{}inf}\PYG{p}{):} \PYG{k}{continue}
+            \PYG{n}{k} \PYG{o}{=} \PYG{n}{EdgeKey}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{point\PYGZus{}inf}\PYG{p}{,} \PYG{n}{e}\PYG{p}{)}
+            \PYG{n}{insort}\PYG{p}{(}\PYG{n}{open\PYGZus{}edges}\PYG{p}{,} \PYG{n}{k}\PYG{p}{)}
+
+    \PYG{n}{visible} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{prev} \PYG{o}{=} \PYG{n+nb+bp}{None}
+    \PYG{n}{prev\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{None}
+    \PYG{k}{for} \PYG{n}{p} \PYG{o+ow}{in} \PYG{n}{points}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{p} \PYG{o}{==} \PYG{n}{point}\PYG{p}{:} \PYG{k}{continue}
+        \PYG{k}{if} \PYG{n}{scan} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}half\PYGZsq{}} \PYG{o+ow}{and} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{n}{pi}\PYG{p}{:} \PYG{k}{break}
+
+        \PYG{c+c1}{\PYGZsh{}Inzidente Kanten, die in Uhrzeigerrichtung liegen, entfernen}
+        \PYG{k}{if} \PYG{n}{open\PYGZus{}edges}\PYG{p}{:}
+            \PYG{k}{for} \PYG{n}{edge} \PYG{o+ow}{in} \PYG{n}{graph}\PYG{p}{[}\PYG{n}{p}\PYG{p}{]:}
+                \PYG{k}{if} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{get\PYGZus{}adjacent}\PYG{p}{(}\PYG{n}{p}\PYG{p}{))} \PYG{o}{==} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}
+                    \PYG{n}{k} \PYG{o}{=} \PYG{n}{EdgeKey}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{)}
+                    \PYG{n}{index} \PYG{o}{=} \PYG{n}{bisect}\PYG{p}{(}\PYG{n}{open\PYGZus{}edges}\PYG{p}{,} \PYG{n}{k}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}
+                    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{open\PYGZus{}edges}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n}{open\PYGZus{}edges}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]} \PYG{o}{==} \PYG{n}{k}\PYG{p}{:}
+                        \PYG{k}{del} \PYG{n}{open\PYGZus{}edges}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]}
+
+        \PYG{c+c1}{\PYGZsh{} Sichtbarkeit von p von point aus überprüfen}
+        \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{False}
+        \PYG{c+c1}{\PYGZsh{} p und vorheriger Punkt (prev) nicht auf einer Geraden}
+        \PYG{k}{if} \PYG{n}{prev} \PYG{o+ow}{is} \PYG{n+nb+bp}{None} \PYG{o+ow}{or} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{prev}\PYG{p}{,} \PYG{n}{p}\PYG{p}{)} \PYG{o}{!=} \PYG{l+m+mi}{0} \PYG{o+ow}{or} \PYG{o+ow}{not} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{prev}\PYG{p}{,} \PYG{n}{p}\PYG{p}{):}
+            \PYG{c+c1}{\PYGZsh{}keine offenen Kanten \PYGZhy{}\PYGZgt{} sichtbar}
+            \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{open\PYGZus{}edges}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+                \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{True}
+            \PYG{c+c1}{\PYGZsh{}Strecke schneidet erste Kante nicht \PYGZhy{}\PYGZgt{} sichtbar}
+            \PYG{k}{elif} \PYG{o+ow}{not} \PYG{n}{edge\PYGZus{}intersect}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{open\PYGZus{}edges}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{):}
+                \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{True}
+        \PYG{c+c1}{\PYGZsh{} ...liegen auf einer Geraden *und* vorheriger Punkt war nicht sichtbar \PYGZhy{}\PYGZgt{} nicht sichtbar}
+        \PYG{k}{elif} \PYG{o+ow}{not} \PYG{n}{prev\PYGZus{}visible}\PYG{p}{:}
+            \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{False}
+        \PYG{c+c1}{\PYGZsh{} ...liegen auf einer Geraden *und* vorheriger Punkt war sichtbar \PYGZhy{}\PYGZgt{} alle offenen Kanten überprüfen}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{True}
+            \PYG{k}{for} \PYG{n}{e} \PYG{o+ow}{in} \PYG{n}{open\PYGZus{}edges}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{prev} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{e}\PYG{o}{.}\PYG{n}{edge} \PYG{o+ow}{and} \PYG{n}{edge\PYGZus{}intersect}\PYG{p}{(}\PYG{n}{prev}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{e}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{):}
+                    \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{False}
+                    \PYG{k}{break}
+            \PYG{k}{if} \PYG{n}{is\PYGZus{}visible} \PYG{o+ow}{and} \PYG{n}{edge\PYGZus{}in\PYGZus{}polygon}\PYG{p}{(}\PYG{n}{prev}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{graph}\PYG{p}{):}
+                    \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{False}
+
+        \PYG{c+c1}{\PYGZsh{} Strecke liegt komplett in einem Polygon \PYGZhy{}\PYGZgt{} nicht sichtbar}
+        \PYG{k}{if} \PYG{n}{is\PYGZus{}visible} \PYG{o+ow}{and} \PYG{n}{p} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{get\PYGZus{}adjacent\PYGZus{}points}\PYG{p}{(}\PYG{n}{point}\PYG{p}{):}
+            \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{o+ow}{not} \PYG{n}{edge\PYGZus{}in\PYGZus{}polygon}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{graph}\PYG{p}{)}
+
+        \PYG{k}{if} \PYG{n}{is\PYGZus{}visible}\PYG{p}{:} \PYG{n}{visible}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{p}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Inzidente Kanten, die gegen Uhrzeigerrichtung liegen, hinzufügen}
+        \PYG{k}{for} \PYG{n}{edge} \PYG{o+ow}{in} \PYG{n}{graph}\PYG{p}{[}\PYG{n}{p}\PYG{p}{]:}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{point} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{edge}\PYG{p}{)} \PYG{o+ow}{and} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{get\PYGZus{}adjacent}\PYG{p}{(}\PYG{n}{p}\PYG{p}{))} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
+                \PYG{n}{k} \PYG{o}{=} \PYG{n}{EdgeKey}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{)}
+                \PYG{n}{insort}\PYG{p}{(}\PYG{n}{open\PYGZus{}edges}\PYG{p}{,} \PYG{n}{k}\PYG{p}{)}
+
+        \PYG{n}{prev} \PYG{o}{=} \PYG{n}{p}
+        \PYG{n}{prev\PYGZus{}visible} \PYG{o}{=} \PYG{n}{is\PYGZus{}visible}
+    \PYG{k}{return} \PYG{n}{visible}
+
+
+\PYG{k}{def} \PYG{n+nf}{polygon\PYGZus{}crossing}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{poly\PYGZus{}edges}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Überprüft, ob Punkt in Polygon liegt und verwendet dazu die Strahl\PYGZhy{}Methode (https://de.wikipedia.org/wiki/Punkt\PYGZhy{}in\PYGZhy{}Polygon\PYGZhy{}Test\PYGZus{}nach\PYGZus{}Jordan). \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{p2} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{INF}\PYG{p}{,} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)}
+    \PYG{n}{intersect\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{co\PYGZus{}flag} \PYG{o}{=} \PYG{n+nb+bp}{False}
+    \PYG{n}{co\PYGZus{}dir} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{for} \PYG{n}{edge} \PYG{o+ow}{in} \PYG{n}{poly\PYGZus{}edges}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o+ow}{and} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{:} \PYG{k}{continue}
+        \PYG{k}{if} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o+ow}{and} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{:} \PYG{k}{continue}
+        \PYG{n}{co0} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o+ow}{and} \PYG{p}{(}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZgt{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}
+        \PYG{n}{co1} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o+ow}{and} \PYG{p}{(}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZgt{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{co0} \PYG{o+ow}{and} \PYG{n}{co1}\PYG{p}{:} \PYG{k}{continue}
+        \PYG{n}{co\PYGZus{}point} \PYG{o}{=} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1} \PYG{k}{if} \PYG{n}{co0} \PYG{k}{else} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}
+        \PYG{k}{if} \PYG{n}{co0} \PYG{o+ow}{or} \PYG{n}{co1}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{get\PYGZus{}adjacent}\PYG{p}{(}\PYG{n}{co\PYGZus{}point}\PYG{p}{)}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}\PYG{p}{:}
+                \PYG{n}{co\PYGZus{}dir} \PYG{o}{+=} \PYG{l+m+mi}{1}
+            \PYG{k}{else}\PYG{p}{:}
+                \PYG{n}{co\PYGZus{}dir} \PYG{o}{\PYGZhy{}=} \PYG{l+m+mi}{1}
+            \PYG{k}{if} \PYG{n}{co\PYGZus{}flag}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{co\PYGZus{}dir} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+                    \PYG{n}{intersect\PYGZus{}count} \PYG{o}{+=} \PYG{l+m+mi}{1}
+                \PYG{n}{co\PYGZus{}flag} \PYG{o}{=} \PYG{n+nb+bp}{False}
+                \PYG{n}{co\PYGZus{}dir} \PYG{o}{=} \PYG{l+m+mi}{0}
+            \PYG{k}{else}\PYG{p}{:}
+                \PYG{n}{co\PYGZus{}flag} \PYG{o}{=} \PYG{n+nb+bp}{True}
+        \PYG{k}{elif} \PYG{n}{edge\PYGZus{}intersect}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{):}
+            \PYG{n}{intersect\PYGZus{}count} \PYG{o}{+=} \PYG{l+m+mi}{1}
+    \PYG{k}{if} \PYG{n}{intersect\PYGZus{}count} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{2} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n+nb+bp}{False}
+    \PYG{k}{return} \PYG{n+nb+bp}{True}
+
+
+\PYG{k}{def} \PYG{n+nf}{edge\PYGZus{}in\PYGZus{}polygon}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{graph}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Überprüft, ob Kante zwischen zwei Polygon\PYGZhy{}Punkten innerhalb eines Polygons liegt. \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{polygon\PYGZus{}id} \PYG{o}{!=} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{polygon\PYGZus{}id}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n+nb+bp}{False}
+    \PYG{k}{if} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{polygon\PYGZus{}id} \PYG{o}{==} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1} \PYG{o+ow}{or} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{polygon\PYGZus{}id} \PYG{o}{==} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n+nb+bp}{False}
+    \PYG{n}{mid\PYGZus{}point} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{((}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{p}{(}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{+} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{polygon\PYGZus{}crossing}\PYG{p}{(}\PYG{n}{mid\PYGZus{}point}\PYG{p}{,} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{polygons}\PYG{p}{[}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{polygon\PYGZus{}id}\PYG{p}{])}
+
+
+\PYG{k}{def} \PYG{n+nf}{point\PYGZus{}in\PYGZus{}polygon}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,} \PYG{n}{graph}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Überprüft, ob Punkt innerhalb irgendeines Polygons liegt. \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{for} \PYG{n}{polygon} \PYG{o+ow}{in} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{polygons}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{polygon\PYGZus{}crossing}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{polygons}\PYG{p}{[}\PYG{n}{polygon}\PYG{p}{]):}
+            \PYG{k}{return} \PYG{n}{polygon}
+    \PYG{k}{return} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+
+\PYG{k}{def} \PYG{n+nf}{edge\PYGZus{}distance}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Euklidische Distanz zwischen zwei Punkten.\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{return} \PYG{n}{sqrt}\PYG{p}{((}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{p}{(}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{intersect\PYGZus{}point}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Schnittpunkt von p1p2 und edge.\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n}{p1} \PYG{o+ow}{in} \PYG{n}{edge}\PYG{p}{:} \PYG{k}{return} \PYG{n}{p1}
+    \PYG{k}{if} \PYG{n}{p2} \PYG{o+ow}{in} \PYG{n}{edge}\PYG{p}{:} \PYG{k}{return} \PYG{n}{p2}
+    \PYG{k}{if} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{==} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{==} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n+nb+bp}{None}
+        \PYG{n}{pslope} \PYG{o}{=} \PYG{p}{(}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}
+        \PYG{n}{intersect\PYGZus{}x} \PYG{o}{=} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}
+        \PYG{n}{intersect\PYGZus{}y} \PYG{o}{=} \PYG{n}{pslope} \PYG{o}{*} \PYG{p}{(}\PYG{n}{intersect\PYGZus{}x} \PYG{o}{\PYGZhy{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{+} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}
+        \PYG{k}{return} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{intersect\PYGZus{}x}\PYG{p}{,} \PYG{n}{intersect\PYGZus{}y}\PYG{p}{)}
+
+    \PYG{k}{if} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{==} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{:}
+        \PYG{n}{eslope} \PYG{o}{=} \PYG{p}{(}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}
+        \PYG{n}{intersect\PYGZus{}x} \PYG{o}{=} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}
+        \PYG{n}{intersect\PYGZus{}y} \PYG{o}{=} \PYG{n}{eslope} \PYG{o}{*} \PYG{p}{(}\PYG{n}{intersect\PYGZus{}x} \PYG{o}{\PYGZhy{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{+} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}
+        \PYG{k}{return} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{intersect\PYGZus{}x}\PYG{p}{,} \PYG{n}{intersect\PYGZus{}y}\PYG{p}{)}
+
+    \PYG{n}{pslope} \PYG{o}{=} \PYG{p}{(}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}
+    \PYG{n}{eslope} \PYG{o}{=} \PYG{p}{(}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{eslope} \PYG{o}{==} \PYG{n}{pslope}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n+nb+bp}{None}
+    \PYG{n}{intersect\PYGZus{}x} \PYG{o}{=} \PYG{p}{(}\PYG{n}{eslope} \PYG{o}{*} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{pslope} \PYG{o}{*} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n}{eslope} \PYG{o}{\PYGZhy{}} \PYG{n}{pslope}\PYG{p}{)}
+    \PYG{n}{intersect\PYGZus{}y} \PYG{o}{=} \PYG{n}{eslope} \PYG{o}{*} \PYG{p}{(}\PYG{n}{intersect\PYGZus{}x} \PYG{o}{\PYGZhy{}} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{+} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}
+    \PYG{k}{return} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{intersect\PYGZus{}x}\PYG{p}{,} \PYG{n}{intersect\PYGZus{}y}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{point\PYGZus{}edge\PYGZus{}distance}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Distanz von p1 bis zum Schnittpunkt von p1p2 mit edge.\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{ip} \PYG{o}{=} \PYG{n}{intersect\PYGZus{}point}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{ip} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{edge\PYGZus{}distance}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{ip}\PYG{p}{)}
+    \PYG{k}{return} \PYG{l+m+mi}{0}
+
+
+\PYG{k}{def} \PYG{n+nf}{angle}\PYG{p}{(}\PYG{n}{center}\PYG{p}{,} \PYG{n}{point}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Winkel eines Punkts vom Mittelpunkt eines Kreises aus.}
+\PYG{l+s+sd}{     \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}p}
+\PYG{l+s+sd}{     |   /}
+\PYG{l+s+sd}{     |  /}
+\PYG{l+s+sd}{    c|a/}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{dx} \PYG{o}{=} \PYG{n}{point}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{center}\PYG{o}{.}\PYG{n}{x}
+    \PYG{n}{dy} \PYG{o}{=} \PYG{n}{point}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{center}\PYG{o}{.}\PYG{n}{y}
+    \PYG{k}{if} \PYG{n}{dx} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{dy} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{pi} \PYG{o}{*} \PYG{l+m+mi}{3} \PYG{o}{/} \PYG{l+m+mi}{2}
+        \PYG{k}{return} \PYG{n}{pi} \PYG{o}{/} \PYG{l+m+mi}{2}
+    \PYG{k}{if} \PYG{n}{dy} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{dx} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{pi}
+        \PYG{k}{return} \PYG{l+m+mi}{0}
+    \PYG{k}{if} \PYG{n}{dx} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{pi} \PYG{o}{+} \PYG{n}{atan}\PYG{p}{(}\PYG{n}{dy} \PYG{o}{/} \PYG{n}{dx}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{dy} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{k}{return} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{pi} \PYG{o}{+} \PYG{n}{atan}\PYG{p}{(}\PYG{n}{dy} \PYG{o}{/} \PYG{n}{dx}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{atan}\PYG{p}{(}\PYG{n}{dy} \PYG{o}{/} \PYG{n}{dx}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{angle2}\PYG{p}{(}\PYG{n}{point\PYGZus{}a}\PYG{p}{,} \PYG{n}{point\PYGZus{}b}\PYG{p}{,} \PYG{n}{point\PYGZus{}c}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Implementierung des Cosinussatzes.}
+\PYG{l+s+sd}{           c}
+\PYG{l+s+sd}{         /  \PYGZbs{}}
+\PYG{l+s+sd}{       /    B\PYGZbs{}}
+\PYG{l+s+sd}{      a\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}b}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{a} \PYG{o}{=} \PYG{p}{(}\PYG{n}{point\PYGZus{}c}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{point\PYGZus{}b}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{p}{(}\PYG{n}{point\PYGZus{}c}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{point\PYGZus{}b}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}
+    \PYG{n}{b} \PYG{o}{=} \PYG{p}{(}\PYG{n}{point\PYGZus{}c}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{point\PYGZus{}a}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{p}{(}\PYG{n}{point\PYGZus{}c}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{point\PYGZus{}a}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}
+    \PYG{n}{c} \PYG{o}{=} \PYG{p}{(}\PYG{n}{point\PYGZus{}b}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{point\PYGZus{}a}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{p}{(}\PYG{n}{point\PYGZus{}b}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{point\PYGZus{}a}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}
+    \PYG{n}{cos\PYGZus{}value} \PYG{o}{=} \PYG{p}{(}\PYG{n}{a} \PYG{o}{+} \PYG{n}{c} \PYG{o}{\PYGZhy{}} \PYG{n}{b}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{a}\PYG{p}{)} \PYG{o}{*} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{c}\PYG{p}{))}
+    \PYG{k}{return} \PYG{n}{acos}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{cos\PYGZus{}value}\PYG{o}{*}\PYG{n}{T}\PYG{p}{)}\PYG{o}{/}\PYG{n}{T2}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{ccw}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,} \PYG{n}{B}\PYG{p}{,} \PYG{n}{C}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Ueberprueft, ob C gegen den Uhrzeigersinn bezueglich des Strahls AB liegt (1 wenn ja, \PYGZhy{}1 wenn im Uhrzeigersinn, 0 wenn auf dem Strahl) \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{}  Rounding this way is faster than calling round()}
+    \PYG{n}{area} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(((}\PYG{n}{B}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{A}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{C}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{A}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{B}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{A}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{C}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{A}\PYG{o}{.}\PYG{n}{x}\PYG{p}{))}\PYG{o}{*}\PYG{n}{T}\PYG{p}{)}\PYG{o}{/}\PYG{n}{T2}
+    \PYG{k}{if} \PYG{n}{area} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{:} \PYG{k}{return} \PYG{l+m+mi}{1}
+    \PYG{k}{if} \PYG{n}{area} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:} \PYG{k}{return} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+    \PYG{k}{return} \PYG{l+m+mi}{0}
+
+
+\PYG{k}{def} \PYG{n+nf}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,} \PYG{n}{q}\PYG{p}{,} \PYG{n}{r}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Ueberprüft, ob q auf pr liegt.\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{q}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}=} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{p}\PYG{o}{.}\PYG{n}{x}\PYG{p}{,} \PYG{n}{r}\PYG{o}{.}\PYG{n}{x}\PYG{p}{))} \PYG{o+ow}{and} \PYG{p}{(}\PYG{n}{q}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZgt{}=} \PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{p}\PYG{o}{.}\PYG{n}{x}\PYG{p}{,} \PYG{n}{r}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)):}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{q}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}=} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{p}\PYG{o}{.}\PYG{n}{y}\PYG{p}{,} \PYG{n}{r}\PYG{o}{.}\PYG{n}{y}\PYG{p}{))} \PYG{o+ow}{and} \PYG{p}{(}\PYG{n}{q}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}=} \PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{p}\PYG{o}{.}\PYG{n}{y}\PYG{p}{,} \PYG{n}{r}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)):}
+            \PYG{k}{return} \PYG{n+nb+bp}{True}
+    \PYG{k}{return} \PYG{n+nb+bp}{False}
+
+
+\PYG{k}{def} \PYG{n+nf}{edge\PYGZus{}intersect}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{q1}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Ueberprueft ob p1q1 und edge sich schneiden.}
+\PYG{l+s+sd}{    http://www.geeksforgeeks.org/check\PYGZhy{}if\PYGZhy{}two\PYGZhy{}given\PYGZhy{}line\PYGZhy{}segments\PYGZhy{}intersect/\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{p2} \PYG{o}{=} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}
+    \PYG{n}{q2} \PYG{o}{=} \PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}
+    \PYG{n}{o1} \PYG{o}{=} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{q1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{)}
+    \PYG{n}{o2} \PYG{o}{=} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{q1}\PYG{p}{,} \PYG{n}{q2}\PYG{p}{)}
+    \PYG{n}{o3} \PYG{o}{=} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{q2}\PYG{p}{,} \PYG{n}{p1}\PYG{p}{)}
+    \PYG{n}{o4} \PYG{o}{=} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{q2}\PYG{p}{,} \PYG{n}{q1}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} General case}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{o1} \PYG{o}{!=} \PYG{n}{o2} \PYG{o+ow}{and} \PYG{n}{o3} \PYG{o}{!=} \PYG{n}{o4}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb+bp}{True}
+    \PYG{c+c1}{\PYGZsh{} p1, q1 and p2 are colinear and p2 lies on segment p1q1}
+    \PYG{k}{if} \PYG{n}{o1} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{q1}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb+bp}{True}
+    \PYG{c+c1}{\PYGZsh{} p1, q1 and p2 are colinear and q2 lies on segment p1q1}
+    \PYG{k}{if} \PYG{n}{o2} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{p1}\PYG{p}{,} \PYG{n}{q2}\PYG{p}{,} \PYG{n}{q1}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb+bp}{True}
+    \PYG{c+c1}{\PYGZsh{} p2, q2 and p1 are colinear and p1 lies on segment p2q2}
+    \PYG{k}{if} \PYG{n}{o3} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{p1}\PYG{p}{,} \PYG{n}{q2}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb+bp}{True}
+    \PYG{c+c1}{\PYGZsh{} p2, q2 and q1 are colinear and q1 lies on segment p2q2}
+    \PYG{k}{if} \PYG{n}{o4} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{q1}\PYG{p}{,} \PYG{n}{q2}\PYG{p}{):}
+        \PYG{k}{return} \PYG{n+nb+bp}{True}
+    \PYG{k}{return} \PYG{n+nb+bp}{False}
+
+
+\PYG{k}{def} \PYG{n+nf}{insort}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,} \PYG{n}{x}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Einfügen in den binaeren Suchbaum. \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{lo} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{hi} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{a}\PYG{p}{)}
+    \PYG{k}{while} \PYG{n}{lo} \PYG{o}{\PYGZlt{}} \PYG{n}{hi}\PYG{p}{:}
+        \PYG{n}{mid} \PYG{o}{=} \PYG{p}{(}\PYG{n}{lo}\PYG{o}{+}\PYG{n}{hi}\PYG{p}{)}\PYG{o}{//}\PYG{l+m+mi}{2}
+        \PYG{k}{if} \PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{a}\PYG{p}{[}\PYG{n}{mid}\PYG{p}{]:} \PYG{n}{hi} \PYG{o}{=} \PYG{n}{mid}
+        \PYG{k}{else}\PYG{p}{:} \PYG{n}{lo} \PYG{o}{=} \PYG{n}{mid}\PYG{o}{+}\PYG{l+m+mi}{1}
+    \PYG{n}{a}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{n}{lo}\PYG{p}{,} \PYG{n}{x}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{bisect}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,} \PYG{n}{x}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Binaere Suche für den Suchbaum.\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{lo} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{hi} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{a}\PYG{p}{)}
+    \PYG{k}{while} \PYG{n}{lo} \PYG{o}{\PYGZlt{}} \PYG{n}{hi}\PYG{p}{:}
+        \PYG{n}{mid} \PYG{o}{=} \PYG{p}{(}\PYG{n}{lo}\PYG{o}{+}\PYG{n}{hi}\PYG{p}{)}\PYG{o}{//}\PYG{l+m+mi}{2}
+        \PYG{k}{if} \PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{a}\PYG{p}{[}\PYG{n}{mid}\PYG{p}{]:} \PYG{n}{hi} \PYG{o}{=} \PYG{n}{mid}
+        \PYG{k}{else}\PYG{p}{:} \PYG{n}{lo} \PYG{o}{=} \PYG{n}{mid}\PYG{o}{+}\PYG{l+m+mi}{1}
+    \PYG{k}{return} \PYG{n}{lo}
+
+
+\PYG{k}{class} \PYG{n+nc}{EdgeKey}\PYG{p}{(}\PYG{n+nb}{object}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Element des Suchbaums. \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{edge}\PYG{p}{):}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p1} \PYG{o}{=} \PYG{n}{p1}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p2} \PYG{o}{=} \PYG{n}{p2}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge} \PYG{o}{=} \PYG{n}{edge}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}eq\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{other}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge} \PYG{o}{==} \PYG{n}{other}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n+nb+bp}{True}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}lt\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{other}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge} \PYG{o}{==} \PYG{n}{other}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n+nb+bp}{False}
+        \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{edge\PYGZus{}intersect}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{other}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{):}
+            \PYG{k}{return} \PYG{n+nb+bp}{True}
+        \PYG{n}{self\PYGZus{}dist} \PYG{o}{=} \PYG{n}{point\PYGZus{}edge\PYGZus{}distance}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{)}
+        \PYG{n}{other\PYGZus{}dist} \PYG{o}{=} \PYG{n}{point\PYGZus{}edge\PYGZus{}distance}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{other}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{self\PYGZus{}dist} \PYG{o}{\PYGZgt{}} \PYG{n}{other\PYGZus{}dist}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n+nb+bp}{False}
+        \PYG{k}{if} \PYG{n}{self\PYGZus{}dist} \PYG{o}{\PYGZlt{}} \PYG{n}{other\PYGZus{}dist}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n+nb+bp}{True}
+        \PYG{c+c1}{\PYGZsh{} If the distance is equal, we need to compare on the edge angles.}
+        \PYG{k}{if} \PYG{n}{self\PYGZus{}dist} \PYG{o}{==} \PYG{n}{other\PYGZus{}dist}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1} \PYG{o+ow}{in} \PYG{n}{other}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{:}
+                \PYG{n}{same\PYGZus{}point} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p1}
+            \PYG{k}{elif} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2} \PYG{o+ow}{in} \PYG{n}{other}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{:}
+                \PYG{n}{same\PYGZus{}point} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{p2}
+            \PYG{n}{aslf} \PYG{o}{=} \PYG{n}{angle2}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{get\PYGZus{}adjacent}\PYG{p}{(}\PYG{n}{same\PYGZus{}point}\PYG{p}{))}
+            \PYG{n}{aot} \PYG{o}{=} \PYG{n}{angle2}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{,} \PYG{n}{other}\PYG{o}{.}\PYG{n}{edge}\PYG{o}{.}\PYG{n}{get\PYGZus{}adjacent}\PYG{p}{(}\PYG{n}{same\PYGZus{}point}\PYG{p}{))}
+            \PYG{k}{if} \PYG{n}{aslf} \PYG{o}{\PYGZlt{}} \PYG{n}{aot}\PYG{p}{:}
+                \PYG{k}{return} \PYG{n+nb+bp}{True}
+            \PYG{k}{return} \PYG{n+nb+bp}{False}
+
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}repr\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{):}
+        \PYG{n}{reprstring} \PYG{o}{=} \PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n+nv+vm}{\PYGZus{}\PYGZus{}class\PYGZus{}\PYGZus{}}\PYG{o}{.}\PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{edge}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p1}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{p2}\PYG{p}{)}
+        \PYG{k}{return} \PYG{l+s+s2}{\PYGZdq{}\PYGZob{}\PYGZcb{}(Edge=\PYGZob{}!r\PYGZcb{}, p1=\PYGZob{}!r\PYGZcb{}, p2=\PYGZob{}!r\PYGZcb{})\PYGZdq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{o}{*}\PYG{n}{reprstring}\PYG{p}{)}
+\end{Verbatim}

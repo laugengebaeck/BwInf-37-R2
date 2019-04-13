@@ -12,6 +12,7 @@ def ensure_dir(file_path):
         os.makedirs(directory)
 
 def numtotime(num):
+    num = round(num)
     hours = num // 3600
     minutes = (num % 3600) // 60
     seconds = (num % 3600) % 60
@@ -31,8 +32,8 @@ parser.add_argument('-minkowski',action="store",default=None,help="Erweiterung M
 args = parser.parse_args()
 
 #Geschwindigkeiten in m/s umrechnen
-real_v_lisa = args.velocity_lisa / 3.6
-real_v_bus = args.velocity_bus / 3.6
+real_v_lisa = round(args.velocity_lisa / 3.6 ,3)
+real_v_bus = round(args.velocity_bus / 3.6 ,3)
 
 #Maximale x und y für Darstellung
 maxx = 0
@@ -46,9 +47,9 @@ polylist = []
 for i in range(numpoly):
     pointlist = []
     line = infile.readline().split(" ")
-    line = [int(x) for x in line]
+    line = [float(x) for x in line]
     index = 1
-    for j in range(line[0]):
+    for j in range(int(line[0])):
         maxx = max(maxx,line[index])
         maxy = max(maxy,line[index+1])
         pointlist.append(vg.Point(line[index],line[index+1],polygon_id=("P" + str(i+1))))
@@ -57,7 +58,7 @@ for i in range(numpoly):
 
 #Lisas Position einlesen
 pos = infile.readline().split(" ")
-pos = [int(x) for x in pos]
+pos = [float(x) for x in pos]
 lisa = vg.Point(pos[0],pos[1],polygon_id="L")
 infile.close()
 
@@ -70,10 +71,10 @@ if args.minkowski is not None:
     lisa_poly = []
     line = minfile.readline().split(" ")
     minfile.close()
-    line = [int(x) for x in line]
+    line = [float(x) for x in line]
     index = 1
-    for j in range(line[0]):
-        lisa_poly.append(vg.Point(line[index],line[index+1]))
+    for j in range(int(line[0])):
+        lisa_poly.append(vg.Point(-line[index],-line[index+1]))
         index += 2
     polylist = minkowski.minkowski_sum_list(polylist,lisa_poly)
 
@@ -103,6 +104,9 @@ outtext = ""
 hours, minutes, seconds = numtotime(mintime)
 hours = 7 - hours
 minutes = 30 - minutes
+if seconds != 0:
+    minutes -= 1
+    seconds = 60 - seconds
 bhours, bminutes, bseconds = numtotime(min_bus_time)
 bhours = 7 + bhours
 bminutes = 30 + bminutes
@@ -116,5 +120,3 @@ for point in path:
 outfile = open(args.output,"w")
 outfile.write(outtext)
 outfile.close()
-
-#TODO alles kommentieren + testen

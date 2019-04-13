@@ -1,0 +1,53 @@
+ <svg version="1.1" viewBox="0 0 833 944 " xmlns="http://www.w3.org/2000/svg">
+    <g transform="scale(1 -1)">
+    <g transform="translate(0 -944)">
+	    <line id="y" x1="0" x2="0" y1="0" y2=" 944" fill="none" stroke="#212121" stroke-width="3"/> 
+<polygon id="P1" points="390.0 260.0 505.0 213.0 551.0 329.0 413.0 444.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P2" points="410.0 50.0 433.0 50.0 594.0 96.0 525.0 188.0 387.0 165.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+<polygon id="P3" points="170.0 80.0 193.0 80.0 340.0 150.0 331.0 287.0 170.0 402.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
+ <circle id="L" cx="633.0" cy="189.0" r="10" fill="#F42121" stroke="#000080" stroke-width="1"/>
+ <polyline id="R1" points="594.0 96.0 525.0 188.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R2" points="505.0 213.0 387.0 165.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R3" points="410.0 50.0 387.0 165.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R4" points="170.0 80.0 0.0 108.74 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R5" points="525.0 188.0 387.0 165.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R6" points="340.0 150.0 331.0 287.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R7" points="413.0 444.0 170.0 402.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R8" points="170.0 402.0 0.0 430.74 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R9" points="505.0 213.0 525.0 188.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R10" points="413.0 444.0 0.0 513.82 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R11" points="390.0 260.0 413.0 444.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R12" points="390.0 260.0 387.0 165.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R13" points="551.0 329.0 633.0 189.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R14" points="410.0 50.0 433.0 50.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R15" points="390.0 260.0 505.0 213.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R16" points="433.0 50.0 594.0 96.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R17" points="390.0 260.0 525.0 188.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R18" points="387.0 165.0 193.0 80.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R19" points="410.0 50.0 193.0 80.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R20" points="390.0 260.0 170.0 402.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R21" points="390.0 260.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R22" points="505.0 213.0 551.0 329.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R23" points="170.0 80.0 170.0 402.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R24" points="551.0 329.0 413.0 444.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R25" points="410.0 50.0 170.0 80.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R26" points="193.0 80.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R27" points="390.0 260.0 331.0 287.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R28" points="551.0 329.0 594.0 96.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R29" points="551.0 329.0 525.0 188.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R30" points="413.0 444.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R31" points="387.0 165.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R32" points="525.0 188.0 331.0 287.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R33" points="505.0 213.0 633.0 189.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R34" points="410.0 50.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R35" points="170.0 80.0 193.0 80.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R36" points="331.0 287.0 170.0 402.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R37" points="505.0 213.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R38" points="387.0 165.0 331.0 287.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R39" points="413.0 444.0 331.0 287.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R40" points="594.0 96.0 633.0 189.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R41" points="525.0 188.0 633.0 189.0 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R42" points="410.0 50.0 331.0 287.0 " fill="none" stroke="#000080" stroke-width="4"/>
+</g>
+    </g>
+    </svg>

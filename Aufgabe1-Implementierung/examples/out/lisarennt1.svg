@@ -4,7 +4,7 @@
 	    <line id="y" x1="0" x2="0" y1="0" y2=" 910" fill="none" stroke="#212121" stroke-width="3"/> 
 <polygon id="P1" points="535.0 410.0 610.0 70.0 460.0 70.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
  <circle id="L" cx="633.0" cy="189.0" r="10" fill="#F42121" stroke="#000080" stroke-width="1"/>
- <polyline id="R" points="633.0 189.0 535.0 410.0 0.0 718.88 " fill="none" stroke="#000080" stroke-width="4"/>
+ <polyline id="R" points="633.0 189.0 535.0 410.0 0.0 718.93 " fill="none" stroke="#000080" stroke-width="4"/>
 </g>
     </g>
     </svg>

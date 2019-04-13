@@ -1,0 +1,79 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{math}
+\PYG{k+kn}{from} \PYG{n+nn}{pyvisgraph.graph} \PYG{k+kn}{import} \PYG{n}{Point}
+
+\PYG{c+c1}{\PYGZsh{}Minkowski\PYGZhy{}Summe auf alle Polygone anwenden}
+\PYG{c+c1}{\PYGZsh{}vorher Vorverarbeitung, damit die Eingaben korrekt sind}
+\PYG{k}{def} \PYG{n+nf}{minkowski\PYGZus{}sum\PYGZus{}list}\PYG{p}{(}\PYG{n}{polygons}\PYG{p}{,} \PYG{n}{lisa\PYGZus{}poly}\PYG{p}{):}
+    \PYG{n}{lisa\PYGZus{}poly} \PYG{o}{=} \PYG{n}{findsmallest}\PYG{p}{(}\PYG{n}{makeccw}\PYG{p}{(}\PYG{n}{lisa\PYGZus{}poly}\PYG{p}{))}
+    \PYG{n}{polygons} \PYG{o}{=} \PYG{p}{[}\PYG{n}{findsmallest}\PYG{p}{(}\PYG{n}{makeccw}\PYG{p}{(}\PYG{n}{poly}\PYG{p}{))} \PYG{k}{for} \PYG{n}{poly} \PYG{o+ow}{in} \PYG{n}{polygons}\PYG{p}{]}
+    \PYG{n}{polygons} \PYG{o}{=} \PYG{p}{[}\PYG{n}{minkowski\PYGZus{}sum}\PYG{p}{(}\PYG{n}{poly}\PYG{p}{,}\PYG{n}{lisa\PYGZus{}poly}\PYG{p}{)} \PYG{k}{for} \PYG{n}{poly} \PYG{o+ow}{in} \PYG{n}{polygons}\PYG{p}{]}
+    \PYG{k}{return} \PYG{n}{polygons}
+
+\PYG{c+c1}{\PYGZsh{}Algorithmus für die Minkowski\PYGZhy{}Summe wie in der Dokumentation beschrieben}
+\PYG{c+c1}{\PYGZsh{}Das ist die gleiche scheiß Implementierung wie in \PYGZdq{}Computational Geometry\PYGZdq{}}
+\PYG{c+c1}{\PYGZsh{}und das ist das Standardwerk dazu und es funktioniert trotzdem nicht}
+\PYG{k}{def} \PYG{n+nf}{minkowski\PYGZus{}sum}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,}\PYG{n}{w}\PYG{p}{):}
+    \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{n} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)}
+    \PYG{n}{m} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{w}\PYG{p}{)}
+    \PYG{n}{v}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{v}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}
+    \PYG{n}{v}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{v}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+    \PYG{n}{w}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{w}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}
+    \PYG{n}{w}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{w}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+    \PYG{n}{newpoly} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{while} \PYG{n+nb+bp}{True}\PYG{p}{:}
+        \PYG{n}{newpoly}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{w}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{o}{.}\PYG{n}{x}\PYG{p}{,} \PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{y} \PYG{o}{+} \PYG{n}{w}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{o}{.}\PYG{n}{y}\PYG{p}{,} \PYG{n}{polygon\PYGZus{}id}\PYG{o}{=}\PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{polygon\PYGZus{}id}\PYG{p}{))}
+        \PYG{k}{if} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}\PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{])} \PYG{o}{\PYGZlt{}} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{w}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],}\PYG{n}{w}\PYG{p}{[}\PYG{n}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{]):}
+            \PYG{n}{i} \PYG{o}{=} \PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}
+        \PYG{k}{elif} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}\PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{w}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],}\PYG{n}{w}\PYG{p}{[}\PYG{n}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{]):}
+            \PYG{n}{j} \PYG{o}{=} \PYG{n}{j}\PYG{o}{+}\PYG{l+m+mi}{1}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{i} \PYG{o}{=} \PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}
+            \PYG{n}{j} \PYG{o}{=} \PYG{n}{j}\PYG{o}{+}\PYG{l+m+mi}{1}
+        \PYG{k}{if} \PYG{n}{i} \PYG{o}{==} \PYG{n}{n} \PYG{o+ow}{and} \PYG{n}{j} \PYG{o}{==} \PYG{n}{m}\PYG{p}{:}
+            \PYG{k}{break}
+    \PYG{k}{return} \PYG{n}{newpoly}
+
+\PYG{c+c1}{\PYGZsh{}Winkel zwischen Vektor ab und positiver x\PYGZhy{}Achse}
+\PYG{c+c1}{\PYGZsh{}Ansatz siehe https://math.stackexchange.com/questions/1910825/how\PYGZhy{}do\PYGZhy{}i\PYGZhy{}find\PYGZhy{}the\PYGZhy{}angle\PYGZhy{}a\PYGZhy{}vector\PYGZhy{}makes\PYGZhy{}to\PYGZhy{}the\PYGZhy{}x\PYGZhy{}axis}
+\PYG{k}{def} \PYG{n+nf}{angle}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,} \PYG{n}{b}\PYG{p}{):}
+    \PYG{n}{vx} \PYG{o}{=} \PYG{n}{b}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{o}{.}\PYG{n}{x}
+    \PYG{n}{vy} \PYG{o}{=} \PYG{n}{b}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{o}{.}\PYG{n}{y}
+    \PYG{n}{angle} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{vy}\PYG{p}{,}\PYG{n}{vx}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{vy} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n}{angle} \PYG{o}{+=} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{math}\PYG{o}{.}\PYG{n}{pi}
+    \PYG{k}{return} \PYG{n}{angle}
+
+\PYG{c+c1}{\PYGZsh{}Polygon\PYGZhy{}Punkte in Richtung gegen den Uhrzeigersinn bringen}
+\PYG{k}{def} \PYG{n+nf}{makeccw}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{):}
+    \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{isccw}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{):}
+        \PYG{n}{polygon}\PYG{o}{.}\PYG{n}{reverse}\PYG{p}{()}
+    \PYG{k}{return} \PYG{n}{polygon}
+
+\PYG{c+c1}{\PYGZsh{}Berechnung, ob ein Polygon gegen den Uhrzeigersinn (CCW) orientiert ist}
+\PYG{c+c1}{\PYGZsh{}Ansatz: https://de.wikipedia.org/wiki/Gau\PYGZpc{}C3\PYGZpc{}9Fsche\PYGZus{}Trapezformel}
+\PYG{k}{def} \PYG{n+nf}{isccw}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{):}
+    \PYG{n+nb}{sum} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{length} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{)):}
+        \PYG{n+nb}{sum} \PYG{o}{+=} \PYG{p}{(}\PYG{n}{polygon}\PYG{p}{[(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{\PYGZpc{}} \PYG{n}{length}\PYG{p}{]}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{polygon}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{polygon}\PYG{p}{[(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{\PYGZpc{}} \PYG{n}{length}\PYG{p}{]}\PYG{o}{.}\PYG{n}{y} \PYG{o}{+} \PYG{n}{polygon}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{y}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n+nb}{sum} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}
+
+\PYG{c+c1}{\PYGZsh{}finde den Punkt mit der kleinsten y\PYGZhy{}Koordinate und setze ihn als ersten Punkt im Polygon}
+\PYG{k}{def} \PYG{n+nf}{findsmallest}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{):}
+    \PYG{n}{index} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{miny} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{inf}
+    \PYG{n}{minx} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{inf}
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,}\PYG{n}{point} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{):}
+        \PYG{k}{if} \PYG{n}{point}\PYG{o}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{n}{miny} \PYG{o+ow}{or} \PYG{p}{(}\PYG{n}{point}\PYG{o}{.}\PYG{n}{y} \PYG{o}{==} \PYG{n}{miny} \PYG{o+ow}{and} \PYG{n}{point}\PYG{o}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{minx}\PYG{p}{):}
+            \PYG{n}{minx} \PYG{o}{=} \PYG{n}{point}\PYG{o}{.}\PYG{n}{x}
+            \PYG{n}{miny} \PYG{o}{=} \PYG{n}{point}\PYG{o}{.}\PYG{n}{y}
+            \PYG{n}{index} \PYG{o}{=} \PYG{n}{i}
+    \PYG{c+c1}{\PYGZsh{}schiebe Punkte davor ans Ende}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{index}\PYG{p}{):}
+        \PYG{n}{polygon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}
+    \PYG{n}{polygon} \PYG{o}{=} \PYG{n}{polygon}\PYG{p}{[}\PYG{n}{index}\PYG{p}{:]}
+    \PYG{k}{return} \PYG{n}{polygon}
+\end{Verbatim}

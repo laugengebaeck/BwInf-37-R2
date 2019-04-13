@@ -76,7 +76,7 @@ def shortest_path(graph, origin, vlisa, vbus):
             #... mithilfe der spätesten Startzeit
             #Zeitangabe: negativ vor 7.30, positiv danach
             total_time = bus_time - lisa_time
-            if(total_time > mintime):
+            if total_time > mintime:
                 mintime = round(total_time,2)
                 minpoint = point
                 min_bus_time = round(bus_time,2)

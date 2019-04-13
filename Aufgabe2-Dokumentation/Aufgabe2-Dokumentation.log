@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.2.26)  7 APR 2019 18:24
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  12 APR 2019 17:50
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -523,7 +523,42 @@ s
 (/usr/share/texmf-dist/tex/latex/lastpage/lastpage.sty
 Package: lastpage 2015/03/29 v1.2m Refers to last page's name (HMM; JPG)
 )
-(/usr/share/texmf-dist/tex/latex/minted/minted.sty
+(/usr/share/texmf-dist/tex/latex/svg/svg.sty
+Package: svg 2018/11/12 v2.02b (include SVG pictures)
+
+(/usr/share/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
+Package shellesc Info: Unrestricted shell escape enabled on input line 67.
+)
+(/usr/share/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+)
+\svg@box=\box34
+\c@svg@param@lastpage=\count128
+\c@svg@param@currpage=\count129
+
+(/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/catchfile.sty
+Package: catchfile 2016/05/16 v1.7 Catch the contents of a file (HO)
+)
+runsystem(uname -s > "Aufgabe2-Dokumentation.w18")...executed.
+
+
+(./Aufgabe2-Dokumentation.w18)
+runsystem(rm -- "Aufgabe2-Dokumentation.w18")...executed.
+
+))
+(/usr/share/texmf-dist/tex/latex/oberdiek/transparent.sty
+Package: transparent 2018/11/18 v1.3 Transparency via pdfTeX's color stack (HO)
+
+
+
+Package transparent Warning: Loading aborted, because pdfTeX is not running in 
+PDF mode.
+
+) (/usr/share/texmf-dist/tex/latex/minted/minted.sty
 Package: minted 2017/07/19 v2.5 Yet another Pygments shim for LaTeX
 
 (/usr/share/texmf-dist/tex/latex/fvextra/fvextra.sty
@@ -534,7 +569,7 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 (/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count128
+\etb@tempcnta=\count130
 )
 (/usr/share/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
@@ -625,67 +660,50 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 (/usr/share/texmf-dist/tex/latex/lineno/lineno.sty
 Package: lineno 2005/11/02 line numbers on paragraphs v4.41
 Invalid UTF-8 byte or sequence at line 296 replaced by U+FFFD.
-\linenopenalty=\count129
+\linenopenalty=\count131
 \output=\toks24
-\linenoprevgraf=\count130
+\linenoprevgraf=\count132
 \linenumbersep=\dimen145
 \linenumberwidth=\dimen146
-\c@linenumber=\count131
-\c@pagewiselinenumber=\count132
-\c@LN@truepage=\count133
-\c@internallinenumber=\count134
-\c@internallinenumbers=\count135
+\c@linenumber=\count133
+\c@pagewiselinenumber=\count134
+\c@LN@truepage=\count135
+\c@internallinenumber=\count136
+\c@internallinenumbers=\count137
 \quotelinenumbersep=\dimen147
 \bframerule=\dimen148
 \bframesep=\dimen149
-\bframebox=\box34
+\bframebox=\box35
 LaTeX Info: Redefining \\ on input line 3056.
 )
-\c@FV@TrueTabGroupLevel=\count136
-\c@FV@TrueTabCounter=\count137
-\FV@TabBox@Group=\box35
+\c@FV@TrueTabGroupLevel=\count138
+\c@FV@TrueTabCounter=\count139
+\FV@TabBox@Group=\box36
 \FV@TmpLength=\skip74
-\c@FV@HighlightLinesStart=\count138
-\c@FV@HighlightLinesStop=\count139
-\FV@LoopCount=\count140
-\FV@NCharsBox=\box36
+\c@FV@HighlightLinesStart=\count140
+\c@FV@HighlightLinesStop=\count141
+\FV@LoopCount=\count142
+\FV@NCharsBox=\box37
 \FV@BreakIndent=\dimen150
-\FV@BreakIndentNChars=\count141
+\FV@BreakIndentNChars=\count143
 \FV@BreakSymbolSepLeft=\dimen151
-\FV@BreakSymbolSepLeftNChars=\count142
+\FV@BreakSymbolSepLeftNChars=\count144
 \FV@BreakSymbolSepRight=\dimen152
-\FV@BreakSymbolSepRightNChars=\count143
+\FV@BreakSymbolSepRightNChars=\count145
 \FV@BreakSymbolIndentLeft=\dimen153
-\FV@BreakSymbolIndentLeftNChars=\count144
+\FV@BreakSymbolIndentLeftNChars=\count146
 \FV@BreakSymbolIndentRight=\dimen154
-\FV@BreakSymbolIndentRightNChars=\count145
-\c@FancyVerbLineBreakLast=\count146
-\FV@LineBox=\box37
-\FV@LineIndentBox=\box38
+\FV@BreakSymbolIndentRightNChars=\count147
+\c@FancyVerbLineBreakLast=\count148
+\FV@LineBox=\box38
+\FV@LineIndentBox=\box39
 \FV@LineWidth=\dimen155
-)
-(/usr/share/texmf-dist/tex/latex/tools/shellesc.sty
-Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
-Package shellesc Info: Unrestricted shell escape enabled on input line 67.
-)
-(/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty
-Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
-
-(/usr/share/texmf-dist/tex/generic/oberdiek/catchfile.sty
-Package: catchfile 2016/05/16 v1.7 Catch the contents of a file (HO)
-)
-runsystem(uname -s > "Aufgabe2-Dokumentation.w18")...executed.
-
-
-(./Aufgabe2-Dokumentation.w18)
-runsystem(rm -- "Aufgabe2-Dokumentation.w18")...executed.
-
 )
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texmf-dist/tex/generic/xstring/xstring.tex
-\integerpart=\count147
+\integerpart=\count149
 Invalid UTF-8 byte or sequence at line 35 replaced by U+FFFD.
-\decimalpart=\count148
+\decimalpart=\count150
 Invalid UTF-8 byte or sequence at line 79 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 79 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 83 replaced by U+FFFD.
@@ -834,19 +852,19 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 )
 (/usr/share/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count149
+\c@float@type=\count151
 \float@exts=\toks25
-\float@box=\box39
+\float@box=\box40
 \@float@everytoks=\toks26
-\@floatcapt=\box40
+\@floatcapt=\box41
 )
 \minted@appexistsfile=\read2
-\minted@bgbox=\box41
+\minted@bgbox=\box42
 \minted@code=\write4
-\c@minted@FancyVerbLineTemp=\count150
-\c@minted@pygmentizecounter=\count151
+\c@minted@FancyVerbLineTemp=\count152
+\c@minted@pygmentizecounter=\count153
 \@float@every@listing=\toks27
-\c@listing=\count152
+\c@listing=\count154
 )
 runsystem(mkdir -p _minted-Aufgabe2-Dokumentation)...executed.
 
@@ -858,43 +876,43 @@ runsystem(rm Aufgabe2-Dokumentation.aex)...executed.
 (./Aufgabe2-Dokumentation.aux)
 \openout1 = `Aufgabe2-Dokumentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 34.
  (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 33.
-\AtBeginShipoutBox=\box42
-Package hyperref Info: Link coloring OFF on input line 33.
+LaTeX Font Info:    ... okay on input line 34.
+\AtBeginShipoutBox=\box43
+Package hyperref Info: Link coloring OFF on input line 34.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
 (/usr/share/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count153
+\c@section@level=\count155
 )
-LaTeX Info: Redefining \ref on input line 33.
-LaTeX Info: Redefining \pageref on input line 33.
-LaTeX Info: Redefining \nameref on input line 33.
+LaTeX Info: Redefining \ref on input line 34.
+LaTeX Info: Redefining \pageref on input line 34.
+LaTeX Info: Redefining \nameref on input line 34.
 
 (./Aufgabe2-Dokumentation.out) (./Aufgabe2-Dokumentation.out)
 \@outlinefile=\write5
@@ -906,14 +924,14 @@ Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           You can avoid loading `bookmark' with KOMA-Script option
 (scrartcl)           `bookmarkpackage=false' before \begin{document} and
 (scrartcl)           you can avoid this message with `\usepackage{bookmark}'
-(scrartcl)           before \begin{document} on input line 33.
+(scrartcl)           before \begin{document} on input line 34.
 
 (/usr/share/texmf-dist/tex/latex/oberdiek/bookmark.sty
 Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
 
 (/usr/share/texmf-dist/tex/latex/oberdiek/bkm-dvipdfm.def
 File: bkm-dvipdfm.def 2016/05/17 v1.26 bookmark driver for dvipdfm (HO)
-\BKM@id=\count154
+\BKM@id=\count156
 ))
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -954,12 +972,12 @@ Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 33.
-LaTeX Font Info:    Try loading font information for U+msa on input line 36.
+(lastpage)             ! on input line 34.
+LaTeX Font Info:    Try loading font information for U+msa on input line 37.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 36.
+LaTeX Font Info:    Try loading font information for U+msb on input line 37.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -976,35 +994,169 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 43--45
+Underfull \hbox (badness 10000) in paragraph at lines 44--46
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
+Underfull \hbox (badness 10000) in paragraph at lines 61--64
 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 81--83
+
+ []
+
+[1]
+Package svg Info: Calling Inkscape on input line 91.
+runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
+amples/out/dreiecke1.svg" --export-pdf="dreiecke1_svg-tex.pdf" )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "dreiecke1_svg-tex.pdf" "./svg-inkscape/dreiecke1_svg-tex.pdf")...
+executed.
+
+runsystem(mv "dreiecke1_svg-tex.pdf_tex" "./svg-inkscape/dreiecke1_svg-tex.pdf_
+tex")...executed.
+
+Package svg Info: Last page of `./svg-inkscape/dreiecke1_svg-tex.pdf' is 1 on i
+nput line 91.
+ (./svg-inkscape/dreiecke1_svg-tex.pdf_tex
+File: ./svg-inkscape/dreiecke1_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/dreiecke1_svg-tex.pdf, page 1>
+)
+Package svg Info: Calling Inkscape on input line 112.
+runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
+amples/out/dreiecke2.svg" --export-pdf="dreiecke2_svg-tex.pdf" )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "dreiecke2_svg-tex.pdf" "./svg-inkscape/dreiecke2_svg-tex.pdf")...
+executed.
+
+runsystem(mv "dreiecke2_svg-tex.pdf_tex" "./svg-inkscape/dreiecke2_svg-tex.pdf_
+tex")...executed.
+
+Package svg Info: Last page of `./svg-inkscape/dreiecke2_svg-tex.pdf' is 1 on i
+nput line 112.
+
+(./svg-inkscape/dreiecke2_svg-tex.pdf_tex
+File: ./svg-inkscape/dreiecke2_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/dreiecke2_svg-tex.pdf, page 1>
+) [2]
+Package svg Info: Calling Inkscape on input line 133.
+runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
+amples/out/dreiecke3.svg" --export-pdf="dreiecke3_svg-tex.pdf" )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "dreiecke3_svg-tex.pdf" "./svg-inkscape/dreiecke3_svg-tex.pdf")...
+executed.
+
+runsystem(mv "dreiecke3_svg-tex.pdf_tex" "./svg-inkscape/dreiecke3_svg-tex.pdf_
+tex")...executed.
+
+Package svg Info: Last page of `./svg-inkscape/dreiecke3_svg-tex.pdf' is 1 on i
+nput line 133.
+
+(./svg-inkscape/dreiecke3_svg-tex.pdf_tex
+File: ./svg-inkscape/dreiecke3_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/dreiecke3_svg-tex.pdf, page 1>
+) [3]
+Package svg Info: Calling Inkscape on input line 154.
+runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
+amples/out/dreiecke4.svg" --export-pdf="dreiecke4_svg-tex.pdf" )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "dreiecke4_svg-tex.pdf" "./svg-inkscape/dreiecke4_svg-tex.pdf")...
+executed.
+
+runsystem(mv "dreiecke4_svg-tex.pdf_tex" "./svg-inkscape/dreiecke4_svg-tex.pdf_
+tex")...executed.
+
+Package svg Info: Last page of `./svg-inkscape/dreiecke4_svg-tex.pdf' is 1 on i
+nput line 154.
+
+(./svg-inkscape/dreiecke4_svg-tex.pdf_tex
+File: ./svg-inkscape/dreiecke4_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/dreiecke4_svg-tex.pdf, page 1>
+) [4]
+Package svg Info: Calling Inkscape on input line 175.
+runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
+amples/out/dreiecke5.svg" --export-pdf="dreiecke5_svg-tex.pdf" )...executed.
+
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "dreiecke5_svg-tex.pdf" "./svg-inkscape/dreiecke5_svg-tex.pdf")...
+executed.
+
+runsystem(mv "dreiecke5_svg-tex.pdf_tex" "./svg-inkscape/dreiecke5_svg-tex.pdf_
+tex")...executed.
+
+Package svg Info: Last page of `./svg-inkscape/dreiecke5_svg-tex.pdf' is 1 on i
+nput line 175.
+
+(./svg-inkscape/dreiecke5_svg-tex.pdf_tex
+File: ./svg-inkscape/dreiecke5_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/dreiecke5_svg-tex.pdf, page 1>
+) [5]
+(./_minted-Aufgabe2-Dokumentation/default-pyg-prefix.pygstyle)
+(./_minted-Aufgabe2-Dokumentation/default.pygstyle)
+(./_minted-Aufgabe2-Dokumentation/1A1759D8C6BACCE48C5AEF0B4CE3B1E684FD9B1CDA6DC
+1D421A4ED8AF8FDFE8A.pygtex
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
+ [6])
+Package hyperref Info: bookmark level for unknown listing defaults to 0 on inpu
+t line 202.
+runsystem(python -c "import sys; import os; import textwrap; from io import ope
+n; fname = os.path.expanduser(os.path.expandvars(\"../Aufgabe2-Implementierung/
+triangleAlgorithm.cpp\")); f = open(fname, \"r\", encoding=\"UTF8\") if os.path
+.isfile(fname) else None; t = f.readlines() if f is not None else None; t_opt =
+ t if t is not None else []; f.close() if f is not None else None; tmpfname = o
+s.path.expanduser(os.path.expandvars(\"Aufgabe2-Dokumentation.pyg\")); f = open
+(tmpfname, \"w\", encoding=\"UTF8\") if t is not None else None; fvstartnum = 0
+; fvstopnum = 0; s = fvstartnum-1 if fvstartnum != 0 else 0; e = fvstopnum if f
+vstopnum != 0 else len(t_opt); [f.write(textwrap.dedent(\"\".join(x))) for x in
+ (t_opt[0:s], t_opt[s:e], t_opt[e:]) if x and t is not None]; f.close() if t is
+ not None else os.remove(tmpfname);")...executed.
+
+runsystem(pygmentize -l cpp -f latex -P commandprefix=PYG -F tokenmerge -o _min
+ted-Aufgabe2-Dokumentation/C3D7FB9001E493D862D48E3BFB50407684FD9B1CDA6DC1D421A4
+ED8AF8FDFE8A.pygtex Aufgabe2-Dokumentation.pyg)...executed.
+
+
+(./_minted-Aufgabe2-Dokumentation/C3D7FB9001E493D862D48E3BFB50407684FD9B1CDA6DC
+1D421A4ED8AF8FDFE8A.pygtex) 
 AED: lastpage setting LastPage
-[1] [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 93.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 93.
+[7]
+runsystem(rm _minted-Aufgabe2-Dokumentation/ADE96893629453DE0AA796DCF809FF0A84F
+D9B1CDA6DC1D421A4ED8AF8FDFE8A.pygtex)...executed.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 208.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 208.
  (./Aufgabe2-Dokumentation.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 93.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 93.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 208.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 208.
 Package rerunfilecheck Info: File `Aufgabe2-Dokumentation.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 93.
+runsystem(rm Aufgabe2-Dokumentation.pyg)...executed.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 208.
  ) 
 Here is how much of TeX's memory you used:
- 17825 strings out of 492933
- 287123 string characters out of 6138667
- 563967 words of memory out of 5000000
- 21648 multiletter control sequences out of 15000+600000
- 10671 words of font info for 50 fonts, out of 8000000 for 9000
+ 18507 strings out of 492933
+ 301666 string characters out of 6138668
+ 583002 words of memory out of 5000000
+ 22246 multiletter control sequences out of 15000+600000
+ 12082 words of font info for 71 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 47i,11n,51p,9151b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 47i,11n,54p,9151b,738s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Aufgabe2-Dokumentation.pdf (3 pages).
+Output written on Aufgabe2-Dokumentation.pdf (8 pages).

@@ -1,3 +1,4 @@
+# SVG des Sichtbarkeitsgraphs erzeugen
 def gen_vis_svg(visgraph,polys,lisa,maxx, maxy):
     svgtext = ''' <svg version="1.1" viewBox="0 0 ''' + str(maxx) + " " + str(maxy) + ''' " xmlns="http://www.w3.org/2000/svg">
     <g transform="scale(1 -1)">
@@ -24,6 +25,7 @@ def gen_vis_svg(visgraph,polys,lisa,maxx, maxy):
     </svg>'''
     return svgtext
 
+# Ausgabe-SVG mit der Route erzeugen
 def gen_output_svg(route,polys,lisa,maxx, maxy):
     svgtext = ''' <svg version="1.1" viewBox="0 0 ''' + str(maxx) + " " + str(maxy) + ''' " xmlns="http://www.w3.org/2000/svg">
     <g transform="scale(1 -1)">

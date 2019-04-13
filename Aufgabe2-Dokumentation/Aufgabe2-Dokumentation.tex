@@ -17,6 +17,7 @@
 \usepackage{amssymb}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
+\usepackage{svg}
 
 \usepackage{minted}
 \fvset{breaklines=true}
@@ -77,17 +78,131 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
 
 \section{Umsetzung}
 \subsection{Allgemeine Hinweise zur Benutzung}
+Das Programm wurde in C++ implementiert und benötigt bis auf die \textit{Standard Library} (STL) und die beigelegte \texttt{argparse}-Library\footnote{\url{https://github.com/hbristow/argparse}},die für die Verarbeitung der Konsolenargumente zuständig ist, keine weiteren Bibliotheken. Es wurde unter Linux kompiliert und getestet; auf anderen Betriebssystemen müsste mit G++ erneut kompiliert werden. \\ \\
+Die Eingabe und Ausgabe des Programms erfolgt in Dateien, die mithilfe der Konsolenparameter frei gewählt werden können. Dafür gibt es folgende Parameter:
+\begin{verbatim}
+Usage: ./main --input INPUT --svg SVG --output OUTPUT
+\end{verbatim}
 \subsection{Struktur des Programms und Implementierung der Algorithmen}
 
 \section{Beispiele}
 \subsection{Beispiel 1}
+\begin{figure}[H] 
+	\includesvg[width=\textwidth]{../Aufgabe2-Implementierung/examples/out/dreiecke1.svg}
+	\caption{Die Dreiecksanordnung für das Beispiel 1}
+\end{figure}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 1},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe2-Implementierung/examples/out/dreiecke1-out.txt}
 \subsection{Beispiel 2}
+\begin{figure}[H] 
+	\includesvg[width=\textwidth]{../Aufgabe2-Implementierung/examples/out/dreiecke2.svg}
+	\caption{Die Dreiecksanordnung für das Beispiel 2}
+\end{figure}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 2},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe2-Implementierung/examples/out/dreiecke2-out.txt}
 \subsection{Beispiel 3}
+\begin{figure}[H] 
+	\includesvg[width=\textwidth]{../Aufgabe2-Implementierung/examples/out/dreiecke3.svg}
+	\caption{Die Dreiecksanordnung für das Beispiel 3}
+\end{figure}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 3},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe2-Implementierung/examples/out/dreiecke3-out.txt}
 \subsection{Beispiel 4}
+\begin{figure}[H] 
+	\includesvg[width=\textwidth]{../Aufgabe2-Implementierung/examples/out/dreiecke4.svg}
+	\caption{Die Dreiecksanordnung für das Beispiel 4}
+\end{figure}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 4},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe2-Implementierung/examples/out/dreiecke4-out.txt}
 \subsection{Beispiel 5}
+\begin{figure}[H] 
+	\includesvg[width=\textwidth]{../Aufgabe2-Implementierung/examples/out/dreiecke5.svg}
+	\caption{Die Dreiecksanordnung für das Beispiel 5}
+\end{figure}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 5},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe2-Implementierung/examples/out/dreiecke5-out.txt}
 \subsection{Eigene Beispiele}
 
  \section{Quellcode}
  \renewcommand{\listingscaption}{Quellcode}
+ 
+ \begin{longlisting}
+ 	
+ 	\cppfile{../Aufgabe2-Implementierung/triangles.cpp}
+ 	\caption{Die ein Dreieck repräsentierende Klasse \texttt{Triangle}}
+ 	
+ 	\cppfile{../Aufgabe2-Implementierung/triangleAlgorithm.cpp}
+ 	\caption{Die Datei \texttt{triangleAlgorithm}, die alle wesentlichen Bestandteile des Algorithmus enthält}
+ \end{longlisting}
  
  \end{document}

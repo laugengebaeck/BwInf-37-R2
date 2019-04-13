@@ -64,8 +64,7 @@
 \renewcommand{\contentsname}{\centerline{Inhaltsverzeichnis}}
  \maketitle
  \tableofcontents
- \thispagestyle{empty}
- \newpage
+ %\thispagestyle{empty}
  \setcounter{page}{1}
  
  \section{Lösungsidee}
@@ -74,7 +73,7 @@
  Das hier gegebene Problem unterscheidet sich von GSP dadurch, dass keine Position $p_{ziel}$, sondern ein Strahl $s_{ziel}$ (in Form eines beliebigen Punktes auf dem Strahl) erreicht werden soll. In diesem Fall handelt es sich dabei um die y-Achse ($x=0$ mit $y \geq 0$). Zusätzlich soll nicht unbedingt der Weg optimiert werden, sondern die Startzeit, die abhängig von der Länge des Weges und der für jeden Punkt des Strahls unterschiedlichen Zielzeit ist. Diese Zielzeit kann mithilfe des Abstands des Punktes vom Ursprung berechnet werden. \\ \\
  Das Geometric-Shortest-Path-Problem wird im Allgemeinen in zwei Schritten gelöst: Zunächst wird ein Sichtbarkeitsgraph erstellt, auf welchem dann Dijkstras Algorithmus ausgeführt wird. Zur Lösung des hier gegebenen Problems wird jedoch ein zusätzlicher Schritt benötigt, der auf der Lösung des Problems ohne Hindernisse basiert. Diese drei Algorithmen sollen in den folgenden Abschnitten vorgestellt und näher erläutert werden.
  \begin{figure}[H]
- 	\includegraphics[scale=0.41]{pics/gsp}
+ 	\centering \includegraphics[scale=0.35]{pics/gsp}
  	\caption{Illustration des GSP-Problems (aus \cite{Src:noem})}
  \end{figure}
  \subsection{Erzeugung eines Sichtbarkeitsgraphen}
@@ -309,7 +308,7 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
 \end{algorithmic}
 \caption{Bestimmung der Minkowski-Summe}
 \end{algorithm}
-\hspace*{-1em}Dabei gibt die Funktion $winkel(p,q)$ den Winkel zwischen der positiven x-Achse und dem Vektor $pq$ zurück.\\ \\
+\hspace*{-1em}Dabei gibt die Funktion $winkel(p,q)$ den Winkel zwischen der positiven x-Achse und dem Vektor $pq$ zurück, was mithilfe des $atan2(y,x)$ (Arkustangens, der die Richtung berücksichtigt) implementiert werden kann.\\ \\
 Dieser Algorithmus läuft offensichtlich in $\mathcal{O}(k + m)$, denn $i$ wird höchstens $k$ Mal inkrementiert und $j$ $m$ Mal. Da er $n_{Polygon}$ Mal\footnote{Anzahl der Polygone} ausgeführt wird, erhält man $\mathcal{O}(\sum_{1}^{n_{Polygon}} (k_i + m_i)) = \mathcal{O}(n + n_{Polygon} \cdot m)$, wobei $n$ die Anzahl aller Eckpunkte aller Polygone ist. Diese Erweiterung wurde \textbf{implementiert}.
  \subsubsection{Nicht-polygonale Hindernisse}
  Es wäre auch möglich, die Art der Hindernisse auf Flächen, die keine Polygone sind, zu erweitern. Dies könnten beispielsweise Ovale oder Kreise sein. Eine Möglichkeit, den Sichtbarkeitsgraph darauf zu erweitern, ist in \cite{Src:arcvis} beschrieben. Dabei muss man anstelle des klassischen Sichtbarkeitsgraphen einen Tangenten-Sichtbarkeitsgraphen verwenden. Da dies jedoch relativ kompliziert ist, wird an dieser Stelle nicht genauer darauf eingegangen. \\ \\
@@ -333,7 +332,7 @@ Dieser Algorithmus läuft offensichtlich in $\mathcal{O}(k + m)$, denn $i$ wird 
 \section{Umsetzung}
 %TODO Eingabegeschwindigkeiten km/h -> m/s
 \subsection{Allgemeine Hinweise zur Benutzung}
-Das Programm wurde in der Programmiersprache Python 3.7 implementiert. Zur Verwaltung und Erstellung des Sichtbarkeitsgraphen wurde die Bibliothek \texttt{pyvisgraph} von Christian Reksten-Monsen benutzt. Dabei kommt jedoch eine von mir erheblich veränderte Version zum Einsatz, die an das hier zu lösende Problem angepasst ist. Diese Version ist die einzige mit dem Programm kompatible und ist in die Einsendung integriert. \\ \\ Diese Bibliothek benötigt wiederum die Bibliothek tqdm (\texttt{sudo pip3 install tqdm}). Alle weiteren verwendeten Bibliotheken sind üblicherweise vorinstalliert. \\ \\
+Das Programm wurde in der Programmiersprache Python 3.7 implementiert und unter Linux getestet. Zur Verwaltung und Erstellung des Sichtbarkeitsgraphen wurde die Bibliothek \texttt{pyvisgraph} von Christian Reksten-Monsen benutzt. Dabei kommt jedoch eine von mir erheblich veränderte Version zum Einsatz, die an das hier zu lösende Problem angepasst ist. Diese Version ist die einzige mit dem Programm kompatible und ist in die Einsendung integriert. \\ \\ Diese Bibliothek benötigt wiederum die Bibliothek tqdm (\texttt{sudo pip3 install tqdm}). Alle weiteren verwendeten Bibliotheken sind üblicherweise vorinstalliert. \\ \\
 Die Eingabe und Ausgabe des Programms erfolgt in Dateien, die mithilfe der Konsolenparameter frei gewählt werden können. Die weitere Bedienung sollte selbsterklärend sein. Es gibt folgende Konsolenparameter:
 \begin{verbatim}
 usage: main.py [-h] [-i INPUT] [-o OUTPUT] [-so SVG] [-d]
@@ -355,8 +354,42 @@ im gleichen Format wie in der normalen Eingabe)
 \end{verbatim}
 Die Eingabedatei für die Minkowski-Erweiterung ist im Format der anderen Eingaben gestaltet. Durch Leerzeichen getrennt wird zunächst die Anzahl der Eckpunkte und anschließend für jeden Eckpunkt x- und y-Koordinate angegeben. Dabei stehen alle Eingaben in einer Zeile (Beispiel: \texttt{4 0 0 0 1 1 1 1 0}).
 \subsection{Struktur des Programms und Implementierung der Algorithmen}
-
+Von den im folgenden vorgestellten Dateien waren \texttt{visible\_vertices.py}, \texttt{vis\_graph.py}, \texttt{shortest\_path.py} und \texttt{graph.py} ursprünglich Teil der \texttt{pyvisgraph}-Library. Diese wurden jedoch von mir für den Einsatz in diesem Programm abgeändert.
+\subsubsection{Die Datei \texttt{main.py}}
+Die Datei \texttt{main.py} bildet den Startpunkt des Programms und wird beim Start aufgerufen. Sie liest die übergebenen Konsolenargumente mithilfe der \texttt{argparse}-Library ein. Daraufhin werden die entsprechenden Eingabedaten in der angegebenen Eingabedatei eingelesen. Dann wird der Algorithmus ausgeführt (dazu wird ein Sichtbarkeitsgraph aus der Datei \texttt{vis\_graph.py} erstellt und in ihm der kürzeste Pfad berechnet) und seine Ausgaben werden in den entsprechenden Ausgabedateien gespeichert.
+\subsubsection{Die Datei \texttt{svggen.py}}
+In dieser Datei existieren nur die zwei Funktionen \texttt{gen\_vis\_svg} und \texttt{gen\_output\_svg}, die jeweils eine SVG-Datei für die graphische Ausgabe des Sichtbarkeitsgraphs bzw. der endgültigen Route erzeugen.
+\subsubsection{Die Datei \texttt{graph.py}}
+Diese Datei enthält drei im weiteren Verlauf des Algorithmus häufig benötigte Klassen. Dies sind:
+\begin{itemize}
+	\item Die \texttt{Point}-Klasse, die einen Punkt anhand seiner x- und y-Koordinaten sowie seines Polygons (dessen ID gespeichert wird) darstellt.
+	\item Die \texttt{Edge}-Klasse, die eine Kante (sowohl eines Polygons als auch im Sichtbarkeitsgraphen) mithilfe ihrer beiden Endpunkte darstellt.
+	\item Die \texttt{Graph}-Klasse. Diese modelliert einen Graphen als Dictionary bzw. Map, bei dem die Schlüssel die Punkte sind und die Werte die zu ihnen inzidenten Kanten. Außerdem werden alle Kanten in einem Set gespeichert sowie in einem weiteren Dictionary für jedes Polygon die ihm zugehörigen Kanten.
+\end{itemize}
+\subsubsection{Die Datei \texttt{vis\_graph.py}}
+Diese Datei enthält die Klasse \texttt{VisGraph}, die einen Sichtbarkeitsgraphen aus einer Liste von Polygonen, die wiederum eine Liste von Punkten sind, generiert. Dazu werden in der Methode \texttt{build} die Punkte in mehrere Batches unterteilt, für die einzeln der Sichtbarkeitsgraph berechnet wird. Dabei wird der in Abschnitt 1.2.2 vorgestellte Algorithmus für \texttt{vis\_graph()} genutzt, wobei die Zielpunkte bzw. Companion-Punkte mit dem in Abschnitt 1.4/1.5 vorgestellten Algorithmus berechnet werden.
+\subsubsection{Die Datei \texttt{shortest\_path.py}}
+Diese Datei implementiert den Dijkstra-Algorithmus und berechnet mit dessen Hilfe den besten Companion-Punkt, wobei der Ansatz aus Abschnitt 1.5 genutzt wird. Für diesen Companion-Punkt wird anschließend der Pfad vom Startpunkt aus rekonstruiert. Zur Implementierung des Dijkstra-Algorithmus wird ein ähnlich einer Priority-Queue arbeitendes Dictionary benutzt, sodass die Punkte als Schlüssel benutzt werden können.
+\subsubsection{Die Datei \texttt{visible\_vertices.py}}
+In dieser Datei wird die Funktion \texttt{visible\_vertices} aus Abschnitt 1.2.2 implementiert.
+\subsubsection{Die Datei \texttt{minkowski.py}}
+Hier wird die Erweiterung, in der Lisa als polygonal angenommen wird, implementiert. Nachdem die Vorbedingungen für alle Polygone hergestellt wurden (counter-clockwise und beginnend mit der kleinsten y-Koordinate), kann der in Abschnitt 1.7.2 angegebene Algorithmus darauf ausgeführt werden. Es war mir jedoch aufgrund total bescheuerter und nicht auffindbarer Implementierungsfehler nicht möglich, eine lauffähige Version der Erweiterung zu implementieren. Der Versuch, dies zu tun, ist im Quellcode-Teil abgedruckt.
 \section{Beispiele}
+\subsection*{Laufzeiten}
+ \begin{table}[H]
+	\begin{tabular}{|c|c|c|} 
+		\hline
+		Beispiel                                      & Knotenanzahl & Laufzeit (ca.)       \\ \hline \hline
+		lisarennt1.txt                              & 4     & 210 Millisekunden    \\
+		lisarennt2.txt                              & 15      & 193 Millisekunden     \\
+		lisarennt3.txt                              & 51      & 205 Millisekunden     \\
+		lisarennt4.txt                              & 57      & 256 Millisekunden    \\
+		lisarennt5.txt                              & 63      & 273 Millisekunden    \\
+		reg1000.txt (eigenes Beispiel)				& 1001    & 296 Sekunden \\ \hline
+	\end{tabular}
+\end{table}
+Die Laufzeiten wurden mit dem Linux-Befehl \texttt{time} bestimmt. Dazu wurde ein PC mit einem Intel Core i7 und 8 GB RAM verwendet. Die Laufzeiten sind demzufolge nur grobe Orientierungswerte, die von der verwendeten Hardware abhängen. Bei den Knoten wurden die Companion-Punkte nicht mitgezählt. Da dadurch jedoch die Knotenanzahl nur mit einem konstanten Faktor ($\approx 2$) multipliziert wird, ist dies vernachlässigbar. \\ \\
+\textbf{Hinweis:} Die Angabe für die Dauer in den Ausgaben ist als Dezimalzahl in Minuten angegeben. Der Nachkommaanteil entspricht also nicht der Sekundenanzahl.
 \subsection{Beispiel 1}
 \begin{minipage}[b]{0.45\linewidth}
 	\begin{figure}[H]
@@ -502,18 +535,85 @@ Die Eingabedatei für die Minkowski-Erweiterung ist im Format der anderen Eingab
 	commentchar=*        % comment character
 }
 \VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt5-out.txt}
-\subsection{Eigene Beispiele}
+\subsection*{Eigenes Beispiel}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H]
+		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/reg1000-visgraph.svg}
+		\caption{Der Sichtbarkeitsgraph für das Beispiel 5}
+	\end{figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/reg1000.svg}
+		\caption{Die optimale Route für das Beispiel 5}
+	\end{figure}
+\end{minipage}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für Beispiel 5},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/reg1000-out.txt}
+Bei diesen Beispiel handelt es sich um ein einziges Polygon mit 1000 Ecken. Es ist der Implementierung als \texttt{reg1000.txt} beigelegt.
 \subsection{Beispiele für die Erweiterungen}
-
+\subsubsection*{Geschwindigkeiten}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H]
+		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/lisarennt2-vel-visgraph.svg}
+		\caption{Der Sichtbarkeitsgraph}
+	\end{figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/lisarennt2-vel.svg}
+		\caption{Die optimale Route}
+	\end{figure}
+\end{minipage}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für das Beispiel},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt2-vel-out.txt}
+Für dieses Beispiel wurde die Geschwindigkeit des Busses bei 30 km/h belassen, die von Lisa aber auf 5 km/h gesetzt, da sie sehr erschöpft ist. Es ist im Vergleich zum normalen Beispiel 2 eine deutlich geringere Steigung des letzten Streckenabschnitts zu erkennen. Außerdem dauert die Route natürlich deutlich länger.
+\newpage
  \section{Quellcode}
  \renewcommand{\listingscaption}{Quellcode}
  
  \begin{longlisting}
  	\pythonfile[]{../Aufgabe1-Implementierung/main.py}
- 	\caption{Auszug aus dem Hauptprogramm (\textit{main.py}), soweit möglich ohne Eingabe und Ausgabe}
+ 	\caption{Das Hauptprogramm (\textit{main.py})}
+ 	
+ 	\pythonfile[firstline=95]{../Aufgabe1-Implementierung/pyvisgraph/vis_graph.py}
+ 	\caption{Berechnungsfunktion für den Sichtbarkeitsgraph in \textit{vis\_graph.py}}
+ 	
+ 	\pythonfile[firstline=24]{../Aufgabe1-Implementierung/pyvisgraph/visible_vertices.py}
+ 	\caption{Die Datei \textit{visible\_vertices.py}, in der alle geometrischen Algorithmen gesammelt sind. Die Funktion \texttt{visible\_vertices} wird bei der Erstellung des Sichtbarkeitsgraphs benutzt.}
+ 	
+ 	\pythonfile[firstline=40,lastline=91]{../Aufgabe1-Implementierung/pyvisgraph/shortest_path.py}
+ 	\caption{Implementierung des Dijkstra-Algorithmus und der Berechnung des kürzesten Pfades in \textit{shortest\_path.py}}
+ 	
+ 	\pythonfile[]{../Aufgabe1-Implementierung/minkowski.py}
+ 	\caption{Quellcode der Erweiterung (\textit{minkowski.py})}
  \end{longlisting}
-
-%TODO Main raus, Quellcode Minkowski und Pyvisgraph
-%TODO Beispiele Laufzeit messen
- 
  \end{document}

@@ -10,9 +10,9 @@
 \contentsline {subsection}{\numberline {2.2}Struktur des Programms und Implementierung der Algorithmen}{2}{subsection.2.2}% 
 \contentsline {section}{\numberline {3}Beispiele}{2}{section.3}% 
 \contentsline {subsection}{\numberline {3.1}Beispiel 1}{2}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Beispiel 2}{2}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}Beispiel 3}{2}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}Beispiel 4}{2}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Beispiel 5}{2}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}Eigene Beispiele}{2}{subsection.3.6}% 
-\contentsline {section}{\numberline {4}Quellcode}{2}{section.4}% 
+\contentsline {subsection}{\numberline {3.2}Beispiel 2}{3}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Beispiel 3}{4}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Beispiel 4}{4}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Beispiel 5}{5}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Eigene Beispiele}{6}{subsection.3.6}% 
+\contentsline {section}{\numberline {4}Quellcode}{6}{section.4}% 

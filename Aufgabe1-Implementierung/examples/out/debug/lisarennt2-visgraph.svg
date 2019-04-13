@@ -8,7 +8,7 @@
  <circle id="L" cx="633.0" cy="189.0" r="10" fill="#F42121" stroke="#000080" stroke-width="1"/>
  <polyline id="R1" points="594.0 96.0 525.0 188.0 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R2" points="505.0 213.0 387.0 165.0 " fill="none" stroke="#000080" stroke-width="4"/>
-<polyline id="R3" points="413.0 444.0 0.0 682.45 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R3" points="413.0 444.0 0.0 682.48 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R4" points="410.0 50.0 387.0 165.0 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R5" points="340.0 150.0 331.0 287.0 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R6" points="525.0 188.0 387.0 165.0 " fill="none" stroke="#000080" stroke-width="4"/>
@@ -27,8 +27,8 @@
 <polyline id="R19" points="390.0 260.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R20" points="505.0 213.0 551.0 329.0 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R21" points="170.0 80.0 170.0 402.0 " fill="none" stroke="#000080" stroke-width="4"/>
-<polyline id="R22" points="170.0 80.0 0.0 178.15 " fill="none" stroke="#000080" stroke-width="4"/>
-<polyline id="R23" points="170.0 402.0 0.0 500.15 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R22" points="170.0 80.0 0.0 178.17 " fill="none" stroke="#000080" stroke-width="4"/>
+<polyline id="R23" points="170.0 402.0 0.0 500.17 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R24" points="551.0 329.0 413.0 444.0 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R25" points="410.0 50.0 170.0 80.0 " fill="none" stroke="#000080" stroke-width="4"/>
 <polyline id="R26" points="193.0 80.0 340.0 150.0 " fill="none" stroke="#000080" stroke-width="4"/>
