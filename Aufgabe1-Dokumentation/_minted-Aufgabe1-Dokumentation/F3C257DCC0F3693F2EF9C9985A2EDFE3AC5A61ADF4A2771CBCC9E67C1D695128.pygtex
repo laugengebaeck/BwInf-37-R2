@@ -70,7 +70,7 @@
 
         \PYG{c+c1}{\PYGZsh{} Sichtbarkeit von p von point aus überprüfen}
         \PYG{n}{is\PYGZus{}visible} \PYG{o}{=} \PYG{n+nb+bp}{False}
-        \PYG{c+c1}{\PYGZsh{} p und vorheriger Punkt (prev) nicht auf einer Geraden}
+        \PYG{c+c1}{\PYGZsh{} vorheriger Punkt (prev) nicht auf der Geraden point\PYGZhy{}p}
         \PYG{k}{if} \PYG{n}{prev} \PYG{o+ow}{is} \PYG{n+nb+bp}{None} \PYG{o+ow}{or} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{prev}\PYG{p}{,} \PYG{n}{p}\PYG{p}{)} \PYG{o}{!=} \PYG{l+m+mi}{0} \PYG{o+ow}{or} \PYG{o+ow}{not} \PYG{n}{on\PYGZus{}segment}\PYG{p}{(}\PYG{n}{point}\PYG{p}{,} \PYG{n}{prev}\PYG{p}{,} \PYG{n}{p}\PYG{p}{):}
             \PYG{c+c1}{\PYGZsh{}keine offenen Kanten \PYGZhy{}\PYGZgt{} sichtbar}
             \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{open\PYGZus{}edges}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
@@ -198,7 +198,7 @@
 
 
 \PYG{k}{def} \PYG{n+nf}{angle}\PYG{p}{(}\PYG{n}{center}\PYG{p}{,} \PYG{n}{point}\PYG{p}{):}
-    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Winkel eines Punkts vom Mittelpunkt eines Kreises aus.}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Winkel zwischen Gerade cp und positiver x\PYGZhy{}Achse.}
 \PYG{l+s+sd}{     \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}p}
 \PYG{l+s+sd}{     |   /}
 \PYG{l+s+sd}{     |  /}

@@ -69,7 +69,7 @@ def visible_vertices(point, graph, origin=None, destination=None, scan='full'):
 
         # Sichtbarkeit von p von point aus überprüfen
         is_visible = False
-        # p und vorheriger Punkt (prev) nicht auf einer Geraden
+        # vorheriger Punkt (prev) nicht auf der Geraden point-p
         if prev is None or ccw(point, prev, p) != 0 or not on_segment(point, prev, p):
             #keine offenen Kanten -> sichtbar
             if len(open_edges) == 0:
@@ -197,7 +197,7 @@ def point_edge_distance(p1, p2, edge):
 
 
 def angle(center, point):
-    """Winkel eines Punkts vom Mittelpunkt eines Kreises aus.
+    """Winkel zwischen Gerade cp und positiver x-Achse.
      ------p
      |   /
      |  /

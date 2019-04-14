@@ -29,7 +29,9 @@
 
 \usepackage{tikz}
 \usepackage{svg}
-\usepackage{multicol}
+
+\usepackage{longtable}
+\usepackage{tabu}
 
 \pagestyle{fancy}
 \lhead{Lukas Rost, Teilnahme-ID: 48125}
@@ -103,7 +105,8 @@
  	\EndFunction
  \end{algorithmic}
 \caption{Naiver Algorithmus}
-\end{algorithm} ~\\
+\end{algorithm}
+\newpage
  \subsubsection{Der Lee-Algorithmus}
  Es ist jedoch auch möglich, die Bestimmung der von $u$ sichtbaren Knoten in $\mathcal{O}(n \cdot \log n)$ durchzuführen, wodurch sich insgesamt eine Laufzeit von $\mathcal{O}(n^2 \cdot \log n)$ ergibt. Der dazu notwendige Algorithmus ist der Algorithmus von D. T. Lee. Durch dessen geringere Laufzeit lässt sich insbesondere bei großen Eingaben eine deutliche Verbesserung erreichen. \\ \\
  Es existieren zwar noch schnellere Algorithmen wie der nach Overmars und Welzl in $\mathcal{O}(n^2)$ oder der nach Ghosh und Mount in $\mathcal{O}(n \cdot \log n + E)$\cite{Src:kitz}. Doch die damit erreichten Verbesserungen sind nur in speziellen Fällen wirklich bemerkbar, während die Implementierung deutlich schwieriger ist. \\ \\
@@ -130,8 +133,7 @@
  	\centering \includegraphics[scale=0.6]{pics/lee_figure1}
  	\caption{Illustration des Konzepts der \emph{Sweep line} (aus \cite{Src:pyvistwo})}
  \end{figure}
-Es lässt sich zeigen, dass sogar nur diejenige offene Kante geprüft werden muss, welche am nächsten an $v$ liegt, d.h. diejenige, für die der Schnittpunkt mit der Sweep line am nächsten an $v$ liegt. Um diese Kante schnell zu bestimmen, muss man die Kanten nach der Distanz zum Schnittpunkt ordnen. Dies lässt sich zum Beispiel mit einem balancierten binären Suchbaum wie einem \emph{AVL-Baum} erreichen.\footnote{Die Funktionsweise eines AVL-Baums sei hier als bekannt vorausgesetzt.}\cite{Src:pyvistwo} \\ \\
-Die \texttt{visible\_vertices}-Funktion sieht nun also bei einer Formulierung als Pseudocode ungefähr so aus:
+Es lässt sich zeigen, dass sogar nur diejenige offene Kante geprüft werden muss, welche am nächsten an $v$ liegt, d.h. diejenige, für die der Schnittpunkt mit der Sweep line am nächsten an $v$ liegt. Um diese Kante schnell zu bestimmen, muss man die Kanten nach der Distanz zum Schnittpunkt ordnen. Dies lässt sich zum Beispiel mit einem balancierten binären Suchbaum wie einem \emph{AVL-Baum} erreichen.\footnote{Die Funktionsweise eines AVL-Baums sei hier als bekannt vorausgesetzt.}\cite{Src:pyvistwo} Die \texttt{visible\_vertices}-Funktion sieht nun also bei einer Formulierung als Pseudocode ungefähr so aus:
 \begin{algorithm}[H]
 \begin{algorithmic}
 	\Function{visible\_vertices}{$v,S$}
@@ -150,6 +152,12 @@ Die \texttt{visible\_vertices}-Funktion sieht nun also bei einer Formulierung al
 	\ForAll{Knoten $w_i \in w$}
 	\Comment{in sortierter Reihenfolge}
 	\State{Rotiere $s$ so, dass er $w_i$ schneidet}
+	\ForAll{Kante $e$ mit Endpunkt $w_i$}
+	\If{$e$ rechts von $s$}
+	\State{$T \gets T \setminus \{e\}$}
+	\Comment{Kante entfernen}
+	\EndIf
+	\EndFor
 	\If{\Call{visible}{$w_i$}}
 	\Comment{ist sichtbar}
 	\State{$W \gets W \cup w_i$}
@@ -158,10 +166,6 @@ Die \texttt{visible\_vertices}-Funktion sieht nun also bei einer Formulierung al
 	\If{$e$ links von $s$}
 	\State{$T \gets T \cup \{e\}$}
 	\Comment{Kante hinzufügen}
-	\EndIf
-	\If{$e$ rechts von $s$}
-	\State{$T \gets T \setminus \{e\}$}
-	\Comment{Kante entfernen}
 	\EndIf
 	\EndFor
 	\EndFor
@@ -174,19 +178,26 @@ Das Sortieren der Knoten erfolgt dabei anhand ihrer Polarkoordinaten relativ zu 
 \begin{algorithm}[H]
 \begin{algorithmic}
 	\Function{visible}{$w_i$}
+	\If{$w_{i-1}$ nicht auf der Geraden durch $\overline{vw_i}$}
 	\If{$ T = \emptyset$}
 	\State \Return true
 	\EndIf
 	\If{$\overline{vw_i} \cap smallest(T) = \emptyset$}
 	\State \Return true
-	\Else
-	\State \Return false
 	\EndIf
+	\ElsIf{$not$ \Call{visible}{$w_{i-1}$}}
+	\State \Return false
+	\Else
+	\State{Überprüfe alle Kanten in $T$ auf Schnitt mit $\overline{vw_i}$ und ...}
+	\State \Return false
+	\State{.. falls Schnitt mit einer der Kanten}
+	\EndIf
+	\State \Return true
 	\EndFunction
 \end{algorithmic}
 \caption{Sichtbarkeitsprüfung im Lee-Algorithmus}
 \end{algorithm}
-Diese Funktion \texttt{visible} prüft dabei ganz einfach die Sichtbarkeit eines Knotens. $smallest(T)$ gibt die kleinste Kante im Suchbaum an.
+Diese Funktion \texttt{visible} prüft dabei ganz einfach die Sichtbarkeit eines Knotens. $smallest(T)$ gibt die kleinste Kante im Suchbaum an. Sonderfälle wie, dass eine Strecke komplett in einem Polygon liegt, wurden hier der Einfachheit halber nicht berücksichtigt. Dies muss jedoch in der Implementierung geschehen.
  \subsection{Der Dijkstra-Algorithmus}
  Um nun im Sichtbarkeitsgraphen einen kürzesten Pfad vom Startknoten $s$ zu allen anderen Knoten zu bestimmen, was für die Lösung des Problems notwendig ist, kann man Dijkstras Algorithmus verwenden. Dieser arbeitet nach dem Greedy-Prinzip, bei dem in jedem Schritt ein optimaler Folgezustand gewählt wird, der das aktuell beste Ergebnis verspricht. Er arbeitet grundlegend wie folgt:
  \begin{enumerate}
@@ -275,10 +286,6 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
  \subsection{Mögliche und implementierte Erweiterungen}
  \subsubsection{Anpassbare Geschwindigkeiten}
  Es ist relativ einfach möglich, die Geschwindigkeiten, mit denen sich Lisa und der Bus bewegen, zu verändern. Dazu muss einfach in allen Gleichungen, die aus Weg und Geschwindigkeit die benötigte Zeit berechnen, die Geschwindigkeit entsprechend gewählt werden. Da bei der \emph{Lösung des Problems ohne Hindernisse} bereits die Geschwindigkeiten als Parameter verwendet wurden, ist dies auch dort ohne Probleme möglich. Diese Erweiterung läuft in $\mathcal{O}(1)$ und wurde \textbf{implementiert} (siehe Umsetzung).
- %\subsubsection{Andere Zielgeraden}
- %Auch die Gerade bzw. der Strahl, auf der bzw. dem der Bus fährt, kann geändert werden. Dazu muss %einfach das Koordinatensystem so transformiert werden, dass die Gerade im ursprünglichen %Koordinatensystem der y-Achse im transformierten Koordinatensystem entspricht. Dies kann durch %Drehungen und Parallelverschiebungen geschehen. \\ \\
- %Die Erweiterung läuft pro Punkt in konstanter Laufzeit, also insgesamt in $\mathcal{O}(n)$, da jeder Punkt transformiert werden muss. Anschließend muss eine Rücktransformation erfolgen Diese Erweiterung wurde \textbf{implementiert}.
- %ggf. https://en.wikipedia.org/wiki/Translation_of_axes und https://en.wikipedia.org/wiki/Rotation_of_axes
   \subsubsection{Polygonale Lisa}
  Nun modellieren wir Lisa nicht mehr als Punkt, sondern als Polygon. Wieso? Möglicherweise handelt es sich bei einem der Hindernispolygone um das örtliche Fastfoodrestaurant und Lisa besucht dieses sehr oft, sodass sie extrem zugenommen hat. \\ \\
  Möglicherweise ist der Grund aber auch unspektakulärer. Eventuell ist Lisa gerade 18 geworden und möchte nun mit ihrem Auto zur Bushaltestelle fahren, auch wenn man über die ökologische Sinnhaftigkeit dieses Vorhabens streiten kann.\footnote{Hier Fridays-for-Future-Demonstration einfügen.} \\ \\
@@ -287,7 +294,7 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
  A + B := \{a+b\,|\,a \in A, b \in B\}
  \end{equation}
  Sie ist also die Menge aller Elemente, die Summen von je einem Element aus $A$ und einem aus $B$ sind.\cite{Src:minkowski} Dies entspricht im Prinzip dem Entlangfahren des Lisa-Polygons am Rand des Hindernispolygons. Dabei wird das Hindernis so verbreitert, dass Lisa nun wieder als punktförmig angenommen und der ursprüngliche Algorithmus ausgeführt werden kann. \\ \\
- Seien nun das Hindernispolygon $P = (v_1,...,v_k)$ und das Lisa-Polygon $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten\footnote{gegen den Uhrzeigersinn geordnet}, wobei $v_1$ und $w_1$ die Punkte mit der minimalen y-Koordinate\footnote{Falls dies mehrere sind, derjenige mit der minimalen x-Koordinate.} sind. Für diese zwei konvexen Polygone (im weiteren werden für diese Erweiterung nur solche betrachtet) im $\mathbb{R}^{2}$ kann die Minkowski-Summe wie folgt berechnet werden:
+ Seien nun das Hindernispolygon $P = (v_1,...,v_k)$ und das Lisa-Polygon $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten\footnote{gegen den Uhrzeigersinn geordnet}, wobei $v_1$ und $w_1$ die Punkte mit der minimalen y-Koordinate\footnote{Falls dies mehrere sind, derjenige mit der minimalen x-Koordinate.} sind. Für diese zwei konvexen Polygone (im weiteren werden für diese Erweiterung nur solche betrachtet) im $\mathbb{R}^{2}$ kann die Minkowski-Summe (bzw. deren konvexe Hülle) wie folgt berechnet werden:
  \begin{algorithm}[H]
 \begin{algorithmic}
 	\Function{minkowskiSum}{$P$,$L$}
@@ -308,10 +315,10 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
 \end{algorithmic}
 \caption{Bestimmung der Minkowski-Summe}
 \end{algorithm}
-\hspace*{-1em}Dabei gibt die Funktion $winkel(p,q)$ den Winkel zwischen der positiven x-Achse und dem Vektor $pq$ zurück, was mithilfe des $atan2(y,x)$ (Arkustangens, der die Richtung berücksichtigt) implementiert werden kann.\\ \\
+\hspace*{-1em}Dabei gibt die Funktion $winkel(p,q)$ den Winkel zwischen der positiven x-Achse und dem Vektor $pq$ zurück, was mithilfe des $atan2(y,x)$ (Arkustangens, der die Richtung berücksichtigt) implementiert werden kann. Dieser Algorithmus arbeitet ähnlich wie der \textit{Merge}-Schritt des Mergesort-Verfahrens. \\
 Dieser Algorithmus läuft offensichtlich in $\mathcal{O}(k + m)$, denn $i$ wird höchstens $k$ Mal inkrementiert und $j$ $m$ Mal. Da er $n_{Polygon}$ Mal\footnote{Anzahl der Polygone} ausgeführt wird, erhält man $\mathcal{O}(\sum_{1}^{n_{Polygon}} (k_i + m_i)) = \mathcal{O}(n + n_{Polygon} \cdot m)$, wobei $n$ die Anzahl aller Eckpunkte aller Polygone ist. Diese Erweiterung wurde \textbf{implementiert}.
  \subsubsection{Nicht-polygonale Hindernisse}
- Es wäre auch möglich, die Art der Hindernisse auf Flächen, die keine Polygone sind, zu erweitern. Dies könnten beispielsweise Ovale oder Kreise sein. Eine Möglichkeit, den Sichtbarkeitsgraph darauf zu erweitern, ist in \cite{Src:arcvis} beschrieben. Dabei muss man anstelle des klassischen Sichtbarkeitsgraphen einen Tangenten-Sichtbarkeitsgraphen verwenden. Da dies jedoch relativ kompliziert ist, wird an dieser Stelle nicht genauer darauf eingegangen. \\ \\
+ Es wäre auch möglich, die Art der Hindernisse auf Flächen, die keine Polygone sind, zu erweitern. Dies könnten beispielsweise Ovale oder Kreise sein. Eine Möglichkeit, den Sichtbarkeitsgraph darauf zu erweitern, ist in \cite{Src:arcvis} beschrieben. Dabei muss man anstelle des klassischen Sichtbarkeitsgraphen einen Tangenten-Sichtbarkeitsgraphen verwenden. Da dies jedoch relativ kompliziert ist, wird an dieser Stelle nicht genauer darauf eingegangen. Außerdem lässt sich eine gute Näherung dafür erreichen, wenn man anstelle eines Kreises ein Polygon mit sehr vielen Ecken verwendet (siehe Beispiele). \\ \\
  Diese Erweiterung wurde \textbf{nicht implementiert}.
  \subsubsection{Das Problem im $\mathbb{R}^{3}$}
  Nehmen wir nun an, dass Lisa fliegen kann. Wie sie diese Fähigkeit erlangt hat, ist unwichtig. Möglicherweise ist sie mit Quax aus der letztjährigen 3. Aufgabe der 2. Runde befreundet und kann seinen Quadrocopter benutzen. Außerdem nehmen wir an, dass der Bus unendlich hoch ist. Inwiefern das sinnvoll ist, soll hier ebenfalls nicht betrachtet werden. \\ \\
@@ -330,7 +337,6 @@ Dieser Algorithmus läuft offensichtlich in $\mathcal{O}(k + m)$, denn $i$ wird 
 \end{thebibliography}
 
 \section{Umsetzung}
-%TODO Eingabegeschwindigkeiten km/h -> m/s
 \subsection{Allgemeine Hinweise zur Benutzung}
 Das Programm wurde in der Programmiersprache Python 3.7 implementiert und unter Linux getestet. Zur Verwaltung und Erstellung des Sichtbarkeitsgraphen wurde die Bibliothek \texttt{pyvisgraph} von Christian Reksten-Monsen benutzt. Dabei kommt jedoch eine von mir erheblich veränderte Version zum Einsatz, die an das hier zu lösende Problem angepasst ist. Diese Version ist die einzige mit dem Programm kompatible und ist in die Einsendung integriert. \\ \\ Diese Bibliothek benötigt wiederum die Bibliothek tqdm (\texttt{sudo pip3 install tqdm}). Alle weiteren verwendeten Bibliotheken sind üblicherweise vorinstalliert. \\ \\
 Die Eingabe und Ausgabe des Programms erfolgt in Dateien, die mithilfe der Konsolenparameter frei gewählt werden können. Die weitere Bedienung sollte selbsterklärend sein. Es gibt folgende Konsolenparameter:
@@ -354,7 +360,8 @@ im gleichen Format wie in der normalen Eingabe)
 \end{verbatim}
 Die Eingabedatei für die Minkowski-Erweiterung ist im Format der anderen Eingaben gestaltet. Durch Leerzeichen getrennt wird zunächst die Anzahl der Eckpunkte und anschließend für jeden Eckpunkt x- und y-Koordinate angegeben. Dabei stehen alle Eingaben in einer Zeile (Beispiel: \texttt{4 0 0 0 1 1 1 1 0}).
 \subsection{Struktur des Programms und Implementierung der Algorithmen}
-Von den im folgenden vorgestellten Dateien waren \texttt{visible\_vertices.py}, \texttt{vis\_graph.py}, \texttt{shortest\_path.py} und \texttt{graph.py} ursprünglich Teil der \texttt{pyvisgraph}-Library. Diese wurden jedoch von mir für den Einsatz in diesem Programm abgeändert.
+Von den im folgenden vorgestellten Dateien waren \texttt{visible\_vertices.py}, \texttt{vis\_graph.py}, \texttt{shortest\_path.py} und \texttt{graph.py} ursprünglich Teil der \texttt{pyvisgraph}-Library. Diese wurden jedoch von mir für den Einsatz in diesem Programm abgeändert. \\ \\
+In der Dokumentation sind nur Teile des Quellcodes aus \texttt{vis\_graph.py}, \texttt{shortest\_path.py}, \texttt{visible\_vertices.py}, \texttt{minkowski.py} und \texttt{main.py} abgedruckt. Alle weiteren Dateien sind algorithmisch uninteressant und daher nur in der Implementierung enthalten.
 \subsubsection{Die Datei \texttt{main.py}}
 Die Datei \texttt{main.py} bildet den Startpunkt des Programms und wird beim Start aufgerufen. Sie liest die übergebenen Konsolenargumente mithilfe der \texttt{argparse}-Library ein. Daraufhin werden die entsprechenden Eingabedaten in der angegebenen Eingabedatei eingelesen. Dann wird der Algorithmus ausgeführt (dazu wird ein Sichtbarkeitsgraph aus der Datei \texttt{vis\_graph.py} erstellt und in ihm der kürzeste Pfad berechnet) und seine Ausgaben werden in den entsprechenden Ausgabedateien gespeichert.
 \subsubsection{Die Datei \texttt{svggen.py}}
@@ -371,7 +378,22 @@ Diese Datei enthält die Klasse \texttt{VisGraph}, die einen Sichtbarkeitsgraphe
 \subsubsection{Die Datei \texttt{shortest\_path.py}}
 Diese Datei implementiert den Dijkstra-Algorithmus und berechnet mit dessen Hilfe den besten Companion-Punkt, wobei der Ansatz aus Abschnitt 1.5 genutzt wird. Für diesen Companion-Punkt wird anschließend der Pfad vom Startpunkt aus rekonstruiert. Zur Implementierung des Dijkstra-Algorithmus wird ein ähnlich einer Priority-Queue arbeitendes Dictionary benutzt, sodass die Punkte als Schlüssel benutzt werden können.
 \subsubsection{Die Datei \texttt{visible\_vertices.py}}
-In dieser Datei wird die Funktion \texttt{visible\_vertices} aus Abschnitt 1.2.2 implementiert.
+In dieser Datei wird die Funktion \texttt{visible\_vertices()} aus Abschnitt 1.2.2 implementiert. Um diese Funktion implementieren zu können, sind mehrere Hilfsfunktionen notwendig. Im einzelnen sind dies (neben \texttt{visible\_vertices()}):
+\begin{longtabu} to \linewidth {lX}
+	Funktion & Beschreibung \\ \hline \hline \endhead
+	\texttt{polygon\_crossing()} & Überprüft, ob ein Punkt in einem gegebenen Polygon liegt. Dazu wird der Punkt-in-Polygon-Test nach Jordan verwendet. Bei diesem sendet man vom zu untersuchenden Punkt in eine beliebige Richtung einen Strahl aus. Dann zählt man die Anzahl der Schnittpunkte mit den Kanten des Polygons. Ist diese gerade, liegt der Punkt außerhalb des Polygons, sonst innerhalb. \\ \hline
+	\texttt{edge\_in\_polygon()} & Überprüft, ob eine Kante zwischen 2 Punkten innerhalb eines Polygons liegt. Dies ist nur der Fall, wenn beide Endpunkte Punkte des gleichen Polygons sind \textit{und} der Mittelpunkt der Kante in diesem Polygon liegt. \\ \hline
+	\texttt{point\_in\_polygon()} & Überprüft, ob ein Punkt innerhalb irgendeines Polygons liegt und verwendet dazu \texttt{polygon\_crossing()}.\\ \hline
+	\texttt{edge\_distance()} &  Berechnet die euklidische Distanz der Endpunkte einer Kante.\\ \hline
+	\texttt{intersect\_point()} & Berechnet den Schnittpunkt zweier Kanten, indem der Schnittpunkt der durch sie gegebenen linearen Funktionen berechnet wird. Dies ist in diesem Fall $x_p = \frac{n_2 - n_1}{m_1 - m_2}$ und $y_p = m_1 \cdot x_p + n_1$. Dabei müssen zur y-Achse parallele Geraden gesondert behandelt werden. Lineare Funktionen werden in diesem Fall genutzt, da die Berechnung bei ihnen deutlich einfacher als die Nutzung von Vektorrechnung ist.\\ \hline
+	\texttt{point\_edge\_distance()} & Bekommt als Eingabe eine Kante $\overline{p_1p_2}$ und eine Kante $e$. Berechnet die Distanz von $p_1$ bis zum Schnittpunkt beider Kanten.\\ \hline
+	\texttt{angle()} & Wird für das Sortieren der Kanten am Anfang des Algorithmus genutzt. Berechnet den Winkel, den eine Kante $\overline{cp}$ zur positiven x-Achse besitzt.\\ \hline
+	\texttt{angle2()} & Berechnet mithilfe des Cosinussatzes einen gesuchten Winkel in einem Dreieck.\\ \hline
+	\texttt{ccw()} & Überprüft, ob ein Punkt $c$ gegen den Uhrzeigersinn bezüglich eines Strahls $ab$ liegt. Dazu wird eine Version der Gaußschen Trapezformel (Shoelace formula) verwendet.\\ \hline
+	\texttt{on\_segment()} & Überprüft, ob ein Punkt $q$ auf einer Strecke $pr$ liegt. Das ist genau dann der Fall, wenn sowohl der x-Wert als auch der y-Wet von $q$ zwischen den x- bzw. y-Werten der beiden anderen Punkte liegen.\\ \hline
+	\texttt{edge\_intersect()} & Überprüft, ob zwei Strecken sich schneiden. \\ \hline
+	\texttt{insort()} und \texttt{bisect()} & Diese beiden Funktionen sind für das Einfügen in den bzw. Suchen im binären Suchbaum, der die offenen Kanten beinhaltet, zuständig. Dafür nutzen sie \textit{*surprise*} binäre Suche.	\\
+\end{longtabu}
 \subsubsection{Die Datei \texttt{minkowski.py}}
 Hier wird die Erweiterung, in der Lisa als polygonal angenommen wird, implementiert. Nachdem die Vorbedingungen für alle Polygone hergestellt wurden (counter-clockwise und beginnend mit der kleinsten y-Koordinate), kann der in Abschnitt 1.7.2 angegebene Algorithmus darauf ausgeführt werden. Es war mir jedoch aufgrund total bescheuerter und nicht auffindbarer Implementierungsfehler nicht möglich, eine lauffähige Version der Erweiterung zu implementieren. Der Versuch, dies zu tun, ist im Quellcode-Teil abgedruckt.
 \section{Beispiele}
@@ -389,6 +411,7 @@ Hier wird die Erweiterung, in der Lisa als polygonal angenommen wird, implementi
 	\end{tabular}
 \end{table}
 Die Laufzeiten wurden mit dem Linux-Befehl \texttt{time} bestimmt. Dazu wurde ein PC mit einem Intel Core i7 und 8 GB RAM verwendet. Die Laufzeiten sind demzufolge nur grobe Orientierungswerte, die von der verwendeten Hardware abhängen. Bei den Knoten wurden die Companion-Punkte nicht mitgezählt. Da dadurch jedoch die Knotenanzahl nur mit einem konstanten Faktor ($\approx 2$) multipliziert wird, ist dies vernachlässigbar. \\ \\
+Eine Laufzeitverbesserung für größere Beispiele ließe sich erreichen, indem man eine kompilierte Programmiersprache wie C++ verwendet.\footnote{siehe z.B. \url{https://stackoverflow.com/questions/801657/is-python-faster-and-lighter-than-c}} Da die gegebenen Beispiele jedoch in weniger als einer Sekunde bearbeitet werden können und es beim BwInf eher um die Algorithmen an sich geht, erachte ich dies nicht für notwendig. \\ \\
 \textbf{Hinweis:} Die Angabe für die Dauer in den Ausgaben ist als Dezimalzahl in Minuten angegeben. Der Nachkommaanteil entspricht also nicht der Sekundenanzahl.
 \subsection{Beispiel 1}
 \begin{minipage}[b]{0.45\linewidth}
@@ -539,13 +562,13 @@ Die Laufzeiten wurden mit dem Linux-Befehl \texttt{time} bestimmt. Dazu wurde ei
 \begin{minipage}[b]{0.45\linewidth}
 	\begin{figure}[H]
 		\includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/debug/reg1000-visgraph.svg}
-		\caption{Der Sichtbarkeitsgraph für das Beispiel 5}
+		\caption{Der Sichtbarkeitsgraph für eigenes Beispiel}
 	\end{figure}
 \end{minipage}
 \hspace{0.5cm}
 \begin{minipage}[b]{0.45\linewidth}
 	\begin{figure}[H] \includesvg[width=\textwidth]{../Aufgabe1-Implementierung/examples/out/reg1000.svg}
-		\caption{Die optimale Route für das Beispiel 5}
+		\caption{Die optimale Route für eigenes Beispiel}
 	\end{figure}
 \end{minipage}
 \RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
@@ -555,7 +578,7 @@ Die Laufzeiten wurden mit dem Linux-Befehl \texttt{time} bestimmt. Dazu wurde ei
 	framesep=2em, % separation between frame and text
 	rulecolor=\color{Gray},
 	%
-	label=\fbox{\color{Black} Ausgabe für Beispiel 5},
+	label=\fbox{\color{Black} Ausgabe für eigenes Beispiel},
 	labelposition=topline,
 	numbers=left,
 	%

@@ -54,7 +54,7 @@
  	\exists ~(x,y) \in d: y = 0
  	\end{equation}
  	Es muss also in jedem Dreieck mindestens einen Punkt geben, der auf der x-Achse liegt. Die Menge aller solchen Punkte eines Dreiecks sei $N_i$ (anschaulich die Menge der Straßenecken). 	
- 	\item Jedes $d'_i \in D'$ muss kongruent zum entsprechenden $d_i \in D$ sein. Genauer gesagt muss $d'_i$ aus $d_i$ durch eine Abfolge von Kongruenzabbildungen, d.h. Translationen, Rotationen und Spiegelungen an einem Punkt oder einer senkrechten Achse, hervorgehen.
+ 	\item Jedes $d'_i \in D'$ muss kongruent zum entsprechenden $d_i \in D$ sein. Genauer gesagt muss $d'_i$ aus $d_i$ durch eine Abfolge von Kongruenzabbildungen, d.h. Translationen und Rotationen\footnote{ und Spiegelungen an einem Punkt oder einer senkrechten Achse, wobei man diese jedoch auch durch Rotationen erreichen kann. Demzufolge müssen sie nicht betrachtet werden.} hervorgehen.
  	\item Für jedes $d \in D'$ und jedes $e \in D'$ gilt:
  	\begin{equation}
  	d \cap e = \emptyset
@@ -71,11 +71,25 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
 	Der Minimums-Term bildet dabei den Abstand zwischen zwei Dreiecken als minimalen Abstand der Straßenecken, während der Maximums-Term den maximalen solchen Abstand berechnet.
 \end{itemize}
  Die optimale Dreiecksanordnung $D'$ bildet die Ausgabe des Algorithmus, der $f(D)$ möglichst effizient berechnen soll.
- \subsection{Intuitive Beschreibung der Lösungsidee}
+ \subsection{Wahl eines geeigneten Algorithmus}
+ Die Aufgabe ähnelt einem Packproblem aus der algorithmischen Geometrie. Bei diesen muss man Objekte (z.B. Flächen wie Dreiecke) möglichst dicht in gegebene Container (z.B. ebenfalls Flächen) packen, ohne dass sich die Objekte überlappen.\cite{Src:pack} In der hier gegebenen Aufgabe hat man jedoch zusätzliche Nebenbedingungen, die im vorherigen Abschnitt schon erläutert worden sind. Außerdem muss nicht die eingenommene Gesamtfläche minimiert werden, sondern ein Abstand auf der x-Achse. \\ \\
+ Leider sind jedoch fast alle Packprobleme NP-vollständig, sodass auch hier die Annahme nahe liegt, dass dies der Fall ist. Demzufolge stellt sich die Frage, wie man ein solches Problem möglichst so lösen kann, dass man ein Gleichgewicht zwischen Effizienz (d.h. Laufzeit) des Algorithmus und Optimalität der Lösung einstellt. \\ \\
+ Dafür gibt es verschiedene Herangehensweisen:
+ \begin{itemize}
+ 	\item \textbf{Brute Force und Backtracking:}
+ 	\item \textbf{Metaheuristiken:} (Simulated Annealing)
+ 	\item \textbf{Randomisierte Algorithmen:}
+ 	\item \textbf{Dynamic Programming oder Greedy-Ansätze:}
+ 	\item \textbf{Heuristiken und Approximationsalgorithmen:}
+ \end{itemize}
+  \subsection{Intuitive Beschreibung der Lösungsidee}
  \subsection{Mathematische Präzisierung des Algorithmus}
  \subsection{Laufzeitbetrachtung und NP-Vollständigkeit}
- \subsection{Erweiterungen}
-
+\begin{thebibliography}{xx}
+	\bibitem[1] {Src:dpsum} GeeksforGeeks-Artikel zur DP-Lösung von Subset Sum, \url{https://www.geeksforgeeks.org/subset-sum-problem-dp-25/}
+	\bibitem[2]{Src:dpbacktrace} GeeksforGeeks-Artikel zum Backtracen bei der DP-Lösung, \url{https://www.geeksforgeeks.org/perfect-sum-problem-print-subsets-given-sum/}
+	\bibitem[3]{Src:pack} Wikipedia-Artikel zur Packproblemen, \url{https://en.wikipedia.org/wiki/Packing_problems}
+\end{thebibliography}
 \section{Umsetzung}
 \subsection{Allgemeine Hinweise zur Benutzung}
 Das Programm wurde in C++ implementiert und benötigt bis auf die \textit{Standard Library} (STL) und die beigelegte \texttt{argparse}-Library\footnote{\url{https://github.com/hbristow/argparse}},die für die Verarbeitung der Konsolenargumente zuständig ist, keine weiteren Bibliotheken. Es wurde unter Linux kompiliert und getestet; auf anderen Betriebssystemen müsste mit G++ erneut kompiliert werden. \\ \\
@@ -84,7 +98,9 @@ Die Eingabe und Ausgabe des Programms erfolgt in Dateien, die mithilfe der Konso
 Usage: ./main --input INPUT --svg SVG --output OUTPUT
 \end{verbatim}
 \subsection{Struktur des Programms und Implementierung der Algorithmen}
-
+\subsubsection{Die Datei \texttt{main.cpp}}
+\subsubsection{Die Datei \texttt{triangles.cpp}}
+\subsubsection{Die Datei \texttt{triangleAlgorithm.cpp}}
 \section{Beispiele}
 \subsection{Beispiel 1}
 \begin{figure}[H] 
