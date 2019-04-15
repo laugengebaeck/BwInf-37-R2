@@ -14,7 +14,7 @@ vector<Triangle> readInput(string inputFile){
         in >> three; //"3" einlesen
         double x1,y1,x2,y2,x3,y3;
         in >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
-        pdd p1 = {x1,y1}, p2 = {x2,y2}, p3 = {x3,y3};
+        Point p1 = Point(x1,y1), p2 = Point(x2,y2), p3 = Point(x3,y3);
         triangles.push_back(Triangle(p1, p2, p3,i+1));
     }
 
@@ -27,9 +27,9 @@ void writeOutput(vector<Triangle> triangles, string outputFile, double maxDistan
     out << "Platzierung der Dreiecke:\n";
     for(auto tri : triangles){
         out << "D" << tri.id << " ";
-        out << fixed << setprecision(3) << tri.point1.first << " " << tri.point1.second << " ";
-        out << fixed << setprecision(3) << tri.point2.first << " " << tri.point2.second << " ";
-        out << fixed << setprecision(3) << tri.point3.first << " " << tri.point3.second << "\n";
+        out << fixed << setprecision(3) << tri.point1.x << " " << tri.point1.y << " ";
+        out << fixed << setprecision(3) << tri.point2.x << " " << tri.point2.y << " ";
+        out << fixed << setprecision(3) << tri.point3.x << " " << tri.point3.y << "\n";
     }
 }
 
@@ -38,9 +38,9 @@ void writeSVG(vector<Triangle> triangles, string svgFile){
     out << "<svg version=\"1.1\" viewBox=\"0 0 820 620\" xmlns=\"http://www.w3.org/2000/svg\"> \n <g transform=\"scale(1 -1)\"> \n <g transform=\"translate(0 -600)\" fill=\"#ffcc99\"> \n <line id=\"x\" x1=\"0\" x2=\"820\" y1=\"0\" y2=\"0\" stroke=\"#000000\"/>";
     for(auto tri: triangles){
         out << "<polygon id=\"D" << tri.id << "\" ";
-        out << "points=\"" << fixed << setprecision(3) << tri.point1.first << " " << tri.point1.second << " ";
-        out << fixed << setprecision(3) << tri.point2.first << " " << tri.point2.second << " ";
-        out << fixed << setprecision(3) << tri.point3.first << " " << tri.point3.second << "\" />\n";
+        out << "points=\"" << fixed << setprecision(3) << tri.point1.x << " " << tri.point1.y << " ";
+        out << fixed << setprecision(3) << tri.point2.x << " " << tri.point2.y << " ";
+        out << fixed << setprecision(3) << tri.point3.x << " " << tri.point3.y << "\" />\n";
     }
     out << "</g> \n </g> \n </svg>";
 }
@@ -59,11 +59,11 @@ int main(int argc, const char** argv){
     bool debug = parser.exists("d");
     
     double maxDist = 0;
-
+    vector<Triangle> newTriangles;
     vector<Triangle> theTriangles = readInput(input);
-    tie(theTriangles,maxDist) = doAlgorithm(theTriangles,debug);
-    writeOutput(theTriangles,output,maxDist);
-    writeSVG(theTriangles,svg);
+    tie(newTriangles,maxDist) = doAlgorithm(theTriangles,debug);
+    writeOutput(newTriangles,output,maxDist);
+    writeSVG(newTriangles,svg);
 
     return 0;
 }

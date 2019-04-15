@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  14 APR 2019 15:22
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  15 APR 2019 14:07
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -493,6 +493,9 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+(/usr/share/texmf-dist/tex/latex/was/gensymb.sty
+Package: gensymb 2003/07/02 v1.0 (WaS)
+)
 
 Class scrartcl Warning: Usage of package `fancyhdr' together
 (scrartcl)              with a KOMA-Script class is not recommended.
@@ -505,7 +508,7 @@ Class scrartcl Warning: Usage of package `fancyhdr' together
 (scrartcl)              `\addtokomafont' for the page style elements need
 (scrartcl)              explicite user intervention to work.
 (scrartcl)              Nevertheless, using requested
-(scrartcl)              package `fancyhdr' on input line 19.
+(scrartcl)              package `fancyhdr' on input line 20.
 
 (/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
@@ -876,32 +879,32 @@ runsystem(rm Aufgabe2-Dokumentation.aex)...executed.
 (./Aufgabe2-Dokumentation.aux)
 \openout1 = `Aufgabe2-Dokumentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 34.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 35.
  (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    ... okay on input line 35.
 \AtBeginShipoutBox=\box43
-Package hyperref Info: Link coloring OFF on input line 34.
+Package hyperref Info: Link coloring OFF on input line 35.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -910,9 +913,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count155
 )
-LaTeX Info: Redefining \ref on input line 34.
-LaTeX Info: Redefining \pageref on input line 34.
-LaTeX Info: Redefining \nameref on input line 34.
+LaTeX Info: Redefining \ref on input line 35.
+LaTeX Info: Redefining \pageref on input line 35.
+LaTeX Info: Redefining \nameref on input line 35.
 
 (./Aufgabe2-Dokumentation.out) (./Aufgabe2-Dokumentation.out)
 \@outlinefile=\write5
@@ -924,7 +927,7 @@ Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           You can avoid loading `bookmark' with KOMA-Script option
 (scrartcl)           `bookmarkpackage=false' before \begin{document} and
 (scrartcl)           you can avoid this message with `\usepackage{bookmark}'
-(scrartcl)           before \begin{document} on input line 34.
+(scrartcl)           before \begin{document} on input line 35.
 
 (/usr/share/texmf-dist/tex/latex/oberdiek/bookmark.sty
 Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
@@ -970,19 +973,34 @@ File: bkm-dvipdfm.def 2016/05/17 v1.26 bookmark driver for dvipdfm (HO)
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
+\symgns@font=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `gns@font' in version `bold'
+(Font)                  TS1/lmr/m/n --> TS1/lmr/bx/n on input line 35.
+Package gensymb Info: Math companion symbols declared on input line 35.
+LaTeX Info: Redefining \degree on input line 35.
+LaTeX Info: Redefining \celsius on input line 35.
+Package gensymb Info: Using text companion symbols for \degree, \celsius and \p
+erthousand on input line 35.
+LaTeX Info: Redefining \ohm on input line 35.
+Package gensymb Info: Using \textohm for \ohm on input line 35.
+Package gensymb Info: Using \textmu for \micro on input line 35.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 34.
-LaTeX Font Info:    Try loading font information for U+msa on input line 37.
+(lastpage)             ! on input line 35.
+LaTeX Font Info:    Try loading font information for U+msa on input line 38.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 37.
+LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-(./Aufgabe2-Dokumentation.toc)
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 38.
+
+(/usr/share/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) (./Aufgabe2-Dokumentation.toc)
 \tf@toc=\write6
 \openout6 = `Aufgabe2-Dokumentation.toc'.
 
@@ -994,52 +1012,56 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 44--46
+Underfull \hbox (badness 10000) in paragraph at lines 45--47
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--64
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--78
+Underfull \hbox (badness 10000) in paragraph at lines 76--79
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--78
+Underfull \hbox (badness 10000) in paragraph at lines 76--79
 
  []
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 89--90
+Underfull \hbox (badness 10000) in paragraph at lines 89--91
+
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--97
 []\TU/lmr/m/n/12 GeeksforGeeks-Artikel zur DP-Lösung von Subset Sum, []$[][][][
 ][] [] [] [] [][][] []
  []
 
 
-Underfull \hbox (badness 6300) in paragraph at lines 90--91
+Underfull \hbox (badness 6300) in paragraph at lines 97--98
 []\TU/lmr/m/n/12 GeeksforGeeks-Artikel zum Backtracen bei der DP-Lösung, []$[][
 ][][][] [] [] [] [][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
-[]\TU/lmr/m/n/12 Wikipedia-Artikel zur Packproblemen, []$[][][][][] [] [] [] []
-[] [] [][][][][][][][][] [] [][][] [] [][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 95--97
+Underfull \hbox (badness 10000) in paragraph at lines 102--104
 
  []
 
-[2]
+[3]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 101.
-Package svg Info: Calling Inkscape on input line 107.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 108.
+Package svg Info: Calling Inkscape on input line 114.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke1.svg" --export-pdf="dreiecke1_svg-tex.pdf" )...executed.
 
@@ -1052,12 +1074,12 @@ runsystem(mv "dreiecke1_svg-tex.pdf_tex" "./svg-inkscape/dreiecke1_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke1_svg-tex.pdf' is 1 on i
-nput line 107.
+nput line 114.
  (./svg-inkscape/dreiecke1_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke1_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke1_svg-tex.pdf, page 1>
 )
-Package svg Info: Calling Inkscape on input line 128.
+Package svg Info: Calling Inkscape on input line 135.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke2.svg" --export-pdf="dreiecke2_svg-tex.pdf" )...executed.
 
@@ -1070,13 +1092,13 @@ runsystem(mv "dreiecke2_svg-tex.pdf_tex" "./svg-inkscape/dreiecke2_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke2_svg-tex.pdf' is 1 on i
-nput line 128.
+nput line 135.
 
 (./svg-inkscape/dreiecke2_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke2_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke2_svg-tex.pdf, page 1>
-) [3]
-Package svg Info: Calling Inkscape on input line 149.
+) [4]
+Package svg Info: Calling Inkscape on input line 156.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke3.svg" --export-pdf="dreiecke3_svg-tex.pdf" )...executed.
 
@@ -1089,13 +1111,13 @@ runsystem(mv "dreiecke3_svg-tex.pdf_tex" "./svg-inkscape/dreiecke3_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke3_svg-tex.pdf' is 1 on i
-nput line 149.
+nput line 156.
 
 (./svg-inkscape/dreiecke3_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke3_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke3_svg-tex.pdf, page 1>
-) [4]
-Package svg Info: Calling Inkscape on input line 170.
+) [5]
+Package svg Info: Calling Inkscape on input line 177.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke4.svg" --export-pdf="dreiecke4_svg-tex.pdf" )...executed.
 
@@ -1108,13 +1130,13 @@ runsystem(mv "dreiecke4_svg-tex.pdf_tex" "./svg-inkscape/dreiecke4_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke4_svg-tex.pdf' is 1 on i
-nput line 170.
+nput line 177.
 
 (./svg-inkscape/dreiecke4_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke4_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke4_svg-tex.pdf, page 1>
-) [5]
-Package svg Info: Calling Inkscape on input line 191.
+) [6]
+Package svg Info: Calling Inkscape on input line 198.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke5.svg" --export-pdf="dreiecke5_svg-tex.pdf" )...executed.
 
@@ -1127,45 +1149,45 @@ runsystem(mv "dreiecke5_svg-tex.pdf_tex" "./svg-inkscape/dreiecke5_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke5_svg-tex.pdf' is 1 on i
-nput line 191.
+nput line 198.
 
 (./svg-inkscape/dreiecke5_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke5_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke5_svg-tex.pdf, page 1>
-) [6]
+) [7]
 (./_minted-Aufgabe2-Dokumentation/default-pyg-prefix.pygstyle)
 (./_minted-Aufgabe2-Dokumentation/default.pygstyle)
-(./_minted-Aufgabe2-Dokumentation/1A1759D8C6BACCE48C5AEF0B4CE3B1E684FD9B1CDA6DC
+(./_minted-Aufgabe2-Dokumentation/547695BB9D5F624E5249B4C024A2BBD784FD9B1CDA6DC
 1D421A4ED8AF8FDFE8A.pygtex
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 5.
- [7])
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 4.
+ [8] [9])
 Package hyperref Info: bookmark level for unknown listing defaults to 0 on inpu
-t line 218.
+t line 225.
 
-(./_minted-Aufgabe2-Dokumentation/C3D7FB9001E493D862D48E3BFB50407684FD9B1CDA6DC
-1D421A4ED8AF8FDFE8A.pygtex) 
+(./_minted-Aufgabe2-Dokumentation/F332147D088593239D98D5F44822C63584FD9B1CDA6DC
+1D421A4ED8AF8FDFE8A.pygtex [10] [11]) 
 AED: lastpage setting LastPage
-[8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 224.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 224.
+[12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
  (./Aufgabe2-Dokumentation.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 224.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 224.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 231.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
 Package rerunfilecheck Info: File `Aufgabe2-Dokumentation.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 224.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 231.
  ) 
 Here is how much of TeX's memory you used:
- 18517 strings out of 492933
- 301766 string characters out of 6138668
- 583002 words of memory out of 5000000
- 22256 multiletter control sequences out of 15000+600000
- 12090 words of font info for 72 fonts, out of 8000000 for 9000
+ 18610 strings out of 492933
+ 303372 string characters out of 6138668
+ 586433 words of memory out of 5000000
+ 22334 multiletter control sequences out of 15000+600000
+ 14691 words of font info for 79 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  47i,11n,54p,9151b,737s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Aufgabe2-Dokumentation.pdf (9 pages).
+Output written on Aufgabe2-Dokumentation.pdf (13 pages).

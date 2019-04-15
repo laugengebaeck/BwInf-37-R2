@@ -1,0 +1,106 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZlt{}bits/stdc++.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZdq{}triangles.cpp\PYGZdq{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{sol}\PYG{p}{;}
+
+\PYG{k+kt}{bool} \PYG{n+nf}{getSubsetsRec}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{arr}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{sum}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{p}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{o}{\PYGZam{}}\PYG{n}{dp}\PYG{p}{)} 
+\PYG{p}{\PYGZob{}} 
+    \PYG{c+c1}{// If we reached end and sum is non\PYGZhy{}zero. We print }
+    \PYG{c+c1}{// p[] only if arr[0] is equal to sun OR dp[0][sum] }
+    \PYG{c+c1}{// is true.}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{sum} \PYG{o}{!=} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{dp}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{sum}\PYG{p}{])} 
+    \PYG{p}{\PYGZob{}} 
+        \PYG{n}{p}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{i}\PYG{p}{);} 
+        \PYG{n}{sol} \PYG{o}{=} \PYG{n}{p}\PYG{p}{;}
+        \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;} 
+    \PYG{p}{\PYGZcb{}} 
+
+    \PYG{c+c1}{// If sum becomes 0 }
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{sum} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} 
+    \PYG{p}{\PYGZob{}} 
+        \PYG{n}{sol} \PYG{o}{=} \PYG{n}{p}\PYG{p}{;}
+        \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;} 
+    \PYG{p}{\PYGZcb{}} 
+
+    \PYG{c+c1}{// If given sum can be achieved after ignoring }
+    \PYG{c+c1}{// current element.}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{sum}\PYG{p}{])} 
+    \PYG{p}{\PYGZob{}} 
+        \PYG{c+c1}{// Create a new vector to store path }
+        \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{b} \PYG{o}{=} \PYG{n}{p}\PYG{p}{;} 
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{getSubsetsRec}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{,} \PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{sum}\PYG{p}{,} \PYG{n}{b}\PYG{p}{,}\PYG{n}{dp}\PYG{p}{))\PYGZob{}}
+            \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}} 
+    \PYG{p}{\PYGZcb{}} 
+
+    \PYG{c+c1}{// If given sum can be achieved after considering }
+    \PYG{c+c1}{// current element.}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{sum} \PYG{o}{\PYGZgt{}=} \PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{sum}\PYG{o}{\PYGZhy{}}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]])} 
+    \PYG{p}{\PYGZob{}} 
+        \PYG{n}{p}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{i}\PYG{p}{);}
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{getSubsetsRec}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{,} \PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{sum}\PYG{o}{\PYGZhy{}}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{p}\PYG{p}{,}\PYG{n}{dp}\PYG{p}{))\PYGZob{}}
+            \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{n+nb}{false}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}} 
+
+\PYG{k+kt}{void} \PYG{n+nf}{subsetSum}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{set}\PYG{p}{,}\PYG{k+kt}{int} \PYG{n}{sum}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{n} \PYG{o}{=} \PYG{n}{set}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{dp}\PYG{p}{(}\PYG{n}{n}\PYG{p}{,}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{sum}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{));}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{n}\PYG{p}{;} \PYG{o}{++}\PYG{n}{i}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;} 
+    \PYG{p}{\PYGZcb{}} 
+
+    \PYG{c+c1}{// Sum arr[0] can be achieved with single element }
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{set}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{sum}\PYG{p}{)} 
+       \PYG{n}{dp}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{set}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;} 
+
+    \PYG{c+c1}{// Fill rest of the entries in dp[][] }
+    \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{n}\PYG{p}{;} \PYG{o}{++}\PYG{n}{i}\PYG{p}{)} 
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j} \PYG{o}{\PYGZlt{}} \PYG{n}{sum} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{o}{++}\PYG{n}{j}\PYG{p}{)} 
+            \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{set}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{j}\PYG{p}{)} \PYG{o}{?} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]} \PYG{o}{||} 
+                                       \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{o}{\PYGZhy{}}\PYG{n}{set}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]]} 
+                                     \PYG{o}{:} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{p}{];} 
+
+    \PYG{k+kt}{int} \PYG{n}{best} \PYG{o}{=} \PYG{n}{sum}\PYG{p}{;}
+    \PYG{k}{for}\PYG{p}{(;}\PYG{n}{best}\PYG{o}{\PYGZgt{}=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{best}\PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{[}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{best}\PYG{p}{])} \PYG{k}{break}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{best} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{p}\PYG{p}{;} 
+    \PYG{n}{getSubsetsRec}\PYG{p}{(}\PYG{n}{set}\PYG{p}{,} \PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{best}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,}\PYG{n}{dp}\PYG{p}{);}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{x}\PYG{p}{:} \PYG{n}{sol}\PYG{p}{)} \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{doAlgorithm}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}} \PYG{n}{triangles}\PYG{p}{,} \PYG{k+kt}{bool} \PYG{n}{debug}\PYG{p}{)\PYGZob{}}
+    \PYG{n}{Point} \PYG{n}{centerPoint} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Point}\PYG{o}{\PYGZgt{}} \PYG{n}{bestPoint}\PYG{p}{;}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngle}\PYG{p}{;}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{triangles}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+        \PYG{n}{Point} \PYG{n}{p}\PYG{p}{;}
+        \PYG{k+kt}{double} \PYG{n}{angle}\PYG{p}{;}
+        \PYG{n}{tie}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,}\PYG{n}{angle}\PYG{p}{)} \PYG{o}{=} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{);}
+        \PYG{n}{bestPoint}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{p}\PYG{p}{);}
+        \PYG{n}{bestAngle}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{((}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{ceil}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{angle}\PYG{p}{));}
+        \PYG{c+cm}{/*Vektor translation = Vektor(p,centerPoint);}
+\PYG{c+cm}{        t.point1 = addVektor(t.point1,translation);}
+\PYG{c+cm}{        t.point2 = addVektor(t.point2,translation);}
+\PYG{c+cm}{        t.point3 = addVektor(t.point3,translation);*/}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{angle} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{x}\PYG{p}{:} \PYG{n}{bestAngle}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{subsetSum}\PYG{p}{(}\PYG{n}{bestAngle}\PYG{p}{,(}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{floor}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{M\PYGZus{}PI}\PYG{p}{));}
+    \PYG{c+c1}{//TODO rotate \PYGZhy{}\PYGZgt{} no overlap}
+    \PYG{c+c1}{//TODO what to do with triangles outside the subset}
+    \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{triangles}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{\PYGZcb{};}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,102 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZlt{}bits/stdc++.h\PYGZgt{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+\PYG{k}{class} \PYG{n+nc}{Point}\PYG{p}{\PYGZob{}}
+    \PYG{k}{public}\PYG{o}{:}
+
+    \PYG{k+kt}{double} \PYG{n}{x}\PYG{p}{;}
+    \PYG{k+kt}{double} \PYG{n}{y}\PYG{p}{;}
+
+    \PYG{n}{Point}\PYG{p}{(}\PYG{k+kt}{double} \PYG{n}{\PYGZus{}x}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{\PYGZus{}y}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{x} \PYG{o}{=} \PYG{n}{\PYGZus{}x}\PYG{p}{;}
+        \PYG{n}{y} \PYG{o}{=} \PYG{n}{\PYGZus{}y}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{Point}\PYG{p}{()\PYGZob{}}
+        \PYG{n}{x} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+        \PYG{n}{y} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{k}{class} \PYG{n+nc}{Vektor}\PYG{p}{\PYGZob{}}
+    \PYG{k}{public}\PYG{o}{:}
+
+    \PYG{k+kt}{double} \PYG{n}{x}\PYG{p}{;}
+    \PYG{k+kt}{double} \PYG{n}{y}\PYG{p}{;}
+
+    \PYG{n}{Vektor}\PYG{p}{(}\PYG{k+kt}{double} \PYG{n}{\PYGZus{}x}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{\PYGZus{}y}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{x} \PYG{o}{=} \PYG{n}{\PYGZus{}x}\PYG{p}{;}
+        \PYG{n}{y} \PYG{o}{=} \PYG{n}{\PYGZus{}y}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{a}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{b}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{x} \PYG{o}{=} \PYG{n}{b}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
+        \PYG{n}{y} \PYG{o}{=} \PYG{n}{b}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{Vektor}\PYG{p}{()\PYGZob{}}
+        \PYG{n}{x} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+        \PYG{n}{y} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kt}{double} \PYG{n}{betrag}\PYG{p}{()\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{x} \PYG{o}{*} \PYG{n}{x} \PYG{o}{+} \PYG{n}{y} \PYG{o}{*} \PYG{n}{y}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{k}{class} \PYG{n+nc}{Triangle}\PYG{p}{\PYGZob{}}
+    \PYG{k}{public}\PYG{o}{:}
+
+    \PYG{n}{Point} \PYG{n}{point1}\PYG{p}{;}
+    \PYG{n}{Point} \PYG{n}{point2}\PYG{p}{;}
+    \PYG{n}{Point} \PYG{n}{point3}\PYG{p}{;}
+    \PYG{k+kt}{int} \PYG{n}{id}\PYG{p}{;}
+    \PYG{n}{Vektor} \PYG{n}{p1p2}\PYG{p}{;}
+    \PYG{n}{Vektor} \PYG{n}{p2p3}\PYG{p}{;}
+    \PYG{n}{Vektor} \PYG{n}{p3p1}\PYG{p}{;}
+
+    \PYG{n}{Triangle}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{p1}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p3}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{idd}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{point1} \PYG{o}{=} \PYG{n}{p1}\PYG{p}{;}
+        \PYG{n}{point2} \PYG{o}{=} \PYG{n}{p2}\PYG{p}{;}
+        \PYG{n}{point3} \PYG{o}{=} \PYG{n}{p3}\PYG{p}{;}
+        \PYG{n}{id} \PYG{o}{=} \PYG{n}{idd}\PYG{p}{;}
+        \PYG{n}{p1p2} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point1}\PYG{p}{,}\PYG{n}{point2}\PYG{p}{);}
+        \PYG{n}{p2p3} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point2}\PYG{p}{,}\PYG{n}{point3}\PYG{p}{);}
+        \PYG{n}{p3p1} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point3}\PYG{p}{,}\PYG{n}{point1}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{n}{Point} \PYG{n+nf}{addVektor}\PYG{p}{(}\PYG{n}{Point} \PYG{o}{\PYGZam{}}\PYG{n}{p}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v}\PYG{p}{)\PYGZob{}}
+    \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+=} \PYG{n}{v}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
+    \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{+=} \PYG{n}{v}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
+    \PYG{k}{return} \PYG{n}{p}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n+nf}{dotProduct}\PYG{p}{(}\PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v1}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v2}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{y} \PYG{o}{+} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n+nf}{angle}\PYG{p}{(}\PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v1}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v2}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{double} \PYG{n}{cosvalue} \PYG{o}{=} \PYG{n}{dotProduct}\PYG{p}{(}\PYG{n}{v1}\PYG{p}{,}\PYG{n}{v2}\PYG{p}{)}\PYG{o}{/}\PYG{p}{(}\PYG{n}{v1}\PYG{p}{.}\PYG{n}{betrag}\PYG{p}{()}\PYG{o}{*}\PYG{n}{v2}\PYG{p}{.}\PYG{n}{betrag}\PYG{p}{());}
+    \PYG{k}{return} \PYG{n}{acos}\PYG{p}{(}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{cosvalue}\PYG{p}{));}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{n}{Point}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{Triangle} \PYG{n}{t}\PYG{p}{)\PYGZob{}}
+        \PYG{k+kt}{double} \PYG{n}{p1angle} \PYG{o}{=} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p1p2}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p3p1}\PYG{p}{);}
+        \PYG{k+kt}{double} \PYG{n}{p2angle} \PYG{o}{=} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p1p2}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p2p3}\PYG{p}{);}
+        \PYG{k+kt}{double} \PYG{n}{p3angle} \PYG{o}{=} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p2p3}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p3p1}\PYG{p}{);}
+        \PYG{n}{Point} \PYG{n}{smallest} \PYG{o}{=} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{;}
+        \PYG{k+kt}{double} \PYG{n}{smallestAngle} \PYG{o}{=} \PYG{n}{p1angle}\PYG{p}{;}
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{p2angle} \PYG{o}{\PYGZlt{}} \PYG{n}{smallestAngle}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{smallest} \PYG{o}{=} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{;}
+            \PYG{n}{smallestAngle} \PYG{o}{=} \PYG{n}{p2angle}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{p3angle} \PYG{o}{\PYGZlt{}} \PYG{n}{smallestAngle}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{smallest} \PYG{o}{=} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{;}
+            \PYG{n}{smallestAngle} \PYG{o}{=} \PYG{n}{p3angle}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{smallest}\PYG{p}{,}\PYG{n}{smallestAngle}\PYG{p}{\PYGZcb{};}
+    \PYG{p}{\PYGZcb{}}
+\end{Verbatim}

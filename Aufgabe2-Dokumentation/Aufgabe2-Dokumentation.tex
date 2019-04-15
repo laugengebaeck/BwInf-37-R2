@@ -15,6 +15,7 @@
 \usepackage{caption}
 \usepackage{mathtools}
 \usepackage{amssymb}
+\usepackage{gensymb}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{svg}
@@ -54,7 +55,7 @@
  	\exists ~(x,y) \in d: y = 0
  	\end{equation}
  	Es muss also in jedem Dreieck mindestens einen Punkt geben, der auf der x-Achse liegt. Die Menge aller solchen Punkte eines Dreiecks sei $N_i$ (anschaulich die Menge der Straßenecken). 	
- 	\item Jedes $d'_i \in D'$ muss kongruent zum entsprechenden $d_i \in D$ sein. Genauer gesagt muss $d'_i$ aus $d_i$ durch eine Abfolge von Kongruenzabbildungen, d.h. Translationen und Rotationen\footnote{ und Spiegelungen an einem Punkt oder einer senkrechten Achse, wobei man diese jedoch auch durch Rotationen erreichen kann. Demzufolge müssen sie nicht betrachtet werden.} hervorgehen.
+ 	\item Jedes $d'_i \in D'$ muss kongruent zum entsprechenden $d_i \in D$ sein. Genauer gesagt muss $d'_i$ aus $d_i$ durch eine Abfolge von Kongruenzabbildungen, d.h. Translationen, Rotationen und senkrechten Achsenspiegelungen\footnote{ und Spiegelungen an einem Punkt, wobei man diese jedoch auch durch Rotationen um $180\degree$ erreichen kann. Demzufolge müssen sie nicht betrachtet werden.} hervorgehen.
  	\item Für jedes $d \in D'$ und jedes $e \in D'$ gilt:
  	\begin{equation}
  	d \cap e = \emptyset
@@ -76,19 +77,25 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
  Leider sind jedoch fast alle Packprobleme NP-vollständig, sodass auch hier die Annahme nahe liegt, dass dies der Fall ist. Demzufolge stellt sich die Frage, wie man ein solches Problem möglichst so lösen kann, dass man ein Gleichgewicht zwischen Effizienz (d.h. Laufzeit) des Algorithmus und Optimalität der Lösung einstellt. \\ \\
  Dafür gibt es verschiedene Herangehensweisen:
  \begin{itemize}
- 	\item \textbf{Brute Force und Backtracking:}
- 	\item \textbf{Metaheuristiken:} (Simulated Annealing)
- 	\item \textbf{Randomisierte Algorithmen:}
- 	\item \textbf{Dynamic Programming oder Greedy-Ansätze:}
- 	\item \textbf{Heuristiken und Approximationsalgorithmen:}
+ 	\item \textbf{Brute Force und Backtracking:} Bei Brute Force werden einfach alle möglichen Lösungen durchprobiert, während man bei Backtracking eine Lösung schrittweise aufbaut und Schritte wieder zurücknimmt, wenn sie zu keiner zulässigen Gesamtlösung mehr führen können. Beide Ansätze sind in diesem Fall nicht geeignet, da der Lösungsraum extrem groß ist, d.h. es gibt sehr viele mögliche Lösungen. Wenn man Laufzeiten wie $\mathcal{O}(n! \cdot 6^n)$ vermeiden will, die sich durch Beachtung aller Permutationen und Rotationen ergeben, sollte man diese Lösungsansätze also nicht verwenden.
+ 	\item \textbf{Metaheuristiken:} Zu diesen zählt beispielsweise Simulated Annealing, bei dem man die möglichen Lösungen nach einem globalen Maximum bzw. Minimum einer Bewertungsfunktion absucht. Die Bewertungsfunktion wäre in diesem Fall der Gesamtabstand. Außerdem braucht man für Simulated Annealing eine Möglichkeit, aus einer Lösung eine Nachbarlösung zu generieren, was man in diesem Fall durch z.B. Rotationen der Dreiecke erreichen könnte. Da dies jedoch schwierig zu implementieren ist und man schlimmstenfalls genauso viele Lösungen wie bei Brute Force betrachtet, sind solche Heuristiken ebenfalls nicht geeignet. Auch kann man nicht verhindern, mögliche Lösungen doppelt zu betrachten, was für die Laufzeit ebenfalls nicht so gut ist.
+ 	\item \textbf{Dynamic Programming oder Greedy-Ansätze:} DP- und Greedy-Algorithmen sind zwar meistens laufzeiteffizient, jedoch nicht immer optimal. Aus diesem Grund sind sie für eine optimale Lösung dieses Problems nicht geeignet. Beispielsweise könnte die von einem Greedy-Algorithmus getroffene Entscheidung für den besten Folgezustand, also z.B. die Platzierung eines Dreiecks, zu einem nicht optimalen Gesamtergebnis führen. Es könnte dann beispielsweise nicht mehr möglich sein, andere Dreiecke dicht an das aktuelle anzulegen, wodurch der Gesmatabstand erhöht würde.
+ 	\item \textbf{Heuristiken und Approximationsalgorithmen:} Bei Heuristiken versucht man durch intelligentes Raten und zusätzliche Annahmen über die optimale Lösung zu einer guten Lösung zu gelangen. Eine speziell an das Problem angepasste Heuristik ist für dieses Problem das Mittel der Wahl. Dadurch kann man sowohl eine gute (also polynomielle oder pseudopolynomielle) Laufzeit als auch eine Lösung, die relativ nah am Optimum liegt, erreichen. Die heuristische Herangehensweise an dieses Problem wird in den folgenden Abschnitten näher beschrieben.
  \end{itemize}
   \subsection{Intuitive Beschreibung der Lösungsidee}
  \subsection{Mathematische Präzisierung des Algorithmus}
  \subsection{Laufzeitbetrachtung und NP-Vollständigkeit}
+ %TODO Laufzeit
+ Eine Frage, die sich hierbei auch stellt, ist diejenige, ob es für dieses Problem einen in Polynomialzeit terminierenden Algorithmus geben kann. Dies entspricht der Frage, ob das Problem in der Klasse $NPC$\footnote{Genaugenommen ist diese Klasse nur für Entscheidungsprobleme definiert, daher handelt es sich bei diesem Suchproblem um NP-Äquivalenz.} (NP-vollständig bzw. NP-complete) liegt. Ich vermute, dass dies der Fall ist, kann es jedoch nicht beweisen. \\ \\
+ Zum Beweis, dass ein Problem in $NPC$ liegt, werden zwei Voraussetzungen benötigt:
+ \begin{enumerate}
+ 	\item Eine deterministisch arbeitende Turingmaschine benötigt nur Polynomialzeit, um zu entscheiden, ob eine z.B. von einer Orakel-Turingmaschine vorgeschlagene Lösung tatsächlich eine Lösung des Problems ist. Dies ist hier der Fall, denn wenn eine Lösung vorgeschlagen wird, kann man in Polynomialzeit überprüfen, ob es sich dabei um eine erlaubte Dreiecksanordnung handelt. \\ \\ Dazu überprüft man alle vier Bedingungen dafür. Die ersten beiden Bedingungen lassen sich einfach für jedes Dreieck in konstanter Zeit, insgesamt also in $\mathcal{O}(n)$, überprüfen. Für die dritte Bedingung (Kongruenz) ist dies mithilfe von Kongruenzsätzen ebenfalls in linearer Zeit möglich. Bei der vierte Bedingung  (keine Überlappung) muss man alle Dreieckspaare, insgesamt also $\mathcal{O}(n^2)$, auf Überlappung überprüfen. Insgesamt erhält man mit $\mathcal{O}(n^2)$ also Polynomialzeit.
+ 	\item Das Problem ist NP-schwer. Das bedeutet, dass alle anderen NP-schweren Probleme auf dieses Problem in Polynomialzeit zurückgeführt werden können. Es ist also eine Polynomialzeitreduktion notwendig. Dabei ist ein Problem aus NPC als Ausgangsproblem nötig, wie z.B. 3-Satisfiability. Eine solche Reduktion zu vollziehen, ist mir jedoch nicht möglich.\footnote{Auch wenn eine Beziehung zwischen \textit{3}-SAT und \textit{Drei}ecken natürlich naheliegt.}
+ \end{enumerate}
 \begin{thebibliography}{xx}
 	\bibitem[1] {Src:dpsum} GeeksforGeeks-Artikel zur DP-Lösung von Subset Sum, \url{https://www.geeksforgeeks.org/subset-sum-problem-dp-25/}
 	\bibitem[2]{Src:dpbacktrace} GeeksforGeeks-Artikel zum Backtracen bei der DP-Lösung, \url{https://www.geeksforgeeks.org/perfect-sum-problem-print-subsets-given-sum/}
-	\bibitem[3]{Src:pack} Wikipedia-Artikel zur Packproblemen, \url{https://en.wikipedia.org/wiki/Packing_problems}
+	\bibitem[3]{Src:pack} Wikipedia-Artikel zu Packproblemen, \url{https://en.wikipedia.org/wiki/Packing_problems}
 \end{thebibliography}
 \section{Umsetzung}
 \subsection{Allgemeine Hinweise zur Benutzung}
