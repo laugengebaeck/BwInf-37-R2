@@ -178,12 +178,14 @@ Das Sortieren der Knoten erfolgt dabei anhand ihrer Polarkoordinaten relativ zu 
 \begin{algorithm}[H]
 \begin{algorithmic}
 	\Function{visible}{$w_i$}
-	\If{$w_{i-1}$ nicht auf der Geraden durch $\overline{vw_i}$}
-	\If{$ T = \emptyset$}
-	\State \Return true
+	\If{$\overline{vw_i}$ schneidet das Innere des Polygons, dessen Knoten $w_i$ ist}
+	\State \Return false
 	\EndIf
+	\If{$w_{i-1}$ nicht auf der Geraden durch $\overline{vw_i}$}
 	\If{$\overline{vw_i} \cap smallest(T) = \emptyset$}
 	\State \Return true
+	\Else
+	\State \Return false
 	\EndIf
 	\ElsIf{$not$ \Call{visible}{$w_{i-1}$}}
 	\State \Return false
@@ -197,7 +199,7 @@ Das Sortieren der Knoten erfolgt dabei anhand ihrer Polarkoordinaten relativ zu 
 \end{algorithmic}
 \caption{Sichtbarkeitsprüfung im Lee-Algorithmus}
 \end{algorithm}
-Diese Funktion \texttt{visible} prüft dabei ganz einfach die Sichtbarkeit eines Knotens. $smallest(T)$ gibt die kleinste Kante im Suchbaum an. Sonderfälle wie, dass eine Strecke komplett in einem Polygon liegt, wurden hier der Einfachheit halber nicht berücksichtigt. Dies muss jedoch in der Implementierung geschehen.
+\hspace*{-1em}Diese Funktion \texttt{visible} prüft dabei ganz einfach die Sichtbarkeit eines Knotens. $smallest(T)$ gibt die kleinste Kante im Suchbaum an, sofern diese existiert.
  \subsection{Der Dijkstra-Algorithmus}
  Um nun im Sichtbarkeitsgraphen einen kürzesten Pfad vom Startknoten $s$ zu allen anderen Knoten zu bestimmen, was für die Lösung des Problems notwendig ist, kann man Dijkstras Algorithmus verwenden. Dieser arbeitet nach dem Greedy-Prinzip, bei dem in jedem Schritt ein optimaler Folgezustand gewählt wird, der das aktuell beste Ergebnis verspricht. Er arbeitet grundlegend wie folgt:
  \begin{enumerate}
@@ -289,34 +291,31 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
   \subsubsection{Polygonale Lisa}
  Nun modellieren wir Lisa nicht mehr als Punkt, sondern als Polygon. Wieso? Möglicherweise handelt es sich bei einem der Hindernispolygone um das örtliche Fastfoodrestaurant und Lisa besucht dieses sehr oft, sodass sie extrem zugenommen hat. \\ \\
  Möglicherweise ist der Grund aber auch unspektakulärer. Eventuell ist Lisa gerade 18 geworden und möchte nun mit ihrem Auto zur Bushaltestelle fahren, auch wenn man über die ökologische Sinnhaftigkeit dieses Vorhabens streiten kann.\footnote{Hier Fridays-for-Future-Demonstration einfügen.} \\ \\
- Dies lässt sich mathematisch beschreiben, indem man für jedes Hindernispolygon dessen Minkowski-Summe mit dem Lisa-Polygon berechnet und auf den so entstandenen Polygonen den ursprünglichen Algorithmus ausführt. Die Minkowski-Summe ist dabei für zwei Teilmengen $A$ und $B$ (in diesem Fall Polygone) eines Vektorraums (des $\mathbb{R}^{2}$) definiert als:
+ Dies lässt sich mathematisch beschreiben, indem man für jedes Hindernispolygon dessen Minkowski-Summe mit einer am Ursprung gespiegelten Kopie des Lisa-Polygons berechnet und auf den so entstandenen Polygonen den ursprünglichen Algorithmus ausführt. Die Minkowski-Summe ist dabei für zwei Teilmengen $A$ und $B$ (in diesem Fall Polygone) eines Vektorraums (des $\mathbb{R}^{2}$) definiert als:
  \begin{equation}
  A + B := \{a+b\,|\,a \in A, b \in B\}
  \end{equation}
  Sie ist also die Menge aller Elemente, die Summen von je einem Element aus $A$ und einem aus $B$ sind.\cite{Src:minkowski} Dies entspricht im Prinzip dem Entlangfahren des Lisa-Polygons am Rand des Hindernispolygons. Dabei wird das Hindernis so verbreitert, dass Lisa nun wieder als punktförmig angenommen und der ursprüngliche Algorithmus ausgeführt werden kann. \\ \\
- Seien nun das Hindernispolygon $P = (v_1,...,v_k)$ und das Lisa-Polygon $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten\footnote{gegen den Uhrzeigersinn geordnet}, wobei $v_1$ und $w_1$ die Punkte mit der minimalen y-Koordinate\footnote{Falls dies mehrere sind, derjenige mit der minimalen x-Koordinate.} sind. Für diese zwei konvexen Polygone (im weiteren werden für diese Erweiterung nur solche betrachtet) im $\mathbb{R}^{2}$ kann die Minkowski-Summe (bzw. deren konvexe Hülle) wie folgt berechnet werden:
+ Seien nun das Hindernispolygon $P = (v_1,...,v_k)$ und der Kopie des Lisa-Polygons $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten. Für diese zwei Polygone im $\mathbb{R}^{2}$ kann die Minkowski-Summe (bzw. deren konvexe Hülle) wie folgt berechnet werden: \\ \\
+ Zunächst berechnet man die Minkowski-Summe $S = P + L$ nach der oben angegebenen Definition. Anschließend kann man deren konvexe Hülle mit einem Algorithmus wie dem Graham Scan berechnen:
  \begin{algorithm}[H]
 \begin{algorithmic}
-	\Function{minkowskiSum}{$P$,$L$}
-	\State $i \gets 1$; $j \gets 1$
-	\State $v_{k+1} \gets v_1$; $v_{k+2} \gets v_2$; $w_{m+1} \gets w_1$; $w_{m+2} \gets w_2$
-	\State $S = \emptyset$ \Comment{leeres Polygon}
-	\Repeat
-	\State $S = S \cup \{v_i + w_j\}$
-	\If{\Call{winkel}{$v_i,v_{i+1}$} $<$ \Call{winkel}{$w_j,w_{j+1}$}}
-	\State $i \gets i + 1$
-	\ElsIf{\Call{winkel}{$v_i,v_{i+1}$} $>$ \Call{winkel}{$w_j,w_{j+1}$}}
-	\State $j \gets j + 1$
-	\Else
-	\State $i \gets i + 1$; $j \gets j + 1$
-	\EndIf
-	\Until{$i = k + 1$ and $j = m + 1$}
+	\Function{grahamScan}{$S$}
+	\State $stack = \emptyset$ \Comment{leerer Stack}
+	\State finde den Punkt $p_0$, der die geringste y-Koordinate hat und am weitesten links ist.
+	\State $H = \{p_0\}$ \Comment{leere konvexe Hülle nur mit $p_0$}
+	\State Sortiere Punkte in $S$ nach dem Winkel von $p_0p_i$ zur positiven x-Achse
+	\ForAll{$p$ in $S$}
+	\While{$|stack| >  1$ and ccw(\Call{next\_to\_top}{stack},\Call{top}{stack},point) $< 0$}
+	\State $stack.pop()$
+	\EndWhile
+	\State $stack.push(p)$
+	\EndFor
 	\EndFunction
 \end{algorithmic}
-\caption{Bestimmung der Minkowski-Summe}
+\caption{Bestimmung der konvexen Hülle der Minkowski-Summe}
 \end{algorithm}
-\hspace*{-1em}Dabei gibt die Funktion $winkel(p,q)$ den Winkel zwischen der positiven x-Achse und dem Vektor $pq$ zurück, was mithilfe des $atan2(y,x)$ (Arkustangens, der die Richtung berücksichtigt) implementiert werden kann. Dieser Algorithmus arbeitet ähnlich wie der \textit{Merge}-Schritt des Mergesort-Verfahrens. \\
-Dieser Algorithmus läuft offensichtlich in $\mathcal{O}(k + m)$, denn $i$ wird höchstens $k$ Mal inkrementiert und $j$ $m$ Mal. Da er $n_{Polygon}$ Mal\footnote{Anzahl der Polygone} ausgeführt wird, erhält man $\mathcal{O}(\sum_{1}^{n_{Polygon}} (k_i + m_i)) = \mathcal{O}(n + n_{Polygon} \cdot m)$, wobei $n$ die Anzahl aller Eckpunkte aller Polygone ist. Diese Erweiterung wurde \textbf{implementiert}.
+\hspace*{-1em}Dabei gibt die Funktion $ccw(a,b,c)$ an, ob $c$ links von $AB$ ist (Rückgabe ist positiv) oder rechts von $AB$ (Rückgabe ist negativ). Der Graham-Scan-Algorithmus läuft für $n$ Punkte in $\mathcal{O}(n \cdot \log n)$. Da die Minkowski-Summe nach Definition $\mathcal{O}(k \cdot m)$ Punkte hat, ergibt sich in diesem Fall $\mathcal{O}(km \cdot \log km)$. Für alle Polygone zusammen ergibt sich eine Laufzeit von $\mathcal{O}(k_{max}m \cdot \log k_{max}m)$ mit $k_{max}$ als maximaler Eckpunktanzahl. Da $k_{max} \in \mathcal{O}(n)$ mit $n$ als Anzahl aller Eckpunkte, hat man eine Laufzeit von $\mathcal{O}(nm \cdot \log nm)$. Diese Erweiterung wurde \textbf{implementiert}.
  \subsubsection{Nicht-polygonale Hindernisse}
  Es wäre auch möglich, die Art der Hindernisse auf Flächen, die keine Polygone sind, zu erweitern. Dies könnten beispielsweise Ovale oder Kreise sein. Eine Möglichkeit, den Sichtbarkeitsgraph darauf zu erweitern, ist in \cite{Src:arcvis} beschrieben. Dabei muss man anstelle des klassischen Sichtbarkeitsgraphen einen Tangenten-Sichtbarkeitsgraphen verwenden. Da dies jedoch relativ kompliziert ist, wird an dieser Stelle nicht genauer darauf eingegangen. Außerdem lässt sich eine gute Näherung dafür erreichen, wenn man anstelle eines Kreises ein Polygon mit sehr vielen Ecken verwendet (siehe Beispiele). \\ \\
  Diese Erweiterung wurde \textbf{nicht implementiert}.
@@ -395,7 +394,7 @@ In dieser Datei wird die Funktion \texttt{visible\_vertices()} aus Abschnitt 1.2
 	\texttt{insort()} und \texttt{bisect()} & Diese beiden Funktionen sind für das Einfügen in den bzw. Suchen im binären Suchbaum, der die offenen Kanten beinhaltet, zuständig. Dafür nutzen sie \textit{*surprise*} binäre Suche.	\\
 \end{longtabu}
 \subsubsection{Die Datei \texttt{minkowski.py}}
-Hier wird die Erweiterung, in der Lisa als polygonal angenommen wird, implementiert. Nachdem die Vorbedingungen für alle Polygone hergestellt wurden (counter-clockwise und beginnend mit der kleinsten y-Koordinate), kann der in Abschnitt 1.7.2 angegebene Algorithmus darauf ausgeführt werden. Es war mir jedoch aufgrund total bescheuerter und nicht auffindbarer Implementierungsfehler nicht möglich, eine lauffähige Version der Erweiterung zu implementieren. Der Versuch, dies zu tun, ist im Quellcode-Teil abgedruckt.
+Hier wird die Erweiterung, in der Lisa als polygonal angenommen wird, implementiert. Dabei wird einfach der in Abschnitt 1.7.2 angegebene Algorithmus darauf ausgeführt.
 \section{Beispiele}
 \subsection*{Laufzeiten}
  \begin{table}[H]
@@ -619,6 +618,26 @@ Bei diesen Beispiel handelt es sich um ein einziges Polygon mit 1000 Ecken. Es i
 }
 \VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt2-vel-out.txt}
 Für dieses Beispiel wurde die Geschwindigkeit des Busses bei 30 km/h belassen, die von Lisa aber auf 5 km/h gesetzt, da sie sehr erschöpft ist. Es ist im Vergleich zum normalen Beispiel 2 eine deutlich geringere Steigung des letzten Streckenabschnitts zu erkennen. Außerdem dauert die Route natürlich deutlich länger.
+\subsubsection*{Minkowski-Summe}
+\begin{figure}[H] \includesvg[width=0.5\textwidth]{../Aufgabe1-Implementierung/examples/out/lisarennt-ext.svg}
+	\caption{Die optimale Route}
+\end{figure}
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	label=\fbox{\color{Black} Ausgabe für das Beispiel},
+	labelposition=topline,
+	numbers=left,
+	%
+	commandchars=\|\(\), % escape character and argument delimiters for
+	% commands within the verbatim
+	commentchar=*        % comment character
+}
+\VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt-ext-out.txt}
 \newpage
  \section{Quellcode}
  \renewcommand{\listingscaption}{Quellcode}

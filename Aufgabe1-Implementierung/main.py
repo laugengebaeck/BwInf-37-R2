@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #Imports
 import argparse
 import os
@@ -12,7 +13,7 @@ def ensure_dir(file_path):
         os.makedirs(directory)
 
 def numtotime(num):
-    num = round(num)
+    num = round(abs(num))
     hours = num // 3600
     minutes = (num % 3600) // 60
     seconds = (num % 3600) % 60
@@ -82,13 +83,11 @@ if args.minkowski is not None:
 graph = vg.VisGraph(real_v_lisa,real_v_bus,lisa)
 graph.build(polylist)
 path,mintime,min_bus_time, minpoint,dist_minpoint = graph.shortest_path()
-mintime = abs(mintime)
 
 #Debug-Ausgaben
 if args.debug:
     outpath = os.path.dirname(args.input) + "/out/debug/" + os.path.basename(args.input).split(".")[0]
     ensure_dir(outpath)
-    graph.save(outpath + "-pickle.pk1")
     svgfile = open(outpath + "-visgraph.svg","w")
     svgfile.write(svggen.gen_vis_svg(graph.get_visgraph(),polylist,lisa,maxx+200,maxy+500))
     svgfile.close()
@@ -102,11 +101,17 @@ svgfile.close()
 #Ausgabe Text
 outtext = ""
 hours, minutes, seconds = numtotime(mintime)
-hours = 7 - hours
-minutes = 30 - minutes
-if seconds != 0:
-    minutes -= 1
-    seconds = 60 - seconds
+# Normalfall: Startzeit vor 7.30
+if mintime < 0:
+    hours = 7 - hours
+    minutes = 30 - minutes
+    if seconds != 0:
+        minutes -= 1
+        seconds = 60 - seconds
+# Wenn Startzeit nach 7.30
+else:
+    hours = 7 + hours
+    minutes = 30 + minutes
 bhours, bminutes, bseconds = numtotime(min_bus_time)
 bhours = 7 + bhours
 bminutes = 30 + bminutes

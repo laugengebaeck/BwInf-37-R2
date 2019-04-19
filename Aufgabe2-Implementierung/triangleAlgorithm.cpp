@@ -76,29 +76,53 @@ void subsetSum(vector<int> set,int sum){
     cout << "\n";
 }
 
+int findAngleCalcPoint(Triangle &t, int bestPoint){
+    return 2;
+}
+
 pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> triangles, bool debug){
     Point centerPoint = Point(300,0);
-    vector<Point> bestPoint;
+    vector<int> bestPointIndex;
     vector<int> bestAngle;
+    vector<double> bestAngleDouble;
     for(size_t i = 0; i<triangles.size(); i++){
         auto &t = triangles[i];
-        Point p;
+        int ind;
         double angle;
-        tie(p,angle) = locateSmallestAngle(t);
-        bestPoint.push_back(p);
+        tie(ind,angle) = locateSmallestAngle(t);
+        bestPointIndex.push_back(ind);
         bestAngle.push_back((int) ceil(10000*angle));
-        /*Vektor translation = Vektor(p,centerPoint);
-        t.point1 = addVektor(t.point1,translation);
-        t.point2 = addVektor(t.point2,translation);
-        t.point3 = addVektor(t.point3,translation);*/
-        cout << p.x << " " << p.y << " " << angle << "\n";
+        bestAngleDouble.push_back(angle);
+        cout << t.id << " " << t.points[ind].x << " " << t.points[ind].y << " " << angle << "\n";
     }
-    for(auto x: bestAngle){
-            cout << x << " ";
-        }
-        cout << "\n";
+
     subsetSum(bestAngle,(int) floor(10000*M_PI));
-    //TODO rotate -> no overlap
+
+    for(auto index : sol){
+        Vektor translation = Vektor(triangles[index].points[bestPointIndex[index]],centerPoint);
+        auto &t = triangles[index];
+        for(int i=0;i<=2;i++){
+            t.points[i] = addVektor(t.points[i],translation);
+        }
+        int rotatePoint = findAngleCalcPoint(t,bestPointIndex[index]);
+        double rotateAngle = atan_angle(centerPoint,t.points[rotatePoint]);
+        for(int i=0;i<=2;i++){
+            rotate_tri(centerPoint, t.points[i], rotateAngle + bestAngleDouble[index]);
+        }
+        t.reGenVectors();
+    }
+
+    double triRotateAngle = bestAngleDouble[sol[0]];
+    for(size_t i=1;i<sol.size();i++){
+        auto &t = triangles[sol[i]];
+        for(int j=0;j<=2;j++){
+            rotate_tri(centerPoint, t.points[j], triRotateAngle);
+        }
+        triRotateAngle += bestAngleDouble[sol[i]];
+    }
+
+    //TODO order the triangles -> lengths
     //TODO what to do with triangles outside the subset
+
     return {triangles,0};
 }

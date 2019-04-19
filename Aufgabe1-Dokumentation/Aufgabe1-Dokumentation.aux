@@ -48,19 +48,19 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.7}Mögliche und implementierte Erweiterungen}{8}{subsection.1.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.7.1}Anpassbare Geschwindigkeiten}{8}{subsubsection.1.7.1}\protected@file@percent }
 \citation{Src:minkowski}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.7.2}Polygonale Lisa}{9}{subsubsection.1.7.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Bestimmung der Minkowski-Summe\relax }}{9}{algorithm.5}\protected@file@percent }
 \citation{Src:arcvis}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.7.2}Polygonale Lisa}{9}{subsubsection.1.7.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Bestimmung der konvexen Hülle der Minkowski-Summe\relax }}{9}{algorithm.5}\protected@file@percent }
 \citation{Src:3dvis}
 \bibcite{Src:bit}{1}
 \bibcite{Src:noem}{2}
 \bibcite{Src:pyvis}{3}
 \bibcite{Src:pyvistwo}{4}
 \bibcite{Src:kitz}{5}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.7.3}Nicht-polygonale Hindernisse}{10}{subsubsection.1.7.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.7.4}Das Problem im $\mathbb  {R}^{3}$}{10}{subsubsection.1.7.4}\protected@file@percent }
 \bibcite{Src:3dvis}{6}
 \bibcite{Src:LeeLee}{7}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.7.3}Nicht-polygonale Hindernisse}{10}{subsubsection.1.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.7.4}Das Problem im $\mathbb  {R}^{3}$}{10}{subsubsection.1.7.4}\protected@file@percent }
 \bibcite{Src:arcvis}{8}
 \bibcite{Src:minkowski}{9}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Umsetzung}{11}{section.2}\protected@file@percent }
@@ -70,10 +70,10 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Die Datei \texttt  {svggen.py}}{12}{subsubsection.2.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}Die Datei \texttt  {graph.py}}{12}{subsubsection.2.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4}Die Datei \texttt  {vis\_graph.py}}{12}{subsubsection.2.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5}Die Datei \texttt  {shortest\_path.py}}{12}{subsubsection.2.2.5}\protected@file@percent }
 \gdef \LT@i {\LT@entry 
     {2}{141.78001pt}\LT@entry 
     {1}{313.4641pt}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5}Die Datei \texttt  {shortest\_path.py}}{13}{subsubsection.2.2.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.6}Die Datei \texttt  {visible\_vertices.py}}{13}{subsubsection.2.2.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.7}Die Datei \texttt  {minkowski.py}}{14}{subsubsection.2.2.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Beispiele}{14}{section.3}\protected@file@percent }
@@ -97,23 +97,24 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Beispiele für die Erweiterungen}{21}{subsection.3.6}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Der Sichtbarkeitsgraph\relax }}{21}{figure.caption.23}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Die optimale Route\relax }}{21}{figure.caption.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Quellcode}{22}{section.4}\protected@file@percent }
-\@writefile{lol}{\contentsline {listing}{\numberline {1}{\ignorespaces Das Hauptprogramm (\textit  {main.py})\relax }}{24}{listing.caption.25}\protected@file@percent }
-\@writefile{lol}{\contentsline {listing}{\numberline {2}{\ignorespaces Berechnungsfunktion für den Sichtbarkeitsgraph in \textit  {vis\_graph.py}\relax }}{24}{listing.caption.25}\protected@file@percent }
-\@writefile{lol}{\contentsline {listing}{\numberline {3}{\ignorespaces Die Datei \textit  {visible\_vertices.py}, in der alle geometrischen Algorithmen gesammelt sind. Die Funktion \texttt  {visible\_vertices} wird bei der Erstellung des Sichtbarkeitsgraphs benutzt.\relax }}{31}{listing.caption.25}\protected@file@percent }
-\@writefile{lol}{\contentsline {listing}{\numberline {4}{\ignorespaces Implementierung des Dijkstra-Algorithmus und der Berechnung des kürzesten Pfades in \textit  {shortest\_path.py}\relax }}{32}{listing.caption.25}\protected@file@percent }
-\@writefile{lol}{\contentsline {listing}{\numberline {5}{\ignorespaces Quellcode der Erweiterung (\textit  {minkowski.py})\relax }}{33}{listing.caption.25}\protected@file@percent }
-\newlabel{LastPage}{{}{33}{}{page.33}{}}
-\xdef\lastpage@lastpage{33}
-\xdef\lastpage@lastpageHy{33}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Die optimale Route\relax }}{22}{figure.caption.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Quellcode}{23}{section.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {listing}{\numberline {1}{\ignorespaces Das Hauptprogramm (\textit  {main.py})\relax }}{25}{listing.caption.27}\protected@file@percent }
+\@writefile{lol}{\contentsline {listing}{\numberline {2}{\ignorespaces Berechnungsfunktion für den Sichtbarkeitsgraph in \textit  {vis\_graph.py}\relax }}{26}{listing.caption.27}\protected@file@percent }
+\@writefile{lol}{\contentsline {listing}{\numberline {3}{\ignorespaces Die Datei \textit  {visible\_vertices.py}, in der alle geometrischen Algorithmen gesammelt sind. Die Funktion \texttt  {visible\_vertices} wird bei der Erstellung des Sichtbarkeitsgraphs benutzt.\relax }}{32}{listing.caption.27}\protected@file@percent }
+\@writefile{lol}{\contentsline {listing}{\numberline {4}{\ignorespaces Implementierung des Dijkstra-Algorithmus und der Berechnung des kürzesten Pfades in \textit  {shortest\_path.py}\relax }}{33}{listing.caption.27}\protected@file@percent }
+\@writefile{lol}{\contentsline {listing}{\numberline {5}{\ignorespaces Quellcode der Erweiterung (\textit  {minkowski.py})\relax }}{34}{listing.caption.27}\protected@file@percent }
+\newlabel{LastPage}{{}{34}{}{page.34}{}}
+\xdef\lastpage@lastpage{34}
+\xdef\lastpage@lastpageHy{34}
 \gdef\minted@oldcachelist{,
   default-pyg-prefix.pygstyle,
   default.pygstyle,
-  F4292A9F7ACBF9D9A358AD0FD7AC3333F2C3D1DA5805AFCF96CDC570F263BC73.pygtex,
+  2D2D83EB7E4B1B89ED705AB9EC9877B7F2C3D1DA5805AFCF96CDC570F263BC73.pygtex,
   EE42A4538A7D886DAF1A516AE6F42643B856D14EF2F2C76D1DBF693CA65E9A04.pygtex,
   F3C257DCC0F3693F2EF9C9985A2EDFE3AC5A61ADF4A2771CBCC9E67C1D695128.pygtex,
   0A265EBEE7B2C01D64F2CB18F143847053443B2A8FD768F85F3ED7AA147EDE5E.pygtex,
-  6416322FDE1737BBA6DF63CBB7A0F0BDF2C3D1DA5805AFCF96CDC570F263BC73.pygtex}
+  D69890B2C1365241281F3AFD0928256EF2C3D1DA5805AFCF96CDC570F263BC73.pygtex}
 \global\@namedef{scr@dte@section@lastmaxnumwidth}{11.39993pt}
 \global\@namedef{scr@dte@subsection@lastmaxnumwidth}{19.82393pt}
 \global\@namedef{scr@dte@subsubsection@lastmaxnumwidth}{28.96793pt}

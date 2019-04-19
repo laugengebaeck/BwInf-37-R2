@@ -81,6 +81,7 @@
     \PYG{n}{Point} \PYG{n}{centerPoint} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
     \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Point}\PYG{o}{\PYGZgt{}} \PYG{n}{bestPoint}\PYG{p}{;}
     \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngle}\PYG{p}{;}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngleDouble}\PYG{p}{;}
     \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{triangles}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
         \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
         \PYG{n}{Point} \PYG{n}{p}\PYG{p}{;}
@@ -88,19 +89,36 @@
         \PYG{n}{tie}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,}\PYG{n}{angle}\PYG{p}{)} \PYG{o}{=} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{);}
         \PYG{n}{bestPoint}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{p}\PYG{p}{);}
         \PYG{n}{bestAngle}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{((}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{ceil}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{angle}\PYG{p}{));}
+        \PYG{n}{bestAngleDouble}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{angle}\PYG{p}{);}
         \PYG{c+cm}{/*Vektor translation = Vektor(p,centerPoint);}
 \PYG{c+cm}{        t.point1 = addVektor(t.point1,translation);}
 \PYG{c+cm}{        t.point2 = addVektor(t.point2,translation);}
 \PYG{c+cm}{        t.point3 = addVektor(t.point3,translation);*/}
         \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{angle} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
-    \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{x}\PYG{p}{:} \PYG{n}{bestAngle}\PYG{p}{)\PYGZob{}}
-            \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{;}
-        \PYG{p}{\PYGZcb{}}
-        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
     \PYG{n}{subsetSum}\PYG{p}{(}\PYG{n}{bestAngle}\PYG{p}{,(}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{floor}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{M\PYGZus{}PI}\PYG{p}{));}
     \PYG{c+c1}{//TODO rotate \PYGZhy{}\PYGZgt{} no overlap}
     \PYG{c+c1}{//TODO what to do with triangles outside the subset}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{index} \PYG{p}{:} \PYG{n}{sol}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{Vektor} \PYG{n}{translation} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{bestPoint}\PYG{p}{[}\PYG{n}{index}\PYG{p}{],}\PYG{n}{centerPoint}\PYG{p}{);}
+        \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{index}\PYG{p}{];}
+        \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1} \PYG{o}{=} \PYG{n}{addVektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,}\PYG{n}{translation}\PYG{p}{);}
+        \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2} \PYG{o}{=} \PYG{n}{addVektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,}\PYG{n}{translation}\PYG{p}{);}
+        \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3} \PYG{o}{=} \PYG{n}{addVektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,}\PYG{n}{translation}\PYG{p}{);}
+        \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{));}
+        \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{));}
+        \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{));}
+        \PYG{n}{t}\PYG{p}{.}\PYG{n}{reGenVectors}\PYG{p}{();}
+        \PYG{c+c1}{//point für den angle mithilfe der angles im dreieck finden}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]];}
+    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]);}
+    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]);}
+    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]);}
+    \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{d} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]];}
+    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{d}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{+} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]);}
+    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{d}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{+} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]);}
+    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{d}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{+} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]);}
     \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{triangles}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{\PYGZcb{};}
 \PYG{p}{\PYGZcb{}}
 \end{Verbatim}

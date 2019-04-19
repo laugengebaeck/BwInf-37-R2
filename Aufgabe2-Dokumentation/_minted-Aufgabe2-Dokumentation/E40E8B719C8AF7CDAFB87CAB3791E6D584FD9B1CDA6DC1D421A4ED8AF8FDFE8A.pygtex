@@ -66,6 +66,12 @@
         \PYG{n}{p2p3} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point2}\PYG{p}{,}\PYG{n}{point3}\PYG{p}{);}
         \PYG{n}{p3p1} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point3}\PYG{p}{,}\PYG{n}{point1}\PYG{p}{);}
     \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kt}{void} \PYG{n}{reGenVectors}\PYG{p}{()\PYGZob{}}
+        \PYG{n}{p1p2} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point1}\PYG{p}{,}\PYG{n}{point2}\PYG{p}{);}
+        \PYG{n}{p2p3} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point2}\PYG{p}{,}\PYG{n}{point3}\PYG{p}{);}
+        \PYG{n}{p3p1} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point3}\PYG{p}{,}\PYG{n}{point1}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{};}
 
 \PYG{n}{Point} \PYG{n+nf}{addVektor}\PYG{p}{(}\PYG{n}{Point} \PYG{o}{\PYGZam{}}\PYG{n}{p}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v}\PYG{p}{)\PYGZob{}}
@@ -75,7 +81,7 @@
 \PYG{p}{\PYGZcb{}}
 
 \PYG{k+kt}{double} \PYG{n+nf}{dotProduct}\PYG{p}{(}\PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v1}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v2}\PYG{p}{)\PYGZob{}}
-    \PYG{k}{return} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{y} \PYG{o}{+} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
+    \PYG{k}{return} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{y} \PYG{o}{*} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
 \PYG{k+kt}{double} \PYG{n+nf}{angle}\PYG{p}{(}\PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v1}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v2}\PYG{p}{)\PYGZob{}}
@@ -99,4 +105,31 @@
         \PYG{p}{\PYGZcb{}}
         \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{smallest}\PYG{p}{,}\PYG{n}{smallestAngle}\PYG{p}{\PYGZcb{};}
     \PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{//based on https://stackoverflow.com/questions/2259476/rotating\PYGZhy{}a\PYGZhy{}point\PYGZhy{}about\PYGZhy{}another\PYGZhy{}point\PYGZhy{}2d}
+\PYG{k+kt}{void} \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{center}\PYG{p}{,} \PYG{n}{Point} \PYG{o}{\PYGZam{}}\PYG{n}{p}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{angle}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{double} \PYG{n}{sinus} \PYG{o}{=} \PYG{n}{sin}\PYG{p}{(}\PYG{n}{angle}\PYG{p}{);}
+    \PYG{k+kt}{double} \PYG{n}{cosinus} \PYG{o}{=} \PYG{n}{cos}\PYG{p}{(}\PYG{n}{angle}\PYG{p}{);}
+
+    \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}=} \PYG{n}{center}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
+    \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}=} \PYG{n}{center}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
+
+    \PYG{k+kt}{double} \PYG{n}{xnew} \PYG{o}{=} \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{cosinus} \PYG{o}{\PYGZhy{}} \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{*} \PYG{n}{sinus}\PYG{p}{;}
+    \PYG{k+kt}{double} \PYG{n}{ynew} \PYG{o}{=} \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{sinus} \PYG{o}{+} \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{*} \PYG{n}{cosinus}\PYG{p}{;}
+
+    \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{=} \PYG{n}{xnew} \PYG{o}{+} \PYG{n}{center}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
+    \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{=} \PYG{n}{ynew} \PYG{o}{+} \PYG{n}{center}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{center}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{double} \PYG{n}{dx} \PYG{o}{=} \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{center}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
+    \PYG{k+kt}{double} \PYG{n}{dy} \PYG{o}{=} \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{center}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
+
+    \PYG{k+kt}{double} \PYG{n}{angle} \PYG{o}{=} \PYG{n}{atan2}\PYG{p}{(}\PYG{n}{dy}\PYG{p}{,}\PYG{n}{dx}\PYG{p}{);}
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{dy} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{angle} \PYG{o}{+=} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{M\PYGZus{}PI}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{o}{*} \PYG{n}{M\PYGZus{}PI} \PYG{o}{\PYGZhy{}} \PYG{n}{angle}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
 \end{Verbatim}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  15 APR 2019 14:07
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  19 APR 2019 15:17
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1054,14 +1054,32 @@ Underfull \hbox (badness 6300) in paragraph at lines 97--98
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 102--104
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+[]\TU/lmr/m/n/12 Wikipedia-Artikel zu Drehmatrizen, []$[][][][][] [] [] [] [][]
+ [] [][][][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+[][][] [] [][][][] [] [][][][][][][][][][]$[] \TU/lmr/m/n/12 und Stack-Overflow
+-Antwort zur Umset-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+\TU/lmr/m/n/12 zung in C++, []$[][][][][] [] [] [] [][][][][][][][][][][][][] [
+] [][][] [] [][][][][][][][][] [] [][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--105
 
  []
 
 [3]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 108.
-Package svg Info: Calling Inkscape on input line 114.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 109.
+Package svg Info: Calling Inkscape on input line 115.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke1.svg" --export-pdf="dreiecke1_svg-tex.pdf" )...executed.
 
@@ -1074,12 +1092,12 @@ runsystem(mv "dreiecke1_svg-tex.pdf_tex" "./svg-inkscape/dreiecke1_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke1_svg-tex.pdf' is 1 on i
-nput line 114.
+nput line 115.
  (./svg-inkscape/dreiecke1_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke1_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke1_svg-tex.pdf, page 1>
 )
-Package svg Info: Calling Inkscape on input line 135.
+Package svg Info: Calling Inkscape on input line 136.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke2.svg" --export-pdf="dreiecke2_svg-tex.pdf" )...executed.
 
@@ -1092,13 +1110,13 @@ runsystem(mv "dreiecke2_svg-tex.pdf_tex" "./svg-inkscape/dreiecke2_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke2_svg-tex.pdf' is 1 on i
-nput line 135.
+nput line 136.
 
 (./svg-inkscape/dreiecke2_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke2_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke2_svg-tex.pdf, page 1>
-) [4]
-Package svg Info: Calling Inkscape on input line 156.
+) [4] [5]
+Package svg Info: Calling Inkscape on input line 157.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke3.svg" --export-pdf="dreiecke3_svg-tex.pdf" )...executed.
 
@@ -1111,13 +1129,13 @@ runsystem(mv "dreiecke3_svg-tex.pdf_tex" "./svg-inkscape/dreiecke3_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke3_svg-tex.pdf' is 1 on i
-nput line 156.
+nput line 157.
 
 (./svg-inkscape/dreiecke3_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke3_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke3_svg-tex.pdf, page 1>
-) [5]
-Package svg Info: Calling Inkscape on input line 177.
+)
+Package svg Info: Calling Inkscape on input line 178.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke4.svg" --export-pdf="dreiecke4_svg-tex.pdf" )...executed.
 
@@ -1130,13 +1148,13 @@ runsystem(mv "dreiecke4_svg-tex.pdf_tex" "./svg-inkscape/dreiecke4_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke4_svg-tex.pdf' is 1 on i
-nput line 177.
+nput line 178.
 
 (./svg-inkscape/dreiecke4_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke4_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke4_svg-tex.pdf, page 1>
 ) [6]
-Package svg Info: Calling Inkscape on input line 198.
+Package svg Info: Calling Inkscape on input line 199.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe2-Implementierung/ex
 amples/out/dreiecke5.svg" --export-pdf="dreiecke5_svg-tex.pdf" )...executed.
 
@@ -1149,45 +1167,64 @@ runsystem(mv "dreiecke5_svg-tex.pdf_tex" "./svg-inkscape/dreiecke5_svg-tex.pdf_
 tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/dreiecke5_svg-tex.pdf' is 1 on i
-nput line 198.
+nput line 199.
 
 (./svg-inkscape/dreiecke5_svg-tex.pdf_tex
 File: ./svg-inkscape/dreiecke5_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/dreiecke5_svg-tex.pdf, page 1>
-) [7]
+) [7] [8]
 (./_minted-Aufgabe2-Dokumentation/default-pyg-prefix.pygstyle)
 (./_minted-Aufgabe2-Dokumentation/default.pygstyle)
-(./_minted-Aufgabe2-Dokumentation/547695BB9D5F624E5249B4C024A2BBD784FD9B1CDA6DC
+(./_minted-Aufgabe2-Dokumentation/E40E8B719C8AF7CDAFB87CAB3791E6D584FD9B1CDA6DC
 1D421A4ED8AF8FDFE8A.pygtex
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 4.
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 4.
- [8] [9])
+ [9] [10])
 Package hyperref Info: bookmark level for unknown listing defaults to 0 on inpu
-t line 225.
+t line 226.
+runsystem(python -c "import sys; import os; import textwrap; from io import ope
+n; fname = os.path.expanduser(os.path.expandvars(\"../Aufgabe2-Implementierung/
+triangleAlgorithm.cpp\")); f = open(fname, \"r\", encoding=\"UTF8\") if os.path
+.isfile(fname) else None; t = f.readlines() if f is not None else None; t_opt =
+ t if t is not None else []; f.close() if f is not None else None; tmpfname = o
+s.path.expanduser(os.path.expandvars(\"Aufgabe2-Dokumentation.pyg\")); f = open
+(tmpfname, \"w\", encoding=\"UTF8\") if t is not None else None; fvstartnum = 0
+; fvstopnum = 0; s = fvstartnum-1 if fvstartnum != 0 else 0; e = fvstopnum if f
+vstopnum != 0 else len(t_opt); [f.write(textwrap.dedent(\"\".join(x))) for x in
+ (t_opt[0:s], t_opt[s:e], t_opt[e:]) if x and t is not None]; f.close() if t is
+ not None else os.remove(tmpfname);")...executed.
 
-(./_minted-Aufgabe2-Dokumentation/F332147D088593239D98D5F44822C63584FD9B1CDA6DC
-1D421A4ED8AF8FDFE8A.pygtex [10] [11]) 
+runsystem(pygmentize -l cpp -f latex -P commandprefix=PYG -F tokenmerge -o _min
+ted-Aufgabe2-Dokumentation/9A756C2358D1BF252F9BFD0C219545A684FD9B1CDA6DC1D421A4
+ED8AF8FDFE8A.pygtex Aufgabe2-Dokumentation.pyg)...executed.
+
+
+(./_minted-Aufgabe2-Dokumentation/9A756C2358D1BF252F9BFD0C219545A684FD9B1CDA6DC
+1D421A4ED8AF8FDFE8A.pygtex [11] [12] [13]) 
 AED: lastpage setting LastPage
-[12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
+[14]
+runsystem(rm _minted-Aufgabe2-Dokumentation/134A24E763CAB36C821B60390FE85C1584F
+D9B1CDA6DC1D421A4ED8AF8FDFE8A.pygtex)...executed.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 232.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 232.
  (./Aufgabe2-Dokumentation.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 231.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 232.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 232.
 Package rerunfilecheck Info: File `Aufgabe2-Dokumentation.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 231.
+runsystem(rm Aufgabe2-Dokumentation.pyg)...executed.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 232.
  ) 
 Here is how much of TeX's memory you used:
- 18610 strings out of 492933
- 303372 string characters out of 6138668
- 586433 words of memory out of 5000000
- 22334 multiletter control sequences out of 15000+600000
- 14691 words of font info for 79 fonts, out of 8000000 for 9000
+ 18605 strings out of 492933
+ 303297 string characters out of 6138668
+ 587432 words of memory out of 5000000
+ 22331 multiletter control sequences out of 15000+600000
+ 14675 words of font info for 77 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 47i,11n,54p,9151b,737s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 47i,11n,54p,9151b,771s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Aufgabe2-Dokumentation.pdf (13 pages).
+Output written on Aufgabe2-Dokumentation.pdf (15 pages).

@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Eingabedatei einlesen
 vector<Triangle> readInput(string inputFile){
     ifstream in(inputFile);
     int numtri,three;
@@ -21,31 +22,34 @@ vector<Triangle> readInput(string inputFile){
     return triangles;
 }
 
+// Ausgabedatei generieren
 void writeOutput(vector<Triangle> triangles, string outputFile, double maxDistance){
     ofstream out(outputFile);
     out << "Gesamtabstand: " << fixed << setprecision(3) << maxDistance << " Meter\n";
     out << "Platzierung der Dreiecke:\n";
     for(auto tri : triangles){
         out << "D" << tri.id << " ";
-        out << fixed << setprecision(3) << tri.point1.x << " " << tri.point1.y << " ";
-        out << fixed << setprecision(3) << tri.point2.x << " " << tri.point2.y << " ";
-        out << fixed << setprecision(3) << tri.point3.x << " " << tri.point3.y << "\n";
+        out << fixed << setprecision(3) << tri.points[0].x << " " << tri.points[0].y << " ";
+        out << fixed << setprecision(3) << tri.points[1].x << " " << tri.points[1].y << " ";
+        out << fixed << setprecision(3) << tri.points[2].x << " " << tri.points[2].y << "\n";
     }
 }
 
+// SVG-Datei aus den Dreiecken generieren
 void writeSVG(vector<Triangle> triangles, string svgFile){
     ofstream out(svgFile);
-    out << "<svg version=\"1.1\" viewBox=\"0 0 820 620\" xmlns=\"http://www.w3.org/2000/svg\"> \n <g transform=\"scale(1 -1)\"> \n <g transform=\"translate(0 -600)\" fill=\"#ffcc99\"> \n <line id=\"x\" x1=\"0\" x2=\"820\" y1=\"0\" y2=\"0\" stroke=\"#000000\"/>";
+    out << "<svg version=\"1.1\" viewBox=\"0 0 820 620\" xmlns=\"http://www.w3.org/2000/svg\"> \n <g transform=\"scale(1 -1)\"> \n <g transform=\"translate(0 -600)\" fill=\"#ffcc99\"> \n <line id=\"x\" x1=\"0\" x2=\"820\" y1=\"0\" y2=\"0\" stroke=\"#000000\"/>\n";
     for(auto tri: triangles){
         out << "<polygon id=\"D" << tri.id << "\" ";
-        out << "points=\"" << fixed << setprecision(3) << tri.point1.x << " " << tri.point1.y << " ";
-        out << fixed << setprecision(3) << tri.point2.x << " " << tri.point2.y << " ";
-        out << fixed << setprecision(3) << tri.point3.x << " " << tri.point3.y << "\" />\n";
+        out << "points=\"" << fixed << setprecision(3) << tri.points[0].x << " " << tri.points[0].y << " ";
+        out << fixed << setprecision(3) << tri.points[1].x << " " << tri.points[1].y << " ";
+        out << fixed << setprecision(3) << tri.points[2].x << " " << tri.points[2].y << "\" />\n";
     }
     out << "</g> \n </g> \n </svg>";
 }
 
 int main(int argc, const char** argv){
+    // Argumente  konfigurieren & einlesen
     ArgumentParser parser;
     parser.addArgument("-i","--input",1,false);
     parser.addArgument("-s","--svg",1,false);
@@ -58,6 +62,7 @@ int main(int argc, const char** argv){
     string output = parser.retrieve<string>("output");
     bool debug = parser.exists("d");
     
+    // Eingabe einlesen, Algorithmus ausführen, Ausgaben generieren
     double maxDist = 0;
     vector<Triangle> newTriangles;
     vector<Triangle> theTriangles = readInput(input);

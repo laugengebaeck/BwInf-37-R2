@@ -20,7 +20,7 @@
 \contentsline {subsubsection}{\numberline {2.2.2}Die Datei \texttt {svggen.py}}{12}{subsubsection.2.2.2}% 
 \contentsline {subsubsection}{\numberline {2.2.3}Die Datei \texttt {graph.py}}{12}{subsubsection.2.2.3}% 
 \contentsline {subsubsection}{\numberline {2.2.4}Die Datei \texttt {vis\_graph.py}}{12}{subsubsection.2.2.4}% 
-\contentsline {subsubsection}{\numberline {2.2.5}Die Datei \texttt {shortest\_path.py}}{13}{subsubsection.2.2.5}% 
+\contentsline {subsubsection}{\numberline {2.2.5}Die Datei \texttt {shortest\_path.py}}{12}{subsubsection.2.2.5}% 
 \contentsline {subsubsection}{\numberline {2.2.6}Die Datei \texttt {visible\_vertices.py}}{13}{subsubsection.2.2.6}% 
 \contentsline {subsubsection}{\numberline {2.2.7}Die Datei \texttt {minkowski.py}}{14}{subsubsection.2.2.7}% 
 \contentsline {section}{\numberline {3}Beispiele}{14}{section.3}% 
@@ -30,4 +30,4 @@
 \contentsline {subsection}{\numberline {3.4}Beispiel 4}{18}{subsection.3.4}% 
 \contentsline {subsection}{\numberline {3.5}Beispiel 5}{19}{subsection.3.5}% 
 \contentsline {subsection}{\numberline {3.6}Beispiele für die Erweiterungen}{21}{subsection.3.6}% 
-\contentsline {section}{\numberline {4}Quellcode}{22}{section.4}% 
+\contentsline {section}{\numberline {4}Quellcode}{23}{section.4}% 

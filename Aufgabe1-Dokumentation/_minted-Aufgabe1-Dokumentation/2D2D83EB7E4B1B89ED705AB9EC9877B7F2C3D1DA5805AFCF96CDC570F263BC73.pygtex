@@ -1,4 +1,5 @@
 \begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/usr/bin/python3}
 \PYG{c+c1}{\PYGZsh{}Imports}
 \PYG{k+kn}{import} \PYG{n+nn}{argparse}
 \PYG{k+kn}{import} \PYG{n+nn}{os}
@@ -13,7 +14,7 @@
         \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{directory}\PYG{p}{)}
 
 \PYG{k}{def} \PYG{n+nf}{numtotime}\PYG{p}{(}\PYG{n}{num}\PYG{p}{):}
-    \PYG{n}{num} \PYG{o}{=} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{num}\PYG{p}{)}
+    \PYG{n}{num} \PYG{o}{=} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{num}\PYG{p}{))}
     \PYG{n}{hours} \PYG{o}{=} \PYG{n}{num} \PYG{o}{//} \PYG{l+m+mi}{3600}
     \PYG{n}{minutes} \PYG{o}{=} \PYG{p}{(}\PYG{n}{num} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{3600}\PYG{p}{)} \PYG{o}{//} \PYG{l+m+mi}{60}
     \PYG{n}{seconds} \PYG{o}{=} \PYG{p}{(}\PYG{n}{num} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{3600}\PYG{p}{)} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{60}
@@ -83,13 +84,11 @@
 \PYG{n}{graph} \PYG{o}{=} \PYG{n}{vg}\PYG{o}{.}\PYG{n}{VisGraph}\PYG{p}{(}\PYG{n}{real\PYGZus{}v\PYGZus{}lisa}\PYG{p}{,}\PYG{n}{real\PYGZus{}v\PYGZus{}bus}\PYG{p}{,}\PYG{n}{lisa}\PYG{p}{)}
 \PYG{n}{graph}\PYG{o}{.}\PYG{n}{build}\PYG{p}{(}\PYG{n}{polylist}\PYG{p}{)}
 \PYG{n}{path}\PYG{p}{,}\PYG{n}{mintime}\PYG{p}{,}\PYG{n}{min\PYGZus{}bus\PYGZus{}time}\PYG{p}{,} \PYG{n}{minpoint}\PYG{p}{,}\PYG{n}{dist\PYGZus{}minpoint} \PYG{o}{=} \PYG{n}{graph}\PYG{o}{.}\PYG{n}{shortest\PYGZus{}path}\PYG{p}{()}
-\PYG{n}{mintime} \PYG{o}{=} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{mintime}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{}Debug\PYGZhy{}Ausgaben}
 \PYG{k}{if} \PYG{n}{args}\PYG{o}{.}\PYG{n}{debug}\PYG{p}{:}
     \PYG{n}{outpath} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{dirname}\PYG{p}{(}\PYG{n}{args}\PYG{o}{.}\PYG{n}{input}\PYG{p}{)} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}/out/debug/\PYGZdq{}} \PYG{o}{+} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{basename}\PYG{p}{(}\PYG{n}{args}\PYG{o}{.}\PYG{n}{input}\PYG{p}{)}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}.\PYGZdq{}}\PYG{p}{)[}\PYG{l+m+mi}{0}\PYG{p}{]}
     \PYG{n}{ensure\PYGZus{}dir}\PYG{p}{(}\PYG{n}{outpath}\PYG{p}{)}
-    \PYG{n}{graph}\PYG{o}{.}\PYG{n}{save}\PYG{p}{(}\PYG{n}{outpath} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}pickle.pk1\PYGZdq{}}\PYG{p}{)}
     \PYG{n}{svgfile} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{outpath} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}visgraph.svg\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}w\PYGZdq{}}\PYG{p}{)}
     \PYG{n}{svgfile}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{n}{svggen}\PYG{o}{.}\PYG{n}{gen\PYGZus{}vis\PYGZus{}svg}\PYG{p}{(}\PYG{n}{graph}\PYG{o}{.}\PYG{n}{get\PYGZus{}visgraph}\PYG{p}{(),}\PYG{n}{polylist}\PYG{p}{,}\PYG{n}{lisa}\PYG{p}{,}\PYG{n}{maxx}\PYG{o}{+}\PYG{l+m+mi}{200}\PYG{p}{,}\PYG{n}{maxy}\PYG{o}{+}\PYG{l+m+mi}{500}\PYG{p}{))}
     \PYG{n}{svgfile}\PYG{o}{.}\PYG{n}{close}\PYG{p}{()}
@@ -103,11 +102,17 @@
 \PYG{c+c1}{\PYGZsh{}Ausgabe Text}
 \PYG{n}{outtext} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}
 \PYG{n}{hours}\PYG{p}{,} \PYG{n}{minutes}\PYG{p}{,} \PYG{n}{seconds} \PYG{o}{=} \PYG{n}{numtotime}\PYG{p}{(}\PYG{n}{mintime}\PYG{p}{)}
-\PYG{n}{hours} \PYG{o}{=} \PYG{l+m+mi}{7} \PYG{o}{\PYGZhy{}} \PYG{n}{hours}
-\PYG{n}{minutes} \PYG{o}{=} \PYG{l+m+mi}{30} \PYG{o}{\PYGZhy{}} \PYG{n}{minutes}
-\PYG{k}{if} \PYG{n}{seconds} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
-    \PYG{n}{minutes} \PYG{o}{\PYGZhy{}=} \PYG{l+m+mi}{1}
-    \PYG{n}{seconds} \PYG{o}{=} \PYG{l+m+mi}{60} \PYG{o}{\PYGZhy{}} \PYG{n}{seconds}
+\PYG{c+c1}{\PYGZsh{} Normalfall: Startzeit vor 7.30}
+\PYG{k}{if} \PYG{n}{mintime} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+    \PYG{n}{hours} \PYG{o}{=} \PYG{l+m+mi}{7} \PYG{o}{\PYGZhy{}} \PYG{n}{hours}
+    \PYG{n}{minutes} \PYG{o}{=} \PYG{l+m+mi}{30} \PYG{o}{\PYGZhy{}} \PYG{n}{minutes}
+    \PYG{k}{if} \PYG{n}{seconds} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n}{minutes} \PYG{o}{\PYGZhy{}=} \PYG{l+m+mi}{1}
+        \PYG{n}{seconds} \PYG{o}{=} \PYG{l+m+mi}{60} \PYG{o}{\PYGZhy{}} \PYG{n}{seconds}
+\PYG{c+c1}{\PYGZsh{} Wenn Startzeit nach 7.30}
+\PYG{k}{else}\PYG{p}{:}
+    \PYG{n}{hours} \PYG{o}{=} \PYG{l+m+mi}{7} \PYG{o}{+} \PYG{n}{hours}
+    \PYG{n}{minutes} \PYG{o}{=} \PYG{l+m+mi}{30} \PYG{o}{+} \PYG{n}{minutes}
 \PYG{n}{bhours}\PYG{p}{,} \PYG{n}{bminutes}\PYG{p}{,} \PYG{n}{bseconds} \PYG{o}{=} \PYG{n}{numtotime}\PYG{p}{(}\PYG{n}{min\PYGZus{}bus\PYGZus{}time}\PYG{p}{)}
 \PYG{n}{bhours} \PYG{o}{=} \PYG{l+m+mi}{7} \PYG{o}{+} \PYG{n}{bhours}
 \PYG{n}{bminutes} \PYG{o}{=} \PYG{l+m+mi}{30} \PYG{o}{+} \PYG{n}{bminutes}

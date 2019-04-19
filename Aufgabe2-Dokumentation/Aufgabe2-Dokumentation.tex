@@ -30,7 +30,7 @@
 
 \newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
-\newmintedfile{cpp}{frame=single,linenos,samepage=false,firstnumber=1,rulecolor=\color{Gray},autogobble,breakafter=.u,fontsize=\small}
+\newmintedfile{cpp}{frame=single,linenos,samepage=false,firstnumber=1,rulecolor=\color{Gray},autogobble,breakafter=.,fontsize=\small}
 
 \begin{document}
 \renewcommand{\contentsname}{\centerline{Inhaltsverzeichnis}}
@@ -96,6 +96,7 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
 	\bibitem[1] {Src:dpsum} GeeksforGeeks-Artikel zur DP-Lösung von Subset Sum, \url{https://www.geeksforgeeks.org/subset-sum-problem-dp-25/}
 	\bibitem[2]{Src:dpbacktrace} GeeksforGeeks-Artikel zum Backtracen bei der DP-Lösung, \url{https://www.geeksforgeeks.org/perfect-sum-problem-print-subsets-given-sum/}
 	\bibitem[3]{Src:pack} Wikipedia-Artikel zu Packproblemen, \url{https://en.wikipedia.org/wiki/Packing_problems}
+	\bibitem[4] {Src:dreh} Wikipedia-Artikel zu Drehmatrizen, \url{https://de.wikipedia.org/wiki/Drehmatrix} und Stack-Overflow-Antwort zur Umsetzung in C++, \url{https://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d}
 \end{thebibliography}
 \section{Umsetzung}
 \subsection{Allgemeine Hinweise zur Benutzung}
@@ -222,7 +223,7 @@ Usage: ./main --input INPUT --svg SVG --output OUTPUT
  \begin{longlisting}
  	
  	\cppfile{../Aufgabe2-Implementierung/triangles.cpp}
- 	\caption{Die ein Dreieck repräsentierende Klasse \texttt{Triangle}}
+ 	\caption{Die Klassen \texttt{Triangle}, \texttt{Vektor} und \texttt{Point}}
  	
  	\cppfile{../Aufgabe2-Implementierung/triangleAlgorithm.cpp}
  	\caption{Die Datei \texttt{triangleAlgorithm}, die alle wesentlichen Bestandteile des Algorithmus enthält}

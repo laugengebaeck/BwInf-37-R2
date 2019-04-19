@@ -1,7 +1,7 @@
- <svg version="1.1" viewBox="0 0 961 866 " xmlns="http://www.w3.org/2000/svg">
+ <svg version="1.1" viewBox="0 0 961.0 866.0 " xmlns="http://www.w3.org/2000/svg">
     <g transform="scale(1 -1)">
-    <g transform="translate(0 -866)">
-	    <line id="y" x1="0" x2="0" y1="0" y2=" 866" fill="none" stroke="#212121" stroke-width="3"/> 
+    <g transform="translate(0 -866.0)">
+	    <line id="y" x1="0" x2="0" y1="0" y2=" 866.0" fill="none" stroke="#212121" stroke-width="3"/> 
 <polygon id="P1" points="539.0 98.0 549.0 98.0 599.0 118.0 569.0 158.0 519.0 198.0 489.0 138.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
 <polygon id="P2" points="559.0 178.0 569.0 178.0 609.0 248.0 519.0 238.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>
 <polygon id="P3" points="389.0 78.0 459.0 68.0 599.0 68.0 479.0 88.0 459.0 178.0 509.0 248.0 599.0 258.0 499.0 298.0 " fill="#6B6B6B" stroke="#212121" stroke-width="2"/>

@@ -15,7 +15,7 @@
 \contentsline {subsection}{\numberline {3.1}Beispiel 1}{4}{subsection.3.1}% 
 \contentsline {subsection}{\numberline {3.2}Beispiel 2}{5}{subsection.3.2}% 
 \contentsline {subsection}{\numberline {3.3}Beispiel 3}{6}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}Beispiel 4}{6}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Beispiel 5}{7}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}Eigene Beispiele}{8}{subsection.3.6}% 
-\contentsline {section}{\numberline {4}Quellcode}{8}{section.4}% 
+\contentsline {subsection}{\numberline {3.4}Beispiel 4}{7}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Beispiel 5}{8}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Eigene Beispiele}{9}{subsection.3.6}% 
+\contentsline {section}{\numberline {4}Quellcode}{9}{section.4}% 
