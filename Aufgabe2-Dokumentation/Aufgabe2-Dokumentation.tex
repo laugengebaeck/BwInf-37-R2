@@ -23,6 +23,9 @@
 \usepackage{minted}
 \fvset{breaklines=true}
 
+\usepackage[framemethod=tikz]{mdframed}
+\newmdtheoremenv{kasten}{Beobachtung}
+
 \pagestyle{fancy}
 \lhead{Lukas Rost, Teilnahme-ID: 48125}
 \rhead{Aufgabe 2, Seite \thepage ~von \pageref{LastPage}}
@@ -79,14 +82,55 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
  \begin{itemize}
  	\item \textbf{Brute Force und Backtracking:} Bei Brute Force werden einfach alle möglichen Lösungen durchprobiert, während man bei Backtracking eine Lösung schrittweise aufbaut und Schritte wieder zurücknimmt, wenn sie zu keiner zulässigen Gesamtlösung mehr führen können. Beide Ansätze sind in diesem Fall nicht geeignet, da der Lösungsraum extrem groß ist, d.h. es gibt sehr viele mögliche Lösungen. Wenn man Laufzeiten wie $\mathcal{O}(n! \cdot 6^n)$ vermeiden will, die sich durch Beachtung aller Permutationen und Rotationen ergeben, sollte man diese Lösungsansätze also nicht verwenden.
  	\item \textbf{Metaheuristiken:} Zu diesen zählt beispielsweise Simulated Annealing, bei dem man die möglichen Lösungen nach einem globalen Maximum bzw. Minimum einer Bewertungsfunktion absucht. Die Bewertungsfunktion wäre in diesem Fall der Gesamtabstand. Außerdem braucht man für Simulated Annealing eine Möglichkeit, aus einer Lösung eine Nachbarlösung zu generieren, was man in diesem Fall durch z.B. Rotationen der Dreiecke erreichen könnte. Da dies jedoch schwierig zu implementieren ist und man schlimmstenfalls genauso viele Lösungen wie bei Brute Force betrachtet, sind solche Heuristiken ebenfalls nicht geeignet. Auch kann man nicht verhindern, mögliche Lösungen doppelt zu betrachten, was für die Laufzeit ebenfalls nicht so gut ist.
- 	\item \textbf{Dynamic Programming oder Greedy-Ansätze:} DP- und Greedy-Algorithmen sind zwar meistens laufzeiteffizient, jedoch nicht immer optimal. Aus diesem Grund sind sie für eine optimale Lösung dieses Problems nicht geeignet. Beispielsweise könnte die von einem Greedy-Algorithmus getroffene Entscheidung für den besten Folgezustand, also z.B. die Platzierung eines Dreiecks, zu einem nicht optimalen Gesamtergebnis führen. Es könnte dann beispielsweise nicht mehr möglich sein, andere Dreiecke dicht an das aktuelle anzulegen, wodurch der Gesmatabstand erhöht würde.
+ 	\item \textbf{Dynamic Programming oder Greedy-Ansätze:} DP- und Greedy-Algorithmen sind zwar meistens laufzeiteffizient, jedoch nicht immer optimal. Aus diesem Grund sind sie für eine optimale Lösung dieses Problems nicht geeignet. Beispielsweise könnte die von einem Greedy-Algorithmus getroffene Entscheidung für den besten Folgezustand, also z.B. die Platzierung eines Dreiecks, zu einem nicht optimalen Gesamtergebnis führen. Es könnte dann beispielsweise nicht mehr möglich sein, andere Dreiecke dicht an das aktuelle anzulegen, wodurch der Gesamtabstand erhöht würde.
  	\item \textbf{Heuristiken und Approximationsalgorithmen:} Bei Heuristiken versucht man durch intelligentes Raten und zusätzliche Annahmen über die optimale Lösung zu einer guten Lösung zu gelangen. Eine speziell an das Problem angepasste Heuristik ist für dieses Problem das Mittel der Wahl. Dadurch kann man sowohl eine gute (also polynomielle oder pseudopolynomielle) Laufzeit als auch eine Lösung, die relativ nah am Optimum liegt, erreichen. Die heuristische Herangehensweise an dieses Problem wird in den folgenden Abschnitten näher beschrieben.
  \end{itemize}
-  \subsection{Intuitive Beschreibung der Lösungsidee}
- \subsection{Mathematische Präzisierung des Algorithmus}
+  \subsection{Beschreibung der Lösungsidee}
+  \subsubsection{Beobachtungen bezüglich einer guten Lösung}  
+  Da ein Dreieck sowohl durch seine Seitenlängen als auch durch seine Innenwinkel charakterisiert wird, scheint es sinnvoll zu sein, diese erst einmal zu berechnen. Sei nun $\varphi_i$ der kleinste Innenwinkel des Dreiecks $d_i$. Ist die Summe $\sum_{i=1}^{n} \varphi_i < 180\degree$, dann ist eine optimale Lösung des Problems sehr leicht ersichtlich:
+  \begin{kasten}
+  	In diesem Fall genügt es, alle Dreiecke so zu platzieren, dass alle einen festen Punkt gemeinsam haben und sie um diesen herum halbkreisförmig angeordnet sind (siehe Abbildung). Dann ist der Gesamtabstand $0$, da sich alle Dreiecke einen Punkt teilen. Dieser Abstand muss optimal sein, da kein geringerer Abstand als $0$ möglich ist. \\
+  	{\centering
+  		\includegraphics[width=0.6\textwidth]{pics/optimal-tri.png}
+  		\captionof{figure}{Optimale Anordnung für eine Summe kleiner $180\degree$}
+  	\par}
+  \end{kasten} ~\\
+ Sollte die Summe jedoch größer sein, ist es nicht mehr so einfach, eine optimale Lösung zu finden. Genauer gesagt kann man ab diesem Punkt nur noch eine Heuristik einsetzen, die ein möglichst gutes Ergebnis liefert. Dabei stellt sich heraus:
+ \begin{kasten}
+ 	Es scheint sinnvoll zu sein, eine Teilmenge der Dreiecke zu finden, für die $\sum \varphi_i < 180\degree$ gilt. Für diese kann die in der vorherigen Beobachtung beschriebene Strategie angewandt werden. \\ \\
+ 	Nun müssen aber noch die übriggebliebenen Dreiecke angeordnet werden. %TODO wie am besten?
+ \end{kasten}
+  \subsubsection{Subset Sum und ein DP-Algorithmus}
+  Um anhand der Winkel der Dreiecke die jeweils (anfangs z.B. in einem Halbkreis) zu platzierenden Dreiecke zu ermitteln, muss man das Subset-Sum-Problem lösen. Dabei ist eine Menge von ganzen Zahlen $I = \{w_1,...,w_n\} (w_i \in \mathbb{Z})$ gegeben. Nun wird eine Teilmenge $S$ mit maximaler Summe gesucht, die aber nicht größer als eine obere Schranke $c$ (in diesem Fall z.B. $180\degree$ bzw. $\pi$) ist. Formal erfüllt $S$ also folgende Eigenschaften:
+  \begin{equation}
+  S = \arg \max_{S \in 2^I} \sum_{w_j \in S} w_j
+  \end{equation}
+  \begin{equation}
+  \sum_{w_j \in S} \leq c
+  \end{equation}
+  Leider ist das Subset-Sum-Problem aber NP-vollständig und somit grundsätzlich nicht effizient lösbar. Ist $c$ jedoch klein genug, existiert ein Dynamic-Programming-Algorithmus zur Lösung des Problems in pseudopolynomieller Zeit.\cite{Src:dpsum} Dazu lässt sich eine DP-Funktion definieren, die mittels einer DP-Tabelle effizient berechnet werden kann:
+  \begin{equation}
+  dp(i,sum) = 
+  \begin{cases}
+  false & sum > 0 \wedge i = 0 \\
+  true & sum = 0 \\
+  dp(i-1,sum) \vee dp(i-1,sum-w_i) & \, \text{sonst}
+  \end{cases}
+  \end{equation}
+  Diese Funktion gibt an, ob sich eine Summe von $sum$ mit den ersten $i$ Elementen der Menge erreichen lässt. Die Funktion baut darauf auf, dass es an jeder Stelle genau zwei Möglichkeiten gibt: Entweder das aktuelle Element wird nicht in das Subset aufgenommen (dann muss man die Summe mit den anderen $i-1$ Elementen erreichen) oder das Element wird in das Subset aufgenommen (dann muss man mit $i-1$ Elementen nur noch eine um $w_i$ verringerte Summe erreichen). \\ \\
+  Nun gibt $dp(n,c)$ an, ob es möglich ist, mit allen Elementen die Summe $c$ zu erreichen. Doch da diese Summe oft nicht exakt erreicht werden kann, muss man $c$ entsprechend oft dekrementieren, bis $dp(n,c) = true$ ist und es möglich ist, diese Summe zu erreichen. \\ \\
+  Um aus der DP-Tabelle nun das eigentliche Subset zu erhalten, muss man die Lösung backtracen.\cite{Src:dpbacktrace} Dabei betrachtet man für jedes Element $w_i$ einerseits die Möglichkeit, dass das Element enthalten ist, und andererseits, dass das Element nicht enthalten ist. Wenn eine dieser Möglichkeiten laut DP-Tabelle möglich ist, kann man rekursiv eine Lösung für das entsprechende Feld für $i-1$ generieren und dann das aktuelle Element anhängen oder nicht (je nachdem). Am Ende erhält man dann ein mögliches Subset.
+  \\ \\
+  Da man eine DP-Tabelle mit $n \cdot c$ Elementen ausfüllt, ergibt sich für diesen Algorithmus somit auch eine Laufzeit in $\mathcal{O}(n \cdot c)$, also in pseudopolynomieller Zeit.
+  \\ \\
+  Mittels dieses Subset-Sum-Algorithmus ist es möglich, Dreiecke so auszuwählen, dass ihre kleinsten Winkel $\varphi_i$ einen gegebenen freien Winkel (z.B. den Halbkreis oberhalb der x-Achse) möglichst gut ausnutzen. Dadurch können die Dreiecke relativ dicht gepackt und der Gesamtabstand verkleinert werden. Entsprechend sind für diese Aufgabe die $w_i = \varphi_i$. \\ \\
+   Da es sich bei den Winkeln in der Realität jedoch um Gleitkommazahlen handelt, müssen diese zunächst in Festkommazahlen mit wenigen Nachkommastellen umgewandelt und anschließend mit einem festen Faktor (eine entsprechende Zehnerpotenz) multipliziert werden, damit man natürliche Zahlen erhält, die vom Algorithmus verarbeitet werden können.
+  \subsubsection{Der Algorithmus zur Platzierung der Dreiecke}
+  \subsubsection{Implementierte Verbesserungen}
+  \subsection{Optimalität des Algorithmus und Verbesserungsmöglichkeiten}
  \subsection{Laufzeitbetrachtung und NP-Vollständigkeit}
  %TODO Laufzeit
- Eine Frage, die sich hierbei auch stellt, ist diejenige, ob es für dieses Problem einen in Polynomialzeit terminierenden Algorithmus geben kann. Dies entspricht der Frage, ob das Problem in der Klasse $NPC$\footnote{Genaugenommen ist diese Klasse nur für Entscheidungsprobleme definiert, daher handelt es sich bei diesem Suchproblem um NP-Äquivalenz.} (NP-vollständig bzw. NP-complete) liegt. Ich vermute, dass dies der Fall ist, kann es jedoch nicht beweisen. \\ \\
+ Eine Frage, die sich hierbei auch stellt, ist diejenige, ob es für dieses Problem einen in Polynomialzeit terminierenden Algorithmus geben kann, der eine optimale Lösung liefert. Dies entspricht der Frage, ob das Problem in der Klasse $NPC$\footnote{Genaugenommen ist diese Klasse nur für Entscheidungsprobleme definiert, daher handelt es sich bei diesem Suchproblem um NP-Äquivalenz.} (NP-vollständig bzw. NP-complete) liegt. Ich vermute, dass dies der Fall ist, kann es jedoch nicht beweisen. \\ \\
  Zum Beweis, dass ein Problem in $NPC$ liegt, werden zwei Voraussetzungen benötigt:
  \begin{enumerate}
  	\item Eine deterministisch arbeitende Turingmaschine benötigt nur Polynomialzeit, um zu entscheiden, ob eine z.B. von einer Orakel-Turingmaschine vorgeschlagene Lösung tatsächlich eine Lösung des Problems ist. Dies ist hier der Fall, denn wenn eine Lösung vorgeschlagen wird, kann man in Polynomialzeit überprüfen, ob es sich dabei um eine erlaubte Dreiecksanordnung handelt. \\ \\ Dazu überprüft man alle vier Bedingungen dafür. Die ersten beiden Bedingungen lassen sich einfach für jedes Dreieck in konstanter Zeit, insgesamt also in $\mathcal{O}(n)$, überprüfen. Für die dritte Bedingung (Kongruenz) ist dies mithilfe von Kongruenzsätzen ebenfalls in linearer Zeit möglich. Bei der vierte Bedingung  (keine Überlappung) muss man alle Dreieckspaare, insgesamt also $\mathcal{O}(n^2)$, auf Überlappung überprüfen. Insgesamt erhält man mit $\mathcal{O}(n^2)$ also Polynomialzeit.
@@ -107,6 +151,7 @@ Usage: ./main --input INPUT --svg SVG --output OUTPUT
 \end{verbatim}
 \subsection{Struktur des Programms und Implementierung der Algorithmen}
 \subsubsection{Die Datei \texttt{main.cpp}}
+\texttt{main.cpp} enthält ausschließlich Funktionen, die für Eingabe und Ausgabe des Programms zuständig sind. Aus diesem Grund wird der Quellcode dieser Datei auch nicht mit abgedruckt.
 \subsubsection{Die Datei \texttt{triangles.cpp}}
 \subsubsection{Die Datei \texttt{triangleAlgorithm.cpp}}
 \section{Beispiele}
@@ -215,8 +260,6 @@ Usage: ./main --input INPUT --svg SVG --output OUTPUT
 	commentchar=*        % comment character
 }
 \VerbatimInput{../Aufgabe2-Implementierung/examples/out/dreiecke5-out.txt}
-\subsection{Eigene Beispiele}
-
  \section{Quellcode}
  \renewcommand{\listingscaption}{Quellcode}
  

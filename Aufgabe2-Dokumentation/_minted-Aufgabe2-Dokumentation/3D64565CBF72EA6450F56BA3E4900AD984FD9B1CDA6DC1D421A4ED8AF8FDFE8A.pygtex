@@ -49,28 +49,50 @@
 \PYG{k}{class} \PYG{n+nc}{Triangle}\PYG{p}{\PYGZob{}}
     \PYG{k}{public}\PYG{o}{:}
 
-    \PYG{n}{Point} \PYG{n}{point1}\PYG{p}{;}
-    \PYG{n}{Point} \PYG{n}{point2}\PYG{p}{;}
-    \PYG{n}{Point} \PYG{n}{point3}\PYG{p}{;}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Point}\PYG{o}{\PYGZgt{}} \PYG{n}{points}\PYG{p}{;}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Vektor}\PYG{o}{\PYGZgt{}} \PYG{n}{vektoren}\PYG{p}{;}
+    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{lengths}\PYG{p}{;}
     \PYG{k+kt}{int} \PYG{n}{id}\PYG{p}{;}
-    \PYG{n}{Vektor} \PYG{n}{p1p2}\PYG{p}{;}
-    \PYG{n}{Vektor} \PYG{n}{p2p3}\PYG{p}{;}
-    \PYG{n}{Vektor} \PYG{n}{p3p1}\PYG{p}{;}
 
     \PYG{n}{Triangle}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{p1}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p2}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p3}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{idd}\PYG{p}{)\PYGZob{}}
-        \PYG{n}{point1} \PYG{o}{=} \PYG{n}{p1}\PYG{p}{;}
-        \PYG{n}{point2} \PYG{o}{=} \PYG{n}{p2}\PYG{p}{;}
-        \PYG{n}{point3} \PYG{o}{=} \PYG{n}{p3}\PYG{p}{;}
+        \PYG{n}{points} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{p1}\PYG{p}{,}\PYG{n}{p2}\PYG{p}{,}\PYG{n}{p3}\PYG{p}{\PYGZcb{};}
         \PYG{n}{id} \PYG{o}{=} \PYG{n}{idd}\PYG{p}{;}
-        \PYG{n}{p1p2} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point1}\PYG{p}{,}\PYG{n}{point2}\PYG{p}{);}
-        \PYG{n}{p2p3} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point2}\PYG{p}{,}\PYG{n}{point3}\PYG{p}{);}
-        \PYG{n}{p3p1} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point3}\PYG{p}{,}\PYG{n}{point1}\PYG{p}{);}
+        \PYG{n}{reGenVectors}\PYG{p}{();}
+        \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}=}\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{lengths}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{vektoren}\PYG{p}{[}\PYG{n}{i}\PYG{p}{].}\PYG{n}{betrag}\PYG{p}{());}
+        \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
 
     \PYG{k+kt}{void} \PYG{n}{reGenVectors}\PYG{p}{()\PYGZob{}}
-        \PYG{n}{p1p2} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point1}\PYG{p}{,}\PYG{n}{point2}\PYG{p}{);}
-        \PYG{n}{p2p3} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point2}\PYG{p}{,}\PYG{n}{point3}\PYG{p}{);}
-        \PYG{n}{p3p1} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{point3}\PYG{p}{,}\PYG{n}{point1}\PYG{p}{);}
+        \PYG{n}{Vektor} \PYG{n}{p1p2} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]);}
+        \PYG{n}{Vektor} \PYG{n}{p2p3} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]);}
+        \PYG{n}{Vektor} \PYG{n}{p3p1} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]);}
+        \PYG{n}{vektoren} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{p1p2}\PYG{p}{,}\PYG{n}{p2p3}\PYG{p}{,}\PYG{n}{p3p1}\PYG{p}{\PYGZcb{};}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kt}{double} \PYG{n}{shortestLength}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{bestPoint}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{switch}\PYG{p}{(}\PYG{n}{bestPoint}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k}{case} \PYG{l+m+mi}{0}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])\PYGZob{}}
+                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])\PYGZob{}}
+                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])\PYGZob{}}
+                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{default}\PYG{o}{:} \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                 \PYG{k}{break}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{};}
 
@@ -89,22 +111,18 @@
     \PYG{k}{return} \PYG{n}{acos}\PYG{p}{(}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{cosvalue}\PYG{p}{));}
 \PYG{p}{\PYGZcb{}}
 
-\PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{n}{Point}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{Triangle} \PYG{n}{t}\PYG{p}{)\PYGZob{}}
-        \PYG{k+kt}{double} \PYG{n}{p1angle} \PYG{o}{=} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p1p2}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p3p1}\PYG{p}{);}
-        \PYG{k+kt}{double} \PYG{n}{p2angle} \PYG{o}{=} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p1p2}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p2p3}\PYG{p}{);}
-        \PYG{k+kt}{double} \PYG{n}{p3angle} \PYG{o}{=} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p2p3}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{p3p1}\PYG{p}{);}
-        \PYG{n}{Point} \PYG{n}{smallest} \PYG{o}{=} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{;}
-        \PYG{k+kt}{double} \PYG{n}{smallestAngle} \PYG{o}{=} \PYG{n}{p1angle}\PYG{p}{;}
-        \PYG{k}{if}\PYG{p}{(}\PYG{n}{p2angle} \PYG{o}{\PYGZlt{}} \PYG{n}{smallestAngle}\PYG{p}{)\PYGZob{}}
-            \PYG{n}{smallest} \PYG{o}{=} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{;}
-            \PYG{n}{smallestAngle} \PYG{o}{=} \PYG{n}{p2angle}\PYG{p}{;}
+\PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{Triangle} \PYG{n}{t}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{double} \PYG{n}{bestangle} \PYG{o}{=} \PYG{n}{M\PYGZus{}PI}\PYG{p}{;}
+    \PYG{k+kt}{int} \PYG{n}{pointindex}\PYG{p}{;}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}=}\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+        \PYG{k+kt}{double} \PYG{n}{thisangle} \PYG{o}{=} \PYG{n}{angle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{vektoren}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{vektoren}\PYG{p}{[(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{\PYGZpc{}}\PYG{l+m+mi}{3}\PYG{p}{]);}
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{thisangle} \PYG{o}{\PYGZlt{}} \PYG{n}{bestangle}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{bestangle} \PYG{o}{=} \PYG{n}{thisangle}\PYG{p}{;}
+            \PYG{n}{pointindex} \PYG{o}{=} \PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{\PYGZpc{}}\PYG{l+m+mi}{3}\PYG{p}{;}
         \PYG{p}{\PYGZcb{}}
-        \PYG{k}{if}\PYG{p}{(}\PYG{n}{p3angle} \PYG{o}{\PYGZlt{}} \PYG{n}{smallestAngle}\PYG{p}{)\PYGZob{}}
-            \PYG{n}{smallest} \PYG{o}{=} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{;}
-            \PYG{n}{smallestAngle} \PYG{o}{=} \PYG{n}{p3angle}\PYG{p}{;}
-        \PYG{p}{\PYGZcb{}}
-        \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{smallest}\PYG{p}{,}\PYG{n}{smallestAngle}\PYG{p}{\PYGZcb{};}
     \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{pointindex}\PYG{p}{,}\PYG{n}{bestangle}\PYG{p}{\PYGZcb{};}
+\PYG{p}{\PYGZcb{}}
 
 \PYG{c+c1}{//based on https://stackoverflow.com/questions/2259476/rotating\PYGZhy{}a\PYGZhy{}point\PYGZhy{}about\PYGZhy{}another\PYGZhy{}point\PYGZhy{}2d}
 \PYG{k+kt}{void} \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{center}\PYG{p}{,} \PYG{n}{Point} \PYG{o}{\PYGZam{}}\PYG{n}{p}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{angle}\PYG{p}{)\PYGZob{}}
@@ -131,5 +149,9 @@
     \PYG{p}{\PYGZcb{}}
 
     \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{o}{*} \PYG{n}{M\PYGZus{}PI} \PYG{o}{\PYGZhy{}} \PYG{n}{angle}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{double} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{a}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{b}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{c}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{return} \PYG{p}{(}\PYG{n}{b}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{b}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{);}
 \PYG{p}{\PYGZcb{}}
 \end{Verbatim}

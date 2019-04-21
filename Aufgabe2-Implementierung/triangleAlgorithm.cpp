@@ -1,8 +1,12 @@
 #include<bits/stdc++.h>
 #include"triangles.cpp"
+#define EPSILON 0.5
 
 using namespace std;
 
+vector<int> bestPointIndex;
+vector<int> bestAngle;
+vector<double> bestAngleDouble;
 vector<int> sol;
 
 bool getSubsetsRec(vector<int> arr, int i, int sum, vector<int>& p, vector<vector<bool>> &dp) 
@@ -77,14 +81,43 @@ void subsetSum(vector<int> set,int sum){
 }
 
 int findAngleCalcPoint(Triangle &t, int bestPoint){
-    return 2;
+    //just return the point that is counterclockwise from line between other points
+    switch(bestPoint) {
+        case 0: if(ccw(t.points[0],t.points[1],t.points[2]) > 0){
+                    //point 2 is clockwise
+                    return 1;
+                } else {
+                    //point 2 is counterclockwise
+                    return 2;
+                }
+                break;
+        case 1: if(ccw(t.points[1],t.points[0],t.points[2]) > 0){
+                    //point 2 is clockwise
+                    return 0;
+                } else {
+                    //point 2 is counterclockwise
+                    return 2;
+                }
+                break;
+        case 2: if(ccw(t.points[2],t.points[1],t.points[0]) > 0){
+                    //point 0 is clockwise
+                    return 1;
+                } else {
+                    //point 0 is counterclockwise
+                    return 0;
+                }
+                break;
+        default: return 0;
+                 break;
+    }
+}
+
+bool triangleSortFunc(Triangle &t1, Triangle &t2){
+    return t1.shortestLength(bestPointIndex[t1.id-1]) < t2.shortestLength(bestPointIndex[t2.id-1]);
 }
 
 pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> triangles, bool debug){
     Point centerPoint = Point(300,0);
-    vector<int> bestPointIndex;
-    vector<int> bestAngle;
-    vector<double> bestAngleDouble;
     for(size_t i = 0; i<triangles.size(); i++){
         auto &t = triangles[i];
         int ind;
@@ -99,15 +132,15 @@ pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> triangles, bool debug
     subsetSum(bestAngle,(int) floor(10000*M_PI));
 
     for(auto index : sol){
-        Vektor translation = Vektor(triangles[index].points[bestPointIndex[index]],centerPoint);
         auto &t = triangles[index];
+        Vektor translation = Vektor(t.points[bestPointIndex[index]],centerPoint);
         for(int i=0;i<=2;i++){
             t.points[i] = addVektor(t.points[i],translation);
         }
         int rotatePoint = findAngleCalcPoint(t,bestPointIndex[index]);
         double rotateAngle = atan_angle(centerPoint,t.points[rotatePoint]);
         for(int i=0;i<=2;i++){
-            rotate_tri(centerPoint, t.points[i], rotateAngle + bestAngleDouble[index]);
+            rotate_tri(centerPoint, t.points[i], rotateAngle);
         }
         t.reGenVectors();
     }
@@ -121,8 +154,27 @@ pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> triangles, bool debug
         triRotateAngle += bestAngleDouble[sol[i]];
     }
 
+    double minx_above = 100000, miny_above = -1, maxx_above = 0, maxy_above = -1;
+    double minx_axis = 100000, miny_axis = -1, maxx_axis = 0, maxy_axis = -1;
+    for(auto index: sol){
+        auto &t = triangles[index];
+        for(auto pnt: t.points){
+            if(pnt.y <= EPSILON){
+                if(pnt.x < minx_axis) {minx_axis = pnt.x; miny_axis = pnt.y;}
+                if(pnt.x > maxx_axis) {maxx_axis = pnt.x; maxy_axis = pnt.y;}
+            } else if(pnt.y > EPSILON) {
+                if(pnt.x < minx_above) { minx_above = pnt.x; miny_above = pnt.y; }
+                if(pnt.x > maxx_above) { maxx_above = pnt.x; maxy_above = pnt.y; }
+            }
+        }
+    }
+
+    cout << minx_axis << " " << miny_axis << " " << minx_above << " " << miny_above << endl;
+    cout << maxx_axis << " " << maxy_axis << " " << maxx_above << " " << maxy_above << endl;
+
     //TODO order the triangles -> lengths
     //TODO what to do with triangles outside the subset
+    //TODO Gesamtabstand berechnen
 
     return {triangles,0};
 }

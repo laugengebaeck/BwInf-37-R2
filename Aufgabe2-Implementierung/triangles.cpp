@@ -49,13 +49,17 @@ class Triangle{
     public:
 
     vector<Point> points;
-    int id;
     vector<Vektor> vektoren;
+    vector<double> lengths;
+    int id;
 
     Triangle(Point p1, Point p2, Point p3, int idd){
         points = {p1,p2,p3};
         id = idd;
         reGenVectors();
+        for(int i=0;i<=2;i++){
+            lengths.push_back(vektoren[i].betrag());
+        }
     }
 
     void reGenVectors(){
@@ -63,6 +67,31 @@ class Triangle{
         Vektor p2p3 = Vektor(points[1],points[2]);
         Vektor p3p1 = Vektor(points[2],points[0]);
         vektoren = {p1p2,p2p3,p3p1};
+    }
+
+    double shortestLength(int bestPoint){
+        switch(bestPoint) {
+        case 0: if(lengths[0] < lengths[2]){
+                    return 0;
+                } else {
+                    return 2;
+                }
+                break;
+        case 1: if(lengths[0] < lengths[1]){
+                    return 0;
+                } else {
+                    return 1;
+                }
+                break;
+        case 2: if(lengths[1] < lengths[2]){
+                    return 1;
+                } else {
+                    return 2;
+                }
+                break;
+        default: return 0;
+                 break;
+        }
     }
 };
 

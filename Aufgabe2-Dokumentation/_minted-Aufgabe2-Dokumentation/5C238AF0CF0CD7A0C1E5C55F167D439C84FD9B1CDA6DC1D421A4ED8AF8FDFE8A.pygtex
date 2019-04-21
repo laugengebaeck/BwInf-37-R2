@@ -4,6 +4,9 @@
 
 \PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
 
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestPointIndex}\PYG{p}{;}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngle}\PYG{p}{;}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngleDouble}\PYG{p}{;}
 \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{sol}\PYG{p}{;}
 
 \PYG{k+kt}{bool} \PYG{n+nf}{getSubsetsRec}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{arr}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{sum}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{p}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{o}{\PYGZam{}}\PYG{n}{dp}\PYG{p}{)} 
@@ -77,48 +80,84 @@
     \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{k+kt}{int} \PYG{n+nf}{findAngleCalcPoint}\PYG{p}{(}\PYG{n}{Triangle} \PYG{o}{\PYGZam{}}\PYG{n}{t}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{bestPoint}\PYG{p}{)\PYGZob{}}
+    \PYG{c+c1}{//just return the point that is counterclockwise from line between other points}
+    \PYG{k}{switch}\PYG{p}{(}\PYG{n}{bestPoint}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k}{case} \PYG{l+m+mi}{0}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is clockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is counterclockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is clockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is counterclockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+                    \PYG{c+c1}{//point 0 is clockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{c+c1}{//point 0 is counterclockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{default}\PYG{o}{:} \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                 \PYG{k}{break}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{bool} \PYG{n+nf}{triangleSortFunc}\PYG{p}{(}\PYG{n}{Triangle} \PYG{o}{\PYGZam{}}\PYG{n}{t1}\PYG{p}{,} \PYG{n}{Triangle} \PYG{o}{\PYGZam{}}\PYG{n}{t2}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{t1}\PYG{p}{.}\PYG{n}{shortestLength}\PYG{p}{(}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{t1}\PYG{p}{.}\PYG{n}{id}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{])} \PYG{o}{\PYGZlt{}} \PYG{n}{t2}\PYG{p}{.}\PYG{n}{shortestLength}\PYG{p}{(}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{t2}\PYG{p}{.}\PYG{n}{id}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]);}
+\PYG{p}{\PYGZcb{}}
+
 \PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{doAlgorithm}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}} \PYG{n}{triangles}\PYG{p}{,} \PYG{k+kt}{bool} \PYG{n}{debug}\PYG{p}{)\PYGZob{}}
     \PYG{n}{Point} \PYG{n}{centerPoint} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
-    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Point}\PYG{o}{\PYGZgt{}} \PYG{n}{bestPoint}\PYG{p}{;}
-    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngle}\PYG{p}{;}
-    \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngleDouble}\PYG{p}{;}
     \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{triangles}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
         \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
-        \PYG{n}{Point} \PYG{n}{p}\PYG{p}{;}
+        \PYG{k+kt}{int} \PYG{n}{ind}\PYG{p}{;}
         \PYG{k+kt}{double} \PYG{n}{angle}\PYG{p}{;}
-        \PYG{n}{tie}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,}\PYG{n}{angle}\PYG{p}{)} \PYG{o}{=} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{);}
-        \PYG{n}{bestPoint}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{p}\PYG{p}{);}
+        \PYG{n}{tie}\PYG{p}{(}\PYG{n}{ind}\PYG{p}{,}\PYG{n}{angle}\PYG{p}{)} \PYG{o}{=} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{t}\PYG{p}{);}
+        \PYG{n}{bestPointIndex}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{ind}\PYG{p}{);}
         \PYG{n}{bestAngle}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{((}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{ceil}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{angle}\PYG{p}{));}
         \PYG{n}{bestAngleDouble}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{angle}\PYG{p}{);}
-        \PYG{c+cm}{/*Vektor translation = Vektor(p,centerPoint);}
-\PYG{c+cm}{        t.point1 = addVektor(t.point1,translation);}
-\PYG{c+cm}{        t.point2 = addVektor(t.point2,translation);}
-\PYG{c+cm}{        t.point3 = addVektor(t.point3,translation);*/}
-        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{angle} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{t}\PYG{p}{.}\PYG{n}{id} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{ind}\PYG{p}{].}\PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{ind}\PYG{p}{].}\PYG{n}{y} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{angle} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
+
     \PYG{n}{subsetSum}\PYG{p}{(}\PYG{n}{bestAngle}\PYG{p}{,(}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{floor}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{M\PYGZus{}PI}\PYG{p}{));}
-    \PYG{c+c1}{//TODO rotate \PYGZhy{}\PYGZgt{} no overlap}
-    \PYG{c+c1}{//TODO what to do with triangles outside the subset}
+
     \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{index} \PYG{p}{:} \PYG{n}{sol}\PYG{p}{)\PYGZob{}}
-        \PYG{n}{Vektor} \PYG{n}{translation} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{bestPoint}\PYG{p}{[}\PYG{n}{index}\PYG{p}{],}\PYG{n}{centerPoint}\PYG{p}{);}
         \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{index}\PYG{p}{];}
-        \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1} \PYG{o}{=} \PYG{n}{addVektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,}\PYG{n}{translation}\PYG{p}{);}
-        \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2} \PYG{o}{=} \PYG{n}{addVektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,}\PYG{n}{translation}\PYG{p}{);}
-        \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3} \PYG{o}{=} \PYG{n}{addVektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,}\PYG{n}{translation}\PYG{p}{);}
-        \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{));}
-        \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{));}
-        \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{));}
+        \PYG{n}{Vektor} \PYG{n}{translation} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]],}\PYG{n}{centerPoint}\PYG{p}{);}
+        \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}=}\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{addVektor}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}\PYG{n}{translation}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k+kt}{int} \PYG{n}{rotatePoint} \PYG{o}{=} \PYG{n}{findAngleCalcPoint}\PYG{p}{(}\PYG{n}{t}\PYG{p}{,}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]);}
+        \PYG{k+kt}{double} \PYG{n}{rotateAngle} \PYG{o}{=} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{rotatePoint}\PYG{p}{]);}
+        \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}=}\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{rotateAngle}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
         \PYG{n}{t}\PYG{p}{.}\PYG{n}{reGenVectors}\PYG{p}{();}
-        \PYG{c+c1}{//point für den angle mithilfe der angles im dreieck finden}
     \PYG{p}{\PYGZcb{}}
-    \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]];}
-    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]);}
-    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]);}
-    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]);}
-    \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{d} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]];}
-    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{d}\PYG{p}{.}\PYG{n}{point1}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{+} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]);}
-    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{d}\PYG{p}{.}\PYG{n}{point2}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{+} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]);}
-    \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{d}\PYG{p}{.}\PYG{n}{point3}\PYG{p}{,} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{+} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]]);}
+
+    \PYG{k+kt}{double} \PYG{n}{triRotateAngle} \PYG{o}{=} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]];}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]];}
+        \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{j}\PYG{o}{\PYGZlt{}=}\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{n}{triRotateAngle}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{n}{triRotateAngle} \PYG{o}{+=} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]];}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{c+c1}{//TODO order the triangles \PYGZhy{}\PYGZgt{} lengths}
+    \PYG{c+c1}{//TODO what to do with triangles outside the subset}
+    \PYG{c+c1}{//TODO Gesamtabstand berechnen}
+
     \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{triangles}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{\PYGZcb{};}
 \PYG{p}{\PYGZcb{}}
 \end{Verbatim}
