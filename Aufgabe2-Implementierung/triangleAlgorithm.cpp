@@ -8,6 +8,8 @@ vector<int> bestPointIndex;
 vector<int> bestAngle;
 vector<double> bestAngleDouble;
 vector<int> sol;
+vector<Triangle> triangles;
+vector<Triangle> placedTriangles;
 
 bool getSubsetsRec(vector<int> arr, int i, int sum, vector<int>& p, vector<vector<bool>> &dp) 
 { 
@@ -80,43 +82,76 @@ void subsetSum(vector<int> set,int sum){
     cout << "\n";
 }
 
-int findAngleCalcPoint(Triangle &t, int bestPoint){
-    //just return the point that is counterclockwise from line between other points
-    switch(bestPoint) {
-        case 0: if(ccw(t.points[0],t.points[1],t.points[2]) > 0){
-                    //point 2 is clockwise
-                    return 1;
-                } else {
-                    //point 2 is counterclockwise
-                    return 2;
-                }
-                break;
-        case 1: if(ccw(t.points[1],t.points[0],t.points[2]) > 0){
-                    //point 2 is clockwise
-                    return 0;
-                } else {
-                    //point 2 is counterclockwise
-                    return 2;
-                }
-                break;
-        case 2: if(ccw(t.points[2],t.points[1],t.points[0]) > 0){
-                    //point 0 is clockwise
-                    return 1;
-                } else {
-                    //point 0 is counterclockwise
-                    return 0;
-                }
-                break;
-        default: return 0;
-                 break;
+bool lengthSortFunc(const int t1, const int t2){
+    return triangles[t1].shortestLength(bestPointIndex[t1]) < triangles[t2].shortestLength(bestPointIndex[t2]);
+}
+
+bool triangleSortFunc(Triangle t1, Triangle t2){
+    double right1 = 0, right2 = 0;
+    for(auto p: t1.points){
+        if(p.x > right1) right1 = p.x;
+    }
+    for(auto p: t2.points){
+        if(p.x > right2) right2 = p.x;
+    }
+    return right1 < right2;
+}
+
+void deleteUsedTriangles(){
+    sort(sol.begin(),sol.end(),greater<int>());
+    for(auto index: sol){
+        placedTriangles.push_back(triangles[index]);
+        triangles.erase(triangles.begin()+index);
+        bestAngle.erase(bestAngle.begin()+index);
+        bestAngleDouble.erase(bestAngleDouble.begin()+index);
+        bestPointIndex.erase(bestPointIndex.begin()+index);
     }
 }
 
-bool triangleSortFunc(Triangle &t1, Triangle &t2){
-    return t1.shortestLength(bestPointIndex[t1.id-1]) < t2.shortestLength(bestPointIndex[t2.id-1]);
+void translateAndRotateToAxis(Point centerPoint){
+    for(auto index : sol){
+        auto &t = triangles[index];
+        Vektor translation = Vektor(t.points[bestPointIndex[index]],centerPoint);
+        for(int i=0;i<=2;i++){
+            t.points[i] = addVektor(t.points[i],translation);
+        }
+        int rotatePoint = findAngleCalcPoint(t,bestPointIndex[index]);
+        double rotateAngle = atan360(centerPoint,t.points[rotatePoint]);
+        for(int i=0;i<=2;i++){
+            rotate_tri(centerPoint, t.points[i], rotateAngle);
+        }
+    }
 }
 
-pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> triangles, bool debug){
+void rotateToPosition(Point centerPoint){
+    double triRotateAngle = bestAngleDouble[sol[0]];
+    for(size_t i=1;i<sol.size();i++){
+        auto &t = triangles[sol[i]];
+        for(int j=0;j<=2;j++){
+            rotate_tri(centerPoint, t.points[j], triRotateAngle);
+        }
+        triRotateAngle += bestAngleDouble[sol[i]];
+    }
+}
+
+double calculateDistance(){
+    double leftmost=300,rightmost=300;
+    for(auto tri: placedTriangles){
+        double left_triangle = 100000, right_triangle = 0;
+        for(auto p: tri.points){
+            if(p.y == 0){
+                if(p.x < left_triangle) left_triangle = p.x;
+                if(p.x > right_triangle) right_triangle = p.x;
+            }
+        }
+        if(left_triangle < 300 && right_triangle < leftmost) leftmost = right_triangle;
+        if(right_triangle > 300 && left_triangle > rightmost) rightmost = left_triangle;
+    }
+    return rightmost - leftmost;
+}
+
+pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> i_triangles){
+    triangles = i_triangles;
     Point centerPoint = Point(300,0);
     for(size_t i = 0; i<triangles.size(); i++){
         auto &t = triangles[i];
@@ -126,55 +161,48 @@ pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> triangles, bool debug
         bestPointIndex.push_back(ind);
         bestAngle.push_back((int) ceil(10000*angle));
         bestAngleDouble.push_back(angle);
-        cout << t.id << " " << t.points[ind].x << " " << t.points[ind].y << " " << angle << "\n";
     }
 
     subsetSum(bestAngle,(int) floor(10000*M_PI));
+    sort(sol.begin(),sol.end(),lengthSortFunc);
 
-    for(auto index : sol){
-        auto &t = triangles[index];
-        Vektor translation = Vektor(t.points[bestPointIndex[index]],centerPoint);
-        for(int i=0;i<=2;i++){
-            t.points[i] = addVektor(t.points[i],translation);
-        }
-        int rotatePoint = findAngleCalcPoint(t,bestPointIndex[index]);
-        double rotateAngle = atan_angle(centerPoint,t.points[rotatePoint]);
-        for(int i=0;i<=2;i++){
-            rotate_tri(centerPoint, t.points[i], rotateAngle);
-        }
-        t.reGenVectors();
-    }
+    translateAndRotateToAxis(centerPoint);
+    rotateToPosition(centerPoint);
+    deleteUsedTriangles();
 
-    double triRotateAngle = bestAngleDouble[sol[0]];
-    for(size_t i=1;i<sol.size();i++){
-        auto &t = triangles[sol[i]];
-        for(int j=0;j<=2;j++){
-            rotate_tri(centerPoint, t.points[j], triRotateAngle);
-        }
-        triRotateAngle += bestAngleDouble[sol[i]];
-    }
-
-    double minx_above = 100000, miny_above = -1, maxx_above = 0, maxy_above = -1;
-    double minx_axis = 100000, miny_axis = -1, maxx_axis = 0, maxy_axis = -1;
-    for(auto index: sol){
-        auto &t = triangles[index];
-        for(auto pnt: t.points){
-            if(pnt.y <= EPSILON){
-                if(pnt.x < minx_axis) {minx_axis = pnt.x; miny_axis = pnt.y;}
-                if(pnt.x > maxx_axis) {maxx_axis = pnt.x; maxy_axis = pnt.y;}
-            } else if(pnt.y > EPSILON) {
-                if(pnt.x < minx_above) { minx_above = pnt.x; miny_above = pnt.y; }
-                if(pnt.x > maxx_above) { maxx_above = pnt.x; maxy_above = pnt.y; }
+    while(!triangles.empty()){
+        double minx_above = 100000, miny_above = -1, maxx_above = 0, maxy_above = -1;
+        double minx_axis = 100000, maxx_axis = 0;
+        for(auto t: placedTriangles){
+            for(auto pnt: t.points){
+                if(pnt.y <= EPSILON){
+                    if(pnt.x < minx_axis) {minx_axis = (pnt.y > 0) ? floor(pnt.x) : pnt.x;}
+                    if(pnt.x > maxx_axis) {maxx_axis = (pnt.y > 0) ? ceil(pnt.x) : pnt.x;}
+                } else if(pnt.y > EPSILON) {
+                    if(pnt.x < minx_above) { minx_above = pnt.x; miny_above = pnt.y; }
+                    if(pnt.x > maxx_above) { maxx_above = pnt.x; maxy_above = pnt.y; }
+                }
             }
         }
+
+        Point newCenter = Point(maxx_axis,0);
+        double free_angle = atan_angle(newCenter,Point(maxx_above,maxy_above));
+
+        subsetSum(bestAngle,(int) floor(10000*free_angle));
+        sort(sol.begin(),sol.end(),lengthSortFunc);
+
+        translateAndRotateToAxis(newCenter);
+        rotateToPosition(newCenter);
+        deleteUsedTriangles();
     }
 
-    cout << minx_axis << " " << miny_axis << " " << minx_above << " " << miny_above << endl;
-    cout << maxx_axis << " " << maxy_axis << " " << maxx_above << " " << maxy_above << endl;
+    sort(placedTriangles.begin(),placedTriangles.end(),triangleSortFunc);
 
-    //TODO order the triangles -> lengths
-    //TODO what to do with triangles outside the subset
-    //TODO Gesamtabstand berechnen
+    //TODO order the triangles -> lengths (von beiden seiten wenn sinnvoll)
+    //TODO triangles auch links anfügen, wenn besser + spiegeln, wenn besser
+    //TODO sometimes triangles are overlapping
+    //TODO an die bisherige Konstruktion "randrehen"
+    //TODO alles kommentieren
 
-    return {triangles,0};
+    return {placedTriangles,calculateDistance()};
 }

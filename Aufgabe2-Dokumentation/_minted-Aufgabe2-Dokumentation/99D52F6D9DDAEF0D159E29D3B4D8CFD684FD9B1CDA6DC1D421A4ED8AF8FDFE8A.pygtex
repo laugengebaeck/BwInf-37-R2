@@ -3,6 +3,7 @@
 
 \PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
 
+\PYG{c+c1}{// Klasse für einen Punkt (x/y\PYGZhy{}Koordinate)}
 \PYG{k}{class} \PYG{n+nc}{Point}\PYG{p}{\PYGZob{}}
     \PYG{k}{public}\PYG{o}{:}
 
@@ -20,6 +21,7 @@
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{};}
 
+\PYG{c+c1}{// KLasse für einen Vektor im R\PYGZca{}2}
 \PYG{k}{class} \PYG{n+nc}{Vektor}\PYG{p}{\PYGZob{}}
     \PYG{k}{public}\PYG{o}{:}
 
@@ -31,6 +33,7 @@
         \PYG{n}{y} \PYG{o}{=} \PYG{n}{\PYGZus{}y}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
 
+    \PYG{c+c1}{// Vektor zwischen zwei Punkten}
     \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{a}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{b}\PYG{p}{)\PYGZob{}}
         \PYG{n}{x} \PYG{o}{=} \PYG{n}{b}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
         \PYG{n}{y} \PYG{o}{=} \PYG{n}{b}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
@@ -41,14 +44,17 @@
         \PYG{n}{y} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
 
+    \PYG{c+c1}{// Betrag/Laenge des Vektors}
     \PYG{k+kt}{double} \PYG{n}{betrag}\PYG{p}{()\PYGZob{}}
         \PYG{k}{return} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{x} \PYG{o}{*} \PYG{n}{x} \PYG{o}{+} \PYG{n}{y} \PYG{o}{*} \PYG{n}{y}\PYG{p}{);}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{};}
 
+\PYG{c+c1}{// Klasse für ein Dreieck}
 \PYG{k}{class} \PYG{n+nc}{Triangle}\PYG{p}{\PYGZob{}}
     \PYG{k}{public}\PYG{o}{:}
 
+    \PYG{c+c1}{// Punkte + Vektoren der Seiten + Längen dieser}
     \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Point}\PYG{o}{\PYGZgt{}} \PYG{n}{points}\PYG{p}{;}
     \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Vektor}\PYG{o}{\PYGZgt{}} \PYG{n}{vektoren}\PYG{p}{;}
     \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{lengths}\PYG{p}{;}
@@ -63,6 +69,7 @@
         \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
 
+    \PYG{c+c1}{// Vektoren nach Drehung etc. neu erstellen}
     \PYG{k+kt}{void} \PYG{n}{reGenVectors}\PYG{p}{()\PYGZob{}}
         \PYG{n}{Vektor} \PYG{n}{p1p2} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]);}
         \PYG{n}{Vektor} \PYG{n}{p2p3} \PYG{o}{=} \PYG{n}{Vektor}\PYG{p}{(}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]);}
@@ -70,24 +77,25 @@
         \PYG{n}{vektoren} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{p1p2}\PYG{p}{,}\PYG{n}{p2p3}\PYG{p}{,}\PYG{n}{p3p1}\PYG{p}{\PYGZcb{};}
     \PYG{p}{\PYGZcb{}}
 
+    \PYG{c+c1}{// Berechnung kürzeste an einem Punkt anliegende Seite}
     \PYG{k+kt}{double} \PYG{n}{shortestLength}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{bestPoint}\PYG{p}{)\PYGZob{}}
         \PYG{k}{switch}\PYG{p}{(}\PYG{n}{bestPoint}\PYG{p}{)} \PYG{p}{\PYGZob{}}
-        \PYG{k}{case} \PYG{l+m+mi}{0}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])\PYGZob{}}
-                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{0}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])\PYGZob{}}
+                    \PYG{k}{return} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
                 \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
-                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                    \PYG{k}{return} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{break}\PYG{p}{;}
-        \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])\PYGZob{}}
-                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])\PYGZob{}}
+                    \PYG{k}{return} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
                 \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
-                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+                    \PYG{k}{return} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{break}\PYG{p}{;}
-        \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])\PYGZob{}}
-                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])\PYGZob{}}
+                    \PYG{k}{return} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
                 \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
-                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                    \PYG{k}{return} \PYG{n}{lengths}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{break}\PYG{p}{;}
         \PYG{k}{default}\PYG{o}{:} \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
@@ -96,21 +104,26 @@
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{};}
 
+\PYG{c+c1}{// Vektor zu Punkt addieren}
 \PYG{n}{Point} \PYG{n+nf}{addVektor}\PYG{p}{(}\PYG{n}{Point} \PYG{o}{\PYGZam{}}\PYG{n}{p}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v}\PYG{p}{)\PYGZob{}}
     \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+=} \PYG{n}{v}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
     \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{+=} \PYG{n}{v}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
     \PYG{k}{return} \PYG{n}{p}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// Skalarprodukt zweier Vektoren}
 \PYG{k+kt}{double} \PYG{n+nf}{dotProduct}\PYG{p}{(}\PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v1}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v2}\PYG{p}{)\PYGZob{}}
     \PYG{k}{return} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{v1}\PYG{p}{.}\PYG{n}{y} \PYG{o}{*} \PYG{n}{v2}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// Winkel zwischen zwei Vektoren}
+\PYG{c+c1}{// allgemein bekannte Cosinus\PYGZhy{}Formel}
 \PYG{k+kt}{double} \PYG{n+nf}{angle}\PYG{p}{(}\PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v1}\PYG{p}{,} \PYG{n}{Vektor} \PYG{o}{\PYGZam{}}\PYG{n}{v2}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{cosvalue} \PYG{o}{=} \PYG{n}{dotProduct}\PYG{p}{(}\PYG{n}{v1}\PYG{p}{,}\PYG{n}{v2}\PYG{p}{)}\PYG{o}{/}\PYG{p}{(}\PYG{n}{v1}\PYG{p}{.}\PYG{n}{betrag}\PYG{p}{()}\PYG{o}{*}\PYG{n}{v2}\PYG{p}{.}\PYG{n}{betrag}\PYG{p}{());}
     \PYG{k}{return} \PYG{n}{acos}\PYG{p}{(}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{cosvalue}\PYG{p}{));}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// kleinsten Winkel und anliegenden Punkt eines Dreiecks bestimmen}
 \PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{locateSmallestAngle}\PYG{p}{(}\PYG{n}{Triangle} \PYG{n}{t}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{bestangle} \PYG{o}{=} \PYG{n}{M\PYGZus{}PI}\PYG{p}{;}
     \PYG{k+kt}{int} \PYG{n}{pointindex}\PYG{p}{;}
@@ -124,7 +137,7 @@
     \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{pointindex}\PYG{p}{,}\PYG{n}{bestangle}\PYG{p}{\PYGZcb{};}
 \PYG{p}{\PYGZcb{}}
 
-\PYG{c+c1}{//based on https://stackoverflow.com/questions/2259476/rotating\PYGZhy{}a\PYGZhy{}point\PYGZhy{}about\PYGZhy{}another\PYGZhy{}point\PYGZhy{}2d}
+\PYG{c+c1}{// Punkt mithilfe einer Drehmatrix rotieren um ein Zentrum rotieren}
 \PYG{k+kt}{void} \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{center}\PYG{p}{,} \PYG{n}{Point} \PYG{o}{\PYGZam{}}\PYG{n}{p}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{angle}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{sinus} \PYG{o}{=} \PYG{n}{sin}\PYG{p}{(}\PYG{n}{angle}\PYG{p}{);}
     \PYG{k+kt}{double} \PYG{n}{cosinus} \PYG{o}{=} \PYG{n}{cos}\PYG{p}{(}\PYG{n}{angle}\PYG{p}{);}
@@ -139,6 +152,7 @@
     \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{=} \PYG{n}{ynew} \PYG{o}{+} \PYG{n}{center}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// Winkel zur positiven x\PYGZhy{}Achse mit atan2}
 \PYG{k+kt}{double} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{center}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{dx} \PYG{o}{=} \PYG{n}{p}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{center}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
     \PYG{k+kt}{double} \PYG{n}{dy} \PYG{o}{=} \PYG{n}{p}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{center}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;}
@@ -148,10 +162,57 @@
         \PYG{n}{angle} \PYG{o}{+=} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{M\PYGZus{}PI}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
 
-    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{o}{*} \PYG{n}{M\PYGZus{}PI} \PYG{o}{\PYGZhy{}} \PYG{n}{angle}\PYG{p}{;}
+    \PYG{k}{return} \PYG{n}{angle}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// 360 Grad minus diesen Winkel }
+\PYG{c+c1}{// (zum anfänglichen Drehen, so dass Dreieck auf x\PYGZhy{}Achse liegt)}
+\PYG{k+kt}{double} \PYG{n}{atan360}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{center}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{return} \PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{M\PYGZus{}PI} \PYG{o}{\PYGZhy{}} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{center}\PYG{p}{,}\PYG{n}{p}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// ähnlich (Berechnen des freien Winkels links)}
+\PYG{k+kt}{double} \PYG{n}{atan180}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{center}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{p}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{M\PYGZus{}PI} \PYG{o}{\PYGZhy{}} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{center}\PYG{p}{,}\PYG{n}{p}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Lage Punkt c von ab aus}
+\PYG{c+c1}{// CCW: \PYGZlt{} 0, CW: \PYGZgt{}0}
 \PYG{k+kt}{double} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{a}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{b}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{c}\PYG{p}{)\PYGZob{}}
     \PYG{k}{return} \PYG{p}{(}\PYG{n}{b}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{b}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Punkt finden, von dem aus Drehwinkel bestimmt wird}
+\PYG{c+c1}{// (beim Drehen auf die x\PYGZhy{}Achse)}
+\PYG{k+kt}{int} \PYG{n}{findAngleCalcPoint}\PYG{p}{(}\PYG{n}{Triangle} \PYG{o}{\PYGZam{}}\PYG{n}{t}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{bestPoint}\PYG{p}{)\PYGZob{}}
+    \PYG{c+c1}{//just return the point that is counterclockwise from line between other points}
+    \PYG{k}{switch}\PYG{p}{(}\PYG{n}{bestPoint}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k}{case} \PYG{l+m+mi}{0}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is clockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is counterclockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is clockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{c+c1}{//point 2 is counterclockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+                    \PYG{c+c1}{//point 0 is clockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+                    \PYG{c+c1}{//point 0 is counterclockwise}
+                    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                \PYG{p}{\PYGZcb{}}
+                \PYG{k}{break}\PYG{p}{;}
+        \PYG{k}{default}\PYG{o}{:} \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+                 \PYG{k}{break}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
 \end{Verbatim}
