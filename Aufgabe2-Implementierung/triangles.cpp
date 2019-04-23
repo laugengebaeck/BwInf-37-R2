@@ -79,19 +79,19 @@ class Triangle{
     // Berechnung kürzeste an einem Punkt anliegende Seite
     double shortestLength(int bestPoint){
         switch(bestPoint) {
-        case 0: if(lengths[0] > lengths[2]){
+        case 0: if(lengths[0] < lengths[2]){
                     return lengths[0];
                 } else {
                     return lengths[2];
                 }
                 break;
-        case 1: if(lengths[0] > lengths[1]){
+        case 1: if(lengths[0] < lengths[1]){
                     return lengths[0];
                 } else {
                     return lengths[1];
                 }
                 break;
-        case 2: if(lengths[1] > lengths[2]){
+        case 2: if(lengths[1] < lengths[2]){
                     return lengths[1];
                 } else {
                     return lengths[2];

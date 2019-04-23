@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  22 APR 2019 21:30
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  23 APR 2019 15:19
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1730,7 +1730,7 @@ File: ./svg-inkscape/dreiecke5_svg-tex.pdf Graphic file (type pdf)
 ) [9]
 (./_minted-Aufgabe2-Dokumentation/default-pyg-prefix.pygstyle)
 (./_minted-Aufgabe2-Dokumentation/default.pygstyle)
-(./_minted-Aufgabe2-Dokumentation/99D52F6D9DDAEF0D159E29D3B4D8CFD684FD9B1CDA6DC
+(./_minted-Aufgabe2-Dokumentation/A8DBD4A6BFF91513A03249737C3E206284FD9B1CDA6DC
 1D421A4ED8AF8FDFE8A.pygtex
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 4.
@@ -1738,11 +1738,11 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
 Package hyperref Info: bookmark level for unknown listing defaults to 0 on inpu
 t line 269.
 
-(./_minted-Aufgabe2-Dokumentation/E29C614351882B4E40E3C9C7E7F6C80784FD9B1CDA6DC
-1D421A4ED8AF8FDFE8A.pygtex [14] [15] [16] [17])
+(./_minted-Aufgabe2-Dokumentation/C4DA754526A948DB4DAAB7A638C2A27C84FD9B1CDA6DC
+1D421A4ED8AF8FDFE8A.pygtex [14] [15] [16] [17] [18] [19])
 
 AED: lastpage setting LastPage
-[18]
+[20]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 275.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 275.
  (./Aufgabe2-Dokumentation.aux)
@@ -1762,4 +1762,4 @@ Here is how much of TeX's memory you used:
  1348 hyphenation exceptions out of 8191
  78i,12n,76p,9151b,905s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Aufgabe2-Dokumentation.pdf (19 pages).
+Output written on Aufgabe2-Dokumentation.pdf (21 pages).

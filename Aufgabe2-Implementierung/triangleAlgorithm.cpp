@@ -86,15 +86,11 @@ bool lengthSortFunc(const int t1, const int t2){
     return triangles[t1].shortestLength(bestPointIndex[t1]) < triangles[t2].shortestLength(bestPointIndex[t2]);
 }
 
-bool triangleSortFunc(Triangle t1, Triangle t2){
-    double right1 = 0, right2 = 0;
-    for(auto p: t1.points){
-        if(p.x > right1) right1 = p.x;
-    }
-    for(auto p: t2.points){
-        if(p.x > right2) right2 = p.x;
-    }
-    return right1 < right2;
+// Sortieren der Dreiecke anhand ihres Mittelpunkts (x-Koordinate)
+bool triangleSortFunc(const Triangle &t1, const Triangle &t2){
+    double mid1 = (t1.points[0].x + t1.points[1].x + t1.points[2].x) / 3;
+    double mid2 = (t2.points[0].x + t2.points[1].x + t2.points[2].x) / 3;
+    return mid1 < mid2;
 }
 
 void deleteUsedTriangles(){
@@ -123,18 +119,45 @@ void translateAndRotateToAxis(Point centerPoint){
     }
 }
 
-void rotateToPosition(Point centerPoint){
-    double triRotateAngle = bestAngleDouble[sol[0]];
-    for(size_t i=1;i<sol.size();i++){
+void rotateToPositionRight(Point centerPoint, double free_angle, bool rotateLeft){
+    double triRotateAngle = 0;
+    for(size_t i=0;i<sol.size();i++){
         auto &t = triangles[sol[i]];
         for(int j=0;j<=2;j++){
             rotate_tri(centerPoint, t.points[j], triRotateAngle);
         }
         triRotateAngle += bestAngleDouble[sol[i]];
     }
+    // "Randrehen"
+    if(rotateLeft){
+        for(size_t i=0;i<sol.size();i++){
+            auto &t = triangles[sol[i]];
+            for(int j=0;j<=2;j++){
+                rotate_tri(centerPoint, t.points[j], free_angle-triRotateAngle);
+            }
+        }
+    }
 }
 
-double calculateDistance(){
+void rotateToPositionLeft(Point centerPoint, double free_angle){
+    double triRotateAngle = 0;
+    for(size_t i=0;i<sol.size();i++){
+        auto &t = triangles[sol[i]];
+        for(int j=0;j<=2;j++){
+            rotate_tri(centerPoint, t.points[j], M_PI - triRotateAngle);
+        }
+        triRotateAngle += bestAngleDouble[sol[i]];
+    }
+    // "Randrehen"
+    for(size_t i=0;i<sol.size();i++){
+        auto &t = triangles[sol[i]];
+        for(int j=0;j<=2;j++){
+            rotate_tri(centerPoint, t.points[j], -(free_angle-triRotateAngle));
+        }
+    }
+}
+
+pair<double,double> calculateDistance(){
     double leftmost=300,rightmost=300;
     for(auto tri: placedTriangles){
         double left_triangle = 100000, right_triangle = 0;
@@ -147,7 +170,24 @@ double calculateDistance(){
         if(left_triangle < 300 && right_triangle < leftmost) leftmost = right_triangle;
         if(right_triangle > 300 && left_triangle > rightmost) rightmost = left_triangle;
     }
-    return rightmost - leftmost;
+    return {leftmost, rightmost};
+}
+
+void moveToRightOfY(){
+    double minx = 100000;
+    for(auto t: placedTriangles){
+        for(auto pnt: t.points){
+            if(pnt.x < minx) minx = pnt.x;
+        }
+    }
+    if(minx < 0){
+        minx = abs(minx);
+        for(auto t: placedTriangles){
+            for(auto pnt: t.points){
+                pnt.x += minx;
+            }
+        }
+    }
 }
 
 pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> i_triangles){
@@ -167,10 +207,14 @@ pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> i_triangles){
     sort(sol.begin(),sol.end(),lengthSortFunc);
 
     translateAndRotateToAxis(centerPoint);
-    rotateToPosition(centerPoint);
+    rotateToPositionRight(centerPoint,M_PI,false);
     deleteUsedTriangles();
 
+    bool move = false;
+    double leftmost, rightmost;
     while(!triangles.empty()){
+        tie(leftmost,rightmost) = calculateDistance();
+
         double minx_above = 100000, miny_above = -1, maxx_above = 0, maxy_above = -1;
         double minx_axis = 100000, maxx_axis = 0;
         for(auto t: placedTriangles){
@@ -185,24 +229,50 @@ pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> i_triangles){
             }
         }
 
-        Point newCenter = Point(maxx_axis,0);
-        double free_angle = atan_angle(newCenter,Point(maxx_above,maxy_above));
+        Point newCenterRight = (move) ? Point(maxx_above,0) : Point(maxx_axis,0);
+        Point newCenterLeft = (move) ? Point(minx_above,0) : Point(minx_axis,0);
+
+        bool left = false;
+        double free_angle = 0;
+        if(leftmost - newCenterLeft.x < newCenterRight.x - rightmost){
+            //place left
+            free_angle = atan180(newCenterLeft,Point(minx_above,miny_above));
+            left = true;
+        } else {
+            //place right
+            free_angle = atan_angle(newCenterRight,Point(maxx_above,maxy_above));
+        }
+        if(move) move = false;
 
         subsetSum(bestAngle,(int) floor(10000*free_angle));
+        if(sol.size() == 0){
+            move = true;
+            continue;
+        }
+        
         sort(sol.begin(),sol.end(),lengthSortFunc);
 
-        translateAndRotateToAxis(newCenter);
-        rotateToPosition(newCenter);
+        if(left){
+            reverse(sol.begin(),sol.end());
+            translateAndRotateToAxis(newCenterLeft);
+            rotateToPositionLeft(newCenterLeft,free_angle);
+        } else {
+            translateAndRotateToAxis(newCenterRight);
+            rotateToPositionRight(newCenterRight,free_angle,true);
+        }
+
         deleteUsedTriangles();
     }
 
+    moveToRightOfY();
     sort(placedTriangles.begin(),placedTriangles.end(),triangleSortFunc);
 
-    //TODO order the triangles -> lengths (von beiden seiten wenn sinnvoll)
-    //TODO triangles auch links anfügen, wenn besser + spiegeln, wenn besser
-    //TODO sometimes triangles are overlapping
-    //TODO an die bisherige Konstruktion "randrehen"
-    //TODO alles kommentieren
+    //TODO sortieren von beiden seiten wenn sinnvoll -> nach oben hin
+    //TODO ggf. spiegeln an seitenhalbierender
+    //TODO überlapp-cases (sweepline?) -> Beispiel 4!! (überall!!)
+    //TODO randrehen ist bei Beispiel 5 schlecht
 
-    return {placedTriangles,calculateDistance()};
+    auto dpair = calculateDistance();
+    double dist = dpair.second - dpair.first;
+    return {placedTriangles,dist};
 }
