@@ -16,9 +16,9 @@
 \contentsline {subsubsection}{\numberline {2.2.2}Die Datei \texttt {triangles.cpp}}{6}{subsubsection.2.2.2}% 
 \contentsline {subsubsection}{\numberline {2.2.3}Die Datei \texttt {triangleAlgorithm.cpp}}{6}{subsubsection.2.2.3}% 
 \contentsline {section}{\numberline {3}Beispiele}{6}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}Beispiel 1}{6}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.1}Beispiel 1}{7}{subsection.3.1}% 
 \contentsline {subsection}{\numberline {3.2}Beispiel 2}{7}{subsection.3.2}% 
 \contentsline {subsection}{\numberline {3.3}Beispiel 3}{8}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}Beispiel 4}{8}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.4}Beispiel 4}{9}{subsection.3.4}% 
 \contentsline {subsection}{\numberline {3.5}Beispiel 5}{9}{subsection.3.5}% 
 \contentsline {section}{\numberline {4}Quellcode}{10}{section.4}% 

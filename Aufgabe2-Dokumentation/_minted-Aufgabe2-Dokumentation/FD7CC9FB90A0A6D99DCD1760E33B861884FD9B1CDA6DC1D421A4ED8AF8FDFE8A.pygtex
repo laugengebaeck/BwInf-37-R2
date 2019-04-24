@@ -1,51 +1,44 @@
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZlt{}bits/stdc++.h\PYGZgt{}}
 \PYG{c+cp}{\PYGZsh{}include}\PYG{c+cpf}{\PYGZdq{}triangles.cpp\PYGZdq{}}
-\PYG{c+cp}{\PYGZsh{}define EPSILON 0.5}
+\PYG{c+cp}{\PYGZsh{}define EPSILON 10}
 
 \PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
 
-\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestPointIndex}\PYG{p}{;}
-\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngle}\PYG{p}{;}
-\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngleDouble}\PYG{p}{;}
-\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{sol}\PYG{p}{;}
-\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}} \PYG{n}{triangles}\PYG{p}{;}
-\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}} \PYG{n}{placedTriangles}\PYG{p}{;}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestPointIndex}\PYG{p}{;} \PYG{c+c1}{// Punkt mit dem kleinsten Winkel (0,1 oder 2)}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngle}\PYG{p}{;} \PYG{c+c1}{// kleinster Winkel als int (für Subset Sum)}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{bestAngleDouble}\PYG{p}{;} \PYG{c+c1}{// kleinster Winkel als double}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{sol}\PYG{p}{;} \PYG{c+c1}{// Ausgabe des Subset Sum Algorithmus}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}} \PYG{n}{triangles}\PYG{p}{;} \PYG{c+c1}{// noch nicht platzierte Dreiecke}
+\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}} \PYG{n}{placedTriangles}\PYG{p}{;} \PYG{c+c1}{// platzierte Dreiecke}
 
-\PYG{k+kt}{bool} \PYG{n+nf}{getSubsetsRec}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{arr}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{sum}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{p}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{o}{\PYGZam{}}\PYG{n}{dp}\PYG{p}{)} 
-\PYG{p}{\PYGZob{}} 
-    \PYG{c+c1}{// If we reached end and sum is non\PYGZhy{}zero. We print }
-    \PYG{c+c1}{// p[] only if arr[0] is equal to sun OR dp[0][sum] }
-    \PYG{c+c1}{// is true.}
-    \PYG{k}{if} \PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{sum} \PYG{o}{!=} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{dp}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{sum}\PYG{p}{])} 
-    \PYG{p}{\PYGZob{}} 
+\PYG{c+c1}{// Backtracen der Subset Sum Lösung}
+\PYG{c+c1}{// gibt nur ein mögliches Subset zurück}
+\PYG{k+kt}{bool} \PYG{n+nf}{getSubsetsRec}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{arr}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{sum}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{p}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{o}{\PYGZam{}}\PYG{n}{dp}\PYG{p}{)} \PYG{p}{\PYGZob{}} 
+    \PYG{c+c1}{// erstes Element erreicht, aber Summe nicht 0 }
+    \PYG{c+c1}{// \PYGZhy{}\PYGZgt{} dp[0][sum] muss true sein, damit Subset möglich ist}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{sum} \PYG{o}{!=} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{dp}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{sum}\PYG{p}{])} \PYG{p}{\PYGZob{}} 
         \PYG{n}{p}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{i}\PYG{p}{);} 
         \PYG{n}{sol} \PYG{o}{=} \PYG{n}{p}\PYG{p}{;}
         \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;} 
     \PYG{p}{\PYGZcb{}} 
 
-    \PYG{c+c1}{// If sum becomes 0 }
-    \PYG{k}{if} \PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{sum} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} 
-    \PYG{p}{\PYGZob{}} 
+    \PYG{c+c1}{// erstes Element erreicht und Summe 0 \PYGZhy{}\PYGZgt{} möglich}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{sum} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{p}{\PYGZob{}} 
         \PYG{n}{sol} \PYG{o}{=} \PYG{n}{p}\PYG{p}{;}
         \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;} 
     \PYG{p}{\PYGZcb{}} 
 
-    \PYG{c+c1}{// If given sum can be achieved after ignoring }
-    \PYG{c+c1}{// current element.}
-    \PYG{k}{if} \PYG{p}{(}\PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{sum}\PYG{p}{])} 
-    \PYG{p}{\PYGZob{}} 
-        \PYG{c+c1}{// Create a new vector to store path }
-        \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{b} \PYG{o}{=} \PYG{n}{p}\PYG{p}{;} 
+    \PYG{c+c1}{// wenn Summe ohne aktuelles Element ereicht werden kann}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{sum}\PYG{p}{])} \PYG{p}{\PYGZob{}} 
+        \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{b} \PYG{o}{=} \PYG{n}{p}\PYG{p}{;}
         \PYG{k}{if}\PYG{p}{(}\PYG{n}{getSubsetsRec}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{,} \PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{sum}\PYG{p}{,} \PYG{n}{b}\PYG{p}{,}\PYG{n}{dp}\PYG{p}{))\PYGZob{}}
             \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;}
         \PYG{p}{\PYGZcb{}} 
     \PYG{p}{\PYGZcb{}} 
 
-    \PYG{c+c1}{// If given sum can be achieved after considering }
-    \PYG{c+c1}{// current element.}
-    \PYG{k}{if} \PYG{p}{(}\PYG{n}{sum} \PYG{o}{\PYGZgt{}=} \PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{sum}\PYG{o}{\PYGZhy{}}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]])} 
-    \PYG{p}{\PYGZob{}} 
+    \PYG{c+c1}{// wenn Summe mit aktuellem Element erreicht werden kann}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{sum} \PYG{o}{\PYGZgt{}=} \PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{sum}\PYG{o}{\PYGZhy{}}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]])} \PYG{p}{\PYGZob{}} 
         \PYG{n}{p}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{i}\PYG{p}{);}
         \PYG{k}{if}\PYG{p}{(}\PYG{n}{getSubsetsRec}\PYG{p}{(}\PYG{n}{arr}\PYG{p}{,} \PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{sum}\PYG{o}{\PYGZhy{}}\PYG{n}{arr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{p}\PYG{p}{,}\PYG{n}{dp}\PYG{p}{))\PYGZob{}}
             \PYG{k}{return} \PYG{n+nb}{true}\PYG{p}{;}
@@ -57,44 +50,54 @@
 \PYG{k+kt}{void} \PYG{n+nf}{subsetSum}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{set}\PYG{p}{,}\PYG{k+kt}{int} \PYG{n}{sum}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{int} \PYG{n}{n} \PYG{o}{=} \PYG{n}{set}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}
     \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{dp}\PYG{p}{(}\PYG{n}{n}\PYG{p}{,}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{bool}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{sum}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{));}
+
+    \PYG{c+c1}{// Summe 0 immer erreichbar}
     \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{n}\PYG{p}{;} \PYG{o}{++}\PYG{n}{i}\PYG{p}{)} \PYG{p}{\PYGZob{}}
         \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;} 
     \PYG{p}{\PYGZcb{}} 
 
-    \PYG{c+c1}{// Sum arr[0] can be achieved with single element }
+    \PYG{c+c1}{// Summe set[0] kann mit erstem Element erreicht werden}
     \PYG{k}{if} \PYG{p}{(}\PYG{n}{set}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{sum}\PYG{p}{)} 
        \PYG{n}{dp}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{set}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]]} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;} 
 
-    \PYG{c+c1}{// Fill rest of the entries in dp[][] }
-    \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{n}\PYG{p}{;} \PYG{o}{++}\PYG{n}{i}\PYG{p}{)} 
-        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j} \PYG{o}{\PYGZlt{}} \PYG{n}{sum} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{o}{++}\PYG{n}{j}\PYG{p}{)} 
-            \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{set}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{j}\PYG{p}{)} \PYG{o}{?} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]} \PYG{o}{||} 
-                                       \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{o}{\PYGZhy{}}\PYG{n}{set}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]]} 
-                                     \PYG{o}{:} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{p}{];} 
+    \PYG{c+c1}{// DP\PYGZhy{}Array nach Rekursionsgleichung füllen }
+    \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{n}\PYG{p}{;} \PYG{o}{++}\PYG{n}{i}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j} \PYG{o}{\PYGZlt{}} \PYG{n}{sum} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{o}{++}\PYG{n}{j}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{set}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{j}\PYG{p}{)} \PYG{o}{?} \PYG{p}{(}\PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]} \PYG{o}{||} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{o}{\PYGZhy{}}\PYG{n}{set}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]])} \PYG{o}{:} \PYG{n}{dp}\PYG{p}{[}\PYG{n}{i} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{j}\PYG{p}{];} 
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
 
+    \PYG{c+c1}{// größte Summe, die erreicht werden kann}
     \PYG{k+kt}{int} \PYG{n}{best} \PYG{o}{=} \PYG{n}{sum}\PYG{p}{;}
     \PYG{k}{for}\PYG{p}{(;}\PYG{n}{best}\PYG{o}{\PYGZgt{}=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{best}\PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{)\PYGZob{}}
         \PYG{k}{if}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{[}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{best}\PYG{p}{])} \PYG{k}{break}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
-    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{best} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+
+    \PYG{c+c1}{// Backtracen}
     \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{p}\PYG{p}{;} 
     \PYG{n}{getSubsetsRec}\PYG{p}{(}\PYG{n}{set}\PYG{p}{,} \PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{best}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,}\PYG{n}{dp}\PYG{p}{);}
-    \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{x}\PYG{p}{:} \PYG{n}{sol}\PYG{p}{)} \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{x} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{;}
-    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// Sortieren einer Teilmenge von Dreiecken}
+\PYG{c+c1}{// nach der längsten Seite, die am auf der x\PYGZhy{}Achse liegenden}
+\PYG{c+c1}{// Punkt des Dreiecks (mit dem kleinsten Winkel) anliegt.}
+\PYG{c+c1}{// \PYGZdq{}Kleine\PYGZdq{} Dreiecke sind dadurch weiter rechts.}
 \PYG{k+kt}{bool} \PYG{n+nf}{lengthSortFunc}\PYG{p}{(}\PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{t1}\PYG{p}{,} \PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{t2}\PYG{p}{)\PYGZob{}}
-    \PYG{k}{return} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{t1}\PYG{p}{].}\PYG{n}{shortestLength}\PYG{p}{(}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{t1}\PYG{p}{])} \PYG{o}{\PYGZlt{}} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{t2}\PYG{p}{].}\PYG{n}{shortestLength}\PYG{p}{(}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{t2}\PYG{p}{]);}
+    \PYG{k}{return} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{t1}\PYG{p}{].}\PYG{n}{longestLength}\PYG{p}{(}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{t1}\PYG{p}{])} \PYG{o}{\PYGZlt{}} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{t2}\PYG{p}{].}\PYG{n}{longestLength}\PYG{p}{(}\PYG{n}{bestPointIndex}\PYG{p}{[}\PYG{n}{t2}\PYG{p}{]);}
 \PYG{p}{\PYGZcb{}}
 
 \PYG{c+c1}{// Sortieren der Dreiecke anhand ihres Mittelpunkts (x\PYGZhy{}Koordinate)}
+\PYG{c+c1}{// zur geordneten Ausgabe}
 \PYG{k+kt}{bool} \PYG{n+nf}{triangleSortFunc}\PYG{p}{(}\PYG{k}{const} \PYG{n}{Triangle} \PYG{o}{\PYGZam{}}\PYG{n}{t1}\PYG{p}{,} \PYG{k}{const} \PYG{n}{Triangle} \PYG{o}{\PYGZam{}}\PYG{n}{t2}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{mid1} \PYG{o}{=} \PYG{p}{(}\PYG{n}{t1}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{].}\PYG{n}{x} \PYG{o}{+} \PYG{n}{t1}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{].}\PYG{n}{x} \PYG{o}{+} \PYG{n}{t1}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{].}\PYG{n}{x}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{3}\PYG{p}{;}
     \PYG{k+kt}{double} \PYG{n}{mid2} \PYG{o}{=} \PYG{p}{(}\PYG{n}{t2}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{].}\PYG{n}{x} \PYG{o}{+} \PYG{n}{t2}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{].}\PYG{n}{x} \PYG{o}{+} \PYG{n}{t2}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{].}\PYG{n}{x}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{3}\PYG{p}{;}
     \PYG{k}{return} \PYG{n}{mid1} \PYG{o}{\PYGZlt{}} \PYG{n}{mid2}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// aktuelles Subset aus den noch nicht platzierten Dreiecken löschen}
+\PYG{c+c1}{// und zu den platzierten hinzufügen}
 \PYG{k+kt}{void} \PYG{n+nf}{deleteUsedTriangles}\PYG{p}{()\PYGZob{}}
+    \PYG{c+c1}{// in absteigender Reihenfolge der Indexe \PYGZhy{}\PYGZgt{} sonst: Segfault}
     \PYG{n}{sort}\PYG{p}{(}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(),}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{end}\PYG{p}{(),}\PYG{n}{greater}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{p}{());}
     \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{index}\PYG{p}{:} \PYG{n}{sol}\PYG{p}{)\PYGZob{}}
         \PYG{n}{placedTriangles}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{triangles}\PYG{p}{[}\PYG{n}{index}\PYG{p}{]);}
@@ -105,6 +108,9 @@
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// Dreiecke eines Subsets so verschieben, dass sie}
+\PYG{c+c1}{// mit dem \PYGZdq{}besten\PYGZdq{} Punkt auf der x\PYGZhy{}Achse liegen}
+\PYG{c+c1}{// und so rotieren, dass sie direkt auf der Achse liegen}
 \PYG{k+kt}{void} \PYG{n+nf}{translateAndRotateToAxis}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{centerPoint}\PYG{p}{)\PYGZob{}}
     \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{index} \PYG{p}{:} \PYG{n}{sol}\PYG{p}{)\PYGZob{}}
         \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{index}\PYG{p}{];}
@@ -120,6 +126,9 @@
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// für Anfügen auf der rechten Seite}
+\PYG{c+c1}{// Dreiecke so rotieren, dass sie sich nicht überlappen}
+\PYG{c+c1}{// anschließend an die bisherige Anordnung \PYGZdq{}randrehen\PYGZdq{}}
 \PYG{k+kt}{void} \PYG{n+nf}{rotateToPositionRight}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{centerPoint}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{free\PYGZus{}angle}\PYG{p}{,} \PYG{k+kt}{bool} \PYG{n}{rotateLeft}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{triRotateAngle} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
     \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
@@ -140,12 +149,14 @@
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// für Anfügen auf der linken Seite}
+\PYG{c+c1}{// wird bedingt durch Sortierung der Dreiecke normalerweise nie benutzt}
 \PYG{k+kt}{void} \PYG{n+nf}{rotateToPositionLeft}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{centerPoint}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{free\PYGZus{}angle}\PYG{p}{)\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{triRotateAngle} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
     \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
         \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]];}
         \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{j}\PYG{o}{\PYGZlt{}=}\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
-            \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{n}{M\PYGZus{}PI} \PYG{o}{\PYGZhy{}} \PYG{n}{triRotateAngle}\PYG{p}{);}
+            \PYG{n}{rotate\PYGZus{}tri}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{n}{M\PYGZus{}PI} \PYG{o}{\PYGZhy{}} \PYG{n}{triRotateAngle} \PYG{o}{\PYGZhy{}} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]]);}
         \PYG{p}{\PYGZcb{}}
         \PYG{n}{triRotateAngle} \PYG{o}{+=} \PYG{n}{bestAngleDouble}\PYG{p}{[}\PYG{n}{sol}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]];}
     \PYG{p}{\PYGZcb{}}
@@ -158,6 +169,8 @@
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// linkesten und rechtesten Punkt finden,}
+\PYG{c+c1}{// die zur Berechnung des Gesamtabstands herangezogen werden}
 \PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{calculateDistance}\PYG{p}{()\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{leftmost}\PYG{o}{=}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{n}{rightmost}\PYG{o}{=}\PYG{l+m+mi}{300}\PYG{p}{;}
     \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{tri}\PYG{p}{:} \PYG{n}{placedTriangles}\PYG{p}{)\PYGZob{}}
@@ -174,6 +187,8 @@
     \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{leftmost}\PYG{p}{,} \PYG{n}{rightmost}\PYG{p}{\PYGZcb{};}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// Anordnung so verschieben, dass der \PYGZdq{}linkeste\PYGZdq{} Punkt}
+\PYG{c+c1}{// auf der y\PYGZhy{}Achse liegt}
 \PYG{k+kt}{void} \PYG{n}{moveToRightOfY}\PYG{p}{()\PYGZob{}}
     \PYG{k+kt}{double} \PYG{n}{minx} \PYG{o}{=} \PYG{l+m+mi}{100000}\PYG{p}{;}
     \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{t}\PYG{p}{:} \PYG{n}{placedTriangles}\PYG{p}{)\PYGZob{}}
@@ -181,19 +196,19 @@
             \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{minx}\PYG{p}{)} \PYG{n}{minx} \PYG{o}{=} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
         \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
-    \PYG{k}{if}\PYG{p}{(}\PYG{n}{minx} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
-        \PYG{n}{minx} \PYG{o}{=} \PYG{n}{abs}\PYG{p}{(}\PYG{n}{minx}\PYG{p}{);}
-        \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{t}\PYG{p}{:} \PYG{n}{placedTriangles}\PYG{p}{)\PYGZob{}}
-            \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{pnt}\PYG{p}{:} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{)\PYGZob{}}
-                \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+=} \PYG{n}{minx}\PYG{p}{;}
-            \PYG{p}{\PYGZcb{}}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n+nl}{t}\PYG{p}{:} \PYG{n}{placedTriangles}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n+nl}{pnt}\PYG{p}{:} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{)\PYGZob{}}
+            \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}=} \PYG{n}{minx}\PYG{p}{;}
         \PYG{p}{\PYGZcb{}}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
 
+\PYG{c+c1}{// Hauptmethode des Algorithmus}
 \PYG{n}{pair}\PYG{o}{\PYGZlt{}}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}}\PYG{p}{,}\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}} \PYG{n}{doAlgorithm}\PYG{p}{(}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Triangle}\PYG{o}{\PYGZgt{}} \PYG{n}{i\PYGZus{}triangles}\PYG{p}{)\PYGZob{}}
     \PYG{n}{triangles} \PYG{o}{=} \PYG{n}{i\PYGZus{}triangles}\PYG{p}{;}
-    \PYG{n}{Point} \PYG{n}{centerPoint} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
+    \PYG{n}{Point} \PYG{n}{centerPoint} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{300}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);} \PYG{c+c1}{// erster Anlegepunkt (willkürlich gewählt)}
+
+    \PYG{c+c1}{// kleinsten Winkel und entsprechenden Punkt der Dreiecke berechnen}
     \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{triangles}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
         \PYG{k}{auto} \PYG{o}{\PYGZam{}}\PYG{n}{t} \PYG{o}{=} \PYG{n}{triangles}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
         \PYG{k+kt}{int} \PYG{n}{ind}\PYG{p}{;}
@@ -204,55 +219,67 @@
         \PYG{n}{bestAngleDouble}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{angle}\PYG{p}{);}
     \PYG{p}{\PYGZcb{}}
 
+    \PYG{c+c1}{// Subset\PYGZhy{}Sum ausführen und nach Dreiecke nach Seitenlänge ordnen}
     \PYG{n}{subsetSum}\PYG{p}{(}\PYG{n}{bestAngle}\PYG{p}{,(}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{floor}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{M\PYGZus{}PI}\PYG{p}{));}
     \PYG{n}{sort}\PYG{p}{(}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(),}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{end}\PYG{p}{(),}\PYG{n}{lengthSortFunc}\PYG{p}{);}
 
+    \PYG{c+c1}{// Dreiecke passend verschieben und rotieren}
     \PYG{n}{translateAndRotateToAxis}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{);}
     \PYG{n}{rotateToPositionRight}\PYG{p}{(}\PYG{n}{centerPoint}\PYG{p}{,}\PYG{n}{M\PYGZus{}PI}\PYG{p}{,}\PYG{n+nb}{false}\PYG{p}{);}
     \PYG{n}{deleteUsedTriangles}\PYG{p}{();}
 
-    \PYG{k+kt}{bool} \PYG{n}{move} \PYG{o}{=} \PYG{n+nb}{false}\PYG{p}{;}
+    \PYG{c+c1}{// solange nicht alle Dreiecke platziert}
     \PYG{k+kt}{double} \PYG{n}{leftmost}\PYG{p}{,} \PYG{n}{rightmost}\PYG{p}{;}
     \PYG{k}{while}\PYG{p}{(}\PYG{o}{!}\PYG{n}{triangles}\PYG{p}{.}\PYG{n}{empty}\PYG{p}{())\PYGZob{}}
+        \PYG{c+c1}{// Punkte für die Berechnung der Gesamtdistanz}
         \PYG{n}{tie}\PYG{p}{(}\PYG{n}{leftmost}\PYG{p}{,}\PYG{n}{rightmost}\PYG{p}{)} \PYG{o}{=} \PYG{n}{calculateDistance}\PYG{p}{();}
 
-        \PYG{k+kt}{double} \PYG{n}{minx\PYGZus{}above} \PYG{o}{=} \PYG{l+m+mi}{100000}\PYG{p}{,} \PYG{n}{miny\PYGZus{}above} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{maxx\PYGZus{}above} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{maxy\PYGZus{}above} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}
+        \PYG{c+c1}{// min./max. Punkt finden, an dem angelegt werden kann}
+        \PYG{c+c1}{// ist ein Punkt eines platzierten Dreiecks}
         \PYG{k+kt}{double} \PYG{n}{minx\PYGZus{}axis} \PYG{o}{=} \PYG{l+m+mi}{100000}\PYG{p}{,} \PYG{n}{maxx\PYGZus{}axis} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
         \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{t}\PYG{p}{:} \PYG{n}{placedTriangles}\PYG{p}{)\PYGZob{}}
             \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{pnt}\PYG{p}{:} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{)\PYGZob{}}
                 \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZlt{}=} \PYG{n}{EPSILON}\PYG{p}{)\PYGZob{}}
-                    \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{minx\PYGZus{}axis}\PYG{p}{)} \PYG{p}{\PYGZob{}}\PYG{n}{minx\PYGZus{}axis} \PYG{o}{=} \PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{?} \PYG{n}{floor}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{:} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;\PYGZcb{}}
-                    \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZgt{}} \PYG{n}{maxx\PYGZus{}axis}\PYG{p}{)} \PYG{p}{\PYGZob{}}\PYG{n}{maxx\PYGZus{}axis} \PYG{o}{=} \PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{?} \PYG{n}{ceil}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{:} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;\PYGZcb{}}
-                \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{n}{EPSILON}\PYG{p}{)} \PYG{p}{\PYGZob{}}
-                    \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{minx\PYGZus{}above}\PYG{p}{)} \PYG{p}{\PYGZob{}} \PYG{n}{minx\PYGZus{}above} \PYG{o}{=} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;} \PYG{n}{miny\PYGZus{}above} \PYG{o}{=} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;} \PYG{p}{\PYGZcb{}}
-                    \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZgt{}} \PYG{n}{maxx\PYGZus{}above}\PYG{p}{)} \PYG{p}{\PYGZob{}} \PYG{n}{maxx\PYGZus{}above} \PYG{o}{=} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;} \PYG{n}{maxy\PYGZus{}above} \PYG{o}{=} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y}\PYG{p}{;} \PYG{p}{\PYGZcb{}}
+                    \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{minx\PYGZus{}axis}\PYG{p}{)} \PYG{p}{\PYGZob{}}\PYG{n}{minx\PYGZus{}axis} \PYG{o}{=} \PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{?} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{pnt}\PYG{p}{.}\PYG{n+nl}{y} \PYG{p}{:} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;\PYGZcb{}}
+                    \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZgt{}} \PYG{n}{maxx\PYGZus{}axis}\PYG{p}{)} \PYG{p}{\PYGZob{}}\PYG{n}{maxx\PYGZus{}axis} \PYG{o}{=} \PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{?} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{pnt}\PYG{p}{.}\PYG{n+nl}{y} \PYG{p}{:} \PYG{n}{pnt}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;\PYGZcb{}}
                 \PYG{p}{\PYGZcb{}}
             \PYG{p}{\PYGZcb{}}
         \PYG{p}{\PYGZcb{}}
 
-        \PYG{n}{Point} \PYG{n}{newCenterRight} \PYG{o}{=} \PYG{p}{(}\PYG{n}{move}\PYG{p}{)} \PYG{o}{?} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{maxx\PYGZus{}above}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{:} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{maxx\PYGZus{}axis}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
-        \PYG{n}{Point} \PYG{n}{newCenterLeft} \PYG{o}{=} \PYG{p}{(}\PYG{n}{move}\PYG{p}{)} \PYG{o}{?} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{minx\PYGZus{}above}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{:} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{minx\PYGZus{}axis}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
+        \PYG{n}{Point} \PYG{n}{newCenterRight} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{maxx\PYGZus{}axis}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
+        \PYG{n}{Point} \PYG{n}{newCenterLeft} \PYG{o}{=} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{minx\PYGZus{}axis}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{);}
 
+        \PYG{c+c1}{// freien Winkel (links/rechts) finden}
+        \PYG{c+c1}{// wird durch den Punkt bestimmt, der den geringsten Winkel/atan vom Anlegepunkt hat}
+        \PYG{n}{Point} \PYG{n}{minpnt\PYGZus{}above}\PYG{p}{,} \PYG{n}{maxpnt\PYGZus{}above}\PYG{p}{;}
+        \PYG{k+kt}{double} \PYG{n}{angle\PYGZus{}left} \PYG{o}{=} \PYG{n}{M\PYGZus{}PI}\PYG{p}{,} \PYG{n}{angle\PYGZus{}right} \PYG{o}{=} \PYG{n}{M\PYGZus{}PI}\PYG{p}{;}
+        \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{t}\PYG{p}{:} \PYG{n}{placedTriangles}\PYG{p}{)\PYGZob{}}
+            \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n+nl}{pnt}\PYG{p}{:} \PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{)\PYGZob{}}
+                \PYG{k}{if}\PYG{p}{(}\PYG{n}{pnt}\PYG{p}{.}\PYG{n}{y} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{k}{continue}\PYG{p}{;}
+                \PYG{k}{if}\PYG{p}{(}\PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{newCenterRight}\PYG{p}{,}\PYG{n}{pnt}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{angle\PYGZus{}right}\PYG{p}{)} \PYG{p}{\PYGZob{}} \PYG{n}{angle\PYGZus{}right} \PYG{o}{=} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{newCenterRight}\PYG{p}{,}\PYG{n}{pnt}\PYG{p}{);} \PYG{n}{maxpnt\PYGZus{}above} \PYG{o}{=} \PYG{n}{pnt}\PYG{p}{;\PYGZcb{}}
+                \PYG{k}{if}\PYG{p}{(}\PYG{n}{atan180}\PYG{p}{(}\PYG{n}{newCenterLeft}\PYG{p}{,}\PYG{n}{pnt}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{angle\PYGZus{}left}\PYG{p}{)} \PYG{p}{\PYGZob{}}\PYG{n}{angle\PYGZus{}left} \PYG{o}{=} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{newCenterLeft}\PYG{p}{,}\PYG{n}{pnt}\PYG{p}{);} \PYG{n}{minpnt\PYGZus{}above} \PYG{o}{=} \PYG{n}{pnt}\PYG{p}{;\PYGZcb{}}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{c+c1}{// links oder rechts platzieren \PYGZhy{} was ist besser?}
+        \PYG{c+c1}{// normalerweise rechts}
         \PYG{k+kt}{bool} \PYG{n}{left} \PYG{o}{=} \PYG{n+nb}{false}\PYG{p}{;}
         \PYG{k+kt}{double} \PYG{n}{free\PYGZus{}angle} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
         \PYG{k}{if}\PYG{p}{(}\PYG{n}{leftmost} \PYG{o}{\PYGZhy{}} \PYG{n}{newCenterLeft}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{n}{newCenterRight}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{rightmost}\PYG{p}{)\PYGZob{}}
             \PYG{c+c1}{//place left}
-            \PYG{n}{free\PYGZus{}angle} \PYG{o}{=} \PYG{n}{atan180}\PYG{p}{(}\PYG{n}{newCenterLeft}\PYG{p}{,}\PYG{n}{Point}\PYG{p}{(}\PYG{n}{minx\PYGZus{}above}\PYG{p}{,}\PYG{n}{miny\PYGZus{}above}\PYG{p}{));}
+            \PYG{n}{free\PYGZus{}angle} \PYG{o}{=} \PYG{n}{atan180}\PYG{p}{(}\PYG{n}{newCenterLeft}\PYG{p}{,}\PYG{n}{minpnt\PYGZus{}above}\PYG{p}{);}
             \PYG{n}{left} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
         \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
             \PYG{c+c1}{//place right}
-            \PYG{n}{free\PYGZus{}angle} \PYG{o}{=} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{newCenterRight}\PYG{p}{,}\PYG{n}{Point}\PYG{p}{(}\PYG{n}{maxx\PYGZus{}above}\PYG{p}{,}\PYG{n}{maxy\PYGZus{}above}\PYG{p}{));}
-        \PYG{p}{\PYGZcb{}}
-        \PYG{k}{if}\PYG{p}{(}\PYG{n}{move}\PYG{p}{)} \PYG{n}{move} \PYG{o}{=} \PYG{n+nb}{false}\PYG{p}{;}
-
-        \PYG{n}{subsetSum}\PYG{p}{(}\PYG{n}{bestAngle}\PYG{p}{,(}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{floor}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{free\PYGZus{}angle}\PYG{p}{));}
-        \PYG{k}{if}\PYG{p}{(}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
-            \PYG{n}{move} \PYG{o}{=} \PYG{n+nb}{true}\PYG{p}{;}
-            \PYG{k}{continue}\PYG{p}{;}
+            \PYG{n}{free\PYGZus{}angle} \PYG{o}{=} \PYG{n}{atan\PYGZus{}angle}\PYG{p}{(}\PYG{n}{newCenterRight}\PYG{p}{,}\PYG{n}{maxpnt\PYGZus{}above}\PYG{p}{);}
         \PYG{p}{\PYGZcb{}}
 
+        \PYG{c+c1}{// Subset Sum + Sortieren (wie oben)}
+        \PYG{n}{subsetSum}\PYG{p}{(}\PYG{n}{bestAngle}\PYG{p}{,(}\PYG{k+kt}{int}\PYG{p}{)} \PYG{n}{floor}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{o}{*}\PYG{n}{free\PYGZus{}angle}\PYG{p}{));}        
         \PYG{n}{sort}\PYG{p}{(}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(),}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{end}\PYG{p}{(),}\PYG{n}{lengthSortFunc}\PYG{p}{);}
 
+        \PYG{c+c1}{// Links oder rechts platzieren}
+        \PYG{c+c1}{// Links zuerst Reihenfolge umdrehen}
         \PYG{k}{if}\PYG{p}{(}\PYG{n}{left}\PYG{p}{)\PYGZob{}}
             \PYG{n}{reverse}\PYG{p}{(}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(),}\PYG{n}{sol}\PYG{p}{.}\PYG{n}{end}\PYG{p}{());}
             \PYG{n}{translateAndRotateToAxis}\PYG{p}{(}\PYG{n}{newCenterLeft}\PYG{p}{);}
@@ -261,20 +288,15 @@
             \PYG{n}{translateAndRotateToAxis}\PYG{p}{(}\PYG{n}{newCenterRight}\PYG{p}{);}
             \PYG{n}{rotateToPositionRight}\PYG{p}{(}\PYG{n}{newCenterRight}\PYG{p}{,}\PYG{n}{free\PYGZus{}angle}\PYG{p}{,}\PYG{n+nb}{true}\PYG{p}{);}
         \PYG{p}{\PYGZcb{}}
-
         \PYG{n}{deleteUsedTriangles}\PYG{p}{();}
     \PYG{p}{\PYGZcb{}}
 
+    \PYG{c+c1}{// Distanz und zur Anzeige verschieben/sortieren}
+    \PYG{k}{auto} \PYG{n}{dpair} \PYG{o}{=} \PYG{n}{calculateDistance}\PYG{p}{();}
+    \PYG{k+kt}{double} \PYG{n}{dist} \PYG{o}{=} \PYG{n}{abs}\PYG{p}{(}\PYG{n}{dpair}\PYG{p}{.}\PYG{n}{second} \PYG{o}{\PYGZhy{}} \PYG{n}{dpair}\PYG{p}{.}\PYG{n}{first}\PYG{p}{);}
     \PYG{n}{moveToRightOfY}\PYG{p}{();}
     \PYG{n}{sort}\PYG{p}{(}\PYG{n}{placedTriangles}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(),}\PYG{n}{placedTriangles}\PYG{p}{.}\PYG{n}{end}\PYG{p}{(),}\PYG{n}{triangleSortFunc}\PYG{p}{);}
 
-    \PYG{c+c1}{//TODO sortieren von beiden seiten wenn sinnvoll \PYGZhy{}\PYGZgt{} nach oben hin}
-    \PYG{c+c1}{//TODO ggf. spiegeln an seitenhalbierender}
-    \PYG{c+c1}{//TODO sometimes triangles are overlapping (sweepline?)}
-    \PYG{c+c1}{//TODO randrehen ist bei Beispiel 5 schlecht}
-
-    \PYG{k}{auto} \PYG{n}{dpair} \PYG{o}{=} \PYG{n}{calculateDistance}\PYG{p}{();}
-    \PYG{k+kt}{double} \PYG{n}{dist} \PYG{o}{=} \PYG{n}{dpair}\PYG{p}{.}\PYG{n}{second} \PYG{o}{\PYGZhy{}} \PYG{n}{dpair}\PYG{p}{.}\PYG{n}{first}\PYG{p}{;}
     \PYG{k}{return} \PYG{p}{\PYGZob{}}\PYG{n}{placedTriangles}\PYG{p}{,}\PYG{n}{dist}\PYG{p}{\PYGZcb{};}
 \PYG{p}{\PYGZcb{}}
 \end{Verbatim}

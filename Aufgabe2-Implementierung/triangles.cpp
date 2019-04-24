@@ -76,22 +76,22 @@ class Triangle{
         vektoren = {p1p2,p2p3,p3p1};
     }
 
-    // Berechnung kürzeste an einem Punkt anliegende Seite
-    double shortestLength(int bestPoint){
+    // Berechnung längste an einem Punkt anliegende Dreiecksseite
+    double longestLength(int bestPoint){
         switch(bestPoint) {
-        case 0: if(lengths[0] < lengths[2]){
+        case 0: if(lengths[0] > lengths[2]){
                     return lengths[0];
                 } else {
                     return lengths[2];
                 }
                 break;
-        case 1: if(lengths[0] < lengths[1]){
+        case 1: if(lengths[0] > lengths[1]){
                     return lengths[0];
                 } else {
                     return lengths[1];
                 }
                 break;
-        case 2: if(lengths[1] < lengths[2]){
+        case 2: if(lengths[1] > lengths[2]){
                     return lengths[1];
                 } else {
                     return lengths[2];
@@ -136,7 +136,7 @@ pair<int,double> locateSmallestAngle(Triangle t){
     return {pointindex,bestangle};
 }
 
-// Punkt mithilfe einer Drehmatrix rotieren um ein Zentrum rotieren
+// Punkt mithilfe einer Drehmatrix um ein Zentrum rotieren
 void rotate_tri(Point center, Point &p, double angle){
     double sinus = sin(angle);
     double cosinus = cos(angle);

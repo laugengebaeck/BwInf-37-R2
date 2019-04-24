@@ -155,6 +155,19 @@ Usage: ./main --input INPUT --svg SVG --output OUTPUT
 \subsubsection{Die Datei \texttt{triangles.cpp}}
 \subsubsection{Die Datei \texttt{triangleAlgorithm.cpp}}
 \section{Beispiele}
+\subsection*{Laufzeiten}
+\begin{table}[H]
+	\begin{tabular}{|c|c|c|} 
+		\hline
+		Beispiel                                      & Dreiecksanzahl & Laufzeit (ca.)       \\ \hline \hline
+		dreiecke1.txt                              & 5     & 8 Millisekunden    \\
+		dreiecke2.txt                              & 5      & 8 Millisekunden     \\
+		dreiecke3.txt                              & 12      & 11 Millisekunden     \\
+		dreiecke4.txt                              & 23      & 10 Millisekunden    \\
+		dreiecke5.txt                              & 37      & 27 Millisekunden    \\ \hline
+	\end{tabular}
+\end{table}
+Die Laufzeiten wurden mit dem Linux-Befehl \texttt{time} bestimmt. Dazu wurde ein PC mit einem Intel Core i7 und 8 GB RAM verwendet und das Programm mit der Option \texttt{-O3} kompiliert. Sie sind demzufolge nur grobe Orientierungswerte, die von der verwendeten Hardware abhängen. Es lässt sich aber erkennen, dass der Algorithmus sehr effizient ist und selbst größere Beispiele extrem schnell lösen kann, auch wenn die Ergebnisse nicht immer optimal sind.
 \subsection{Beispiel 1}
 \begin{figure}[H] 
 	\includesvg[width=\textwidth]{../Aufgabe2-Implementierung/examples/out/dreiecke1.svg}
@@ -266,10 +279,10 @@ Usage: ./main --input INPUT --svg SVG --output OUTPUT
  \begin{longlisting}
  	
  	\cppfile{../Aufgabe2-Implementierung/triangles.cpp}
- 	\caption{Die Klassen \texttt{Triangle}, \texttt{Vektor} und \texttt{Point}}
+ 	\caption{Die Datei \texttt{triangles.cpp}, die die Klassen \texttt{Triangle}, \texttt{Vektor} und \texttt{Point} und nützliche Hilfsfunktionen für den eigentlichen Algorithmus enthält}
  	
  	\cppfile{../Aufgabe2-Implementierung/triangleAlgorithm.cpp}
- 	\caption{Die Datei \texttt{triangleAlgorithm}, die alle wesentlichen Bestandteile des Algorithmus enthält}
+ 	\caption{Die Datei \texttt{triangleAlgorithm.cpp}, die alle wesentlichen Bestandteile des Algorithmus enthält}
  \end{longlisting}
  
  \end{document}

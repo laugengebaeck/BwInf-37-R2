@@ -1,50 +1,43 @@
 #include<bits/stdc++.h>
 #include"triangles.cpp"
-#define EPSILON 0.5
+#define EPSILON 10
 
 using namespace std;
 
-vector<int> bestPointIndex;
-vector<int> bestAngle;
-vector<double> bestAngleDouble;
-vector<int> sol;
-vector<Triangle> triangles;
-vector<Triangle> placedTriangles;
+vector<int> bestPointIndex; // Punkt mit dem kleinsten Winkel (0,1 oder 2)
+vector<int> bestAngle; // kleinster Winkel als int (für Subset Sum)
+vector<double> bestAngleDouble; // kleinster Winkel als double
+vector<int> sol; // Ausgabe des Subset Sum Algorithmus
+vector<Triangle> triangles; // noch nicht platzierte Dreiecke
+vector<Triangle> placedTriangles; // platzierte Dreiecke
 
-bool getSubsetsRec(vector<int> arr, int i, int sum, vector<int>& p, vector<vector<bool>> &dp) 
-{ 
-    // If we reached end and sum is non-zero. We print 
-    // p[] only if arr[0] is equal to sun OR dp[0][sum] 
-    // is true.
-    if (i == 0 && sum != 0 && dp[0][sum]) 
-    { 
+// Backtracen der Subset Sum Lösung
+// gibt nur ein mögliches Subset zurück
+bool getSubsetsRec(vector<int> arr, int i, int sum, vector<int>& p, vector<vector<bool>> &dp) { 
+    // erstes Element erreicht, aber Summe nicht 0 
+    // -> dp[0][sum] muss true sein, damit Subset möglich ist
+    if (i == 0 && sum != 0 && dp[0][sum]) { 
         p.push_back(i); 
         sol = p;
         return true; 
     } 
   
-    // If sum becomes 0 
-    if (i == 0 && sum == 0) 
-    { 
+    // erstes Element erreicht und Summe 0 -> möglich
+    if (i == 0 && sum == 0) { 
         sol = p;
         return true; 
     } 
   
-    // If given sum can be achieved after ignoring 
-    // current element.
-    if (dp[i-1][sum]) 
-    { 
-        // Create a new vector to store path 
-        vector<int> b = p; 
+    // wenn Summe ohne aktuelles Element ereicht werden kann
+    if (dp[i-1][sum]) { 
+        vector<int> b = p;
         if(getSubsetsRec(arr, i-1, sum, b,dp)){
             return true;
         } 
     } 
   
-    // If given sum can be achieved after considering 
-    // current element.
-    if (sum >= arr[i] && dp[i-1][sum-arr[i]]) 
-    { 
+    // wenn Summe mit aktuellem Element erreicht werden kann
+    if (sum >= arr[i] && dp[i-1][sum-arr[i]]) { 
         p.push_back(i);
         if(getSubsetsRec(arr, i-1, sum-arr[i], p,dp)){
             return true;
@@ -56,44 +49,54 @@ bool getSubsetsRec(vector<int> arr, int i, int sum, vector<int>& p, vector<vecto
 void subsetSum(vector<int> set,int sum){
     int n = set.size();
     vector<vector<bool>> dp(n,vector<bool>(sum+1));
+
+    // Summe 0 immer erreichbar
     for (int i=0; i<n; ++i) {
         dp[i][0] = true; 
     } 
   
-    // Sum arr[0] can be achieved with single element 
+    // Summe set[0] kann mit erstem Element erreicht werden
     if (set[0] <= sum) 
        dp[0][set[0]] = true; 
   
-    // Fill rest of the entries in dp[][] 
-    for (int i = 1; i < n; ++i) 
-        for (int j = 0; j < sum + 1; ++j) 
-            dp[i][j] = (set[i] <= j) ? dp[i-1][j] || 
-                                       dp[i-1][j-set[i]] 
-                                     : dp[i - 1][j]; 
+    // DP-Array nach Rekursionsgleichung füllen 
+    for (int i = 1; i < n; ++i) {
+        for (int j = 0; j < sum + 1; ++j) {
+            dp[i][j] = (set[i] <= j) ? (dp[i-1][j] || dp[i-1][j-set[i]]) : dp[i - 1][j]; 
+        }
+    }
 
+    // größte Summe, die erreicht werden kann
     int best = sum;
     for(;best>=0;best--){
         if(dp[n-1][best]) break;
     }
-    cout << best << endl;
+
+    // Backtracen
     vector<int> p; 
     getSubsetsRec(set, n-1, best, p,dp);
-    for(auto x: sol) cout << x << " ";
-    cout << "\n";
 }
 
+// Sortieren einer Teilmenge von Dreiecken
+// nach der längsten Seite, die am auf der x-Achse liegenden
+// Punkt des Dreiecks (mit dem kleinsten Winkel) anliegt.
+// "Kleine" Dreiecke sind dadurch weiter rechts.
 bool lengthSortFunc(const int t1, const int t2){
-    return triangles[t1].shortestLength(bestPointIndex[t1]) < triangles[t2].shortestLength(bestPointIndex[t2]);
+    return triangles[t1].longestLength(bestPointIndex[t1]) < triangles[t2].longestLength(bestPointIndex[t2]);
 }
 
 // Sortieren der Dreiecke anhand ihres Mittelpunkts (x-Koordinate)
+// zur geordneten Ausgabe
 bool triangleSortFunc(const Triangle &t1, const Triangle &t2){
     double mid1 = (t1.points[0].x + t1.points[1].x + t1.points[2].x) / 3;
     double mid2 = (t2.points[0].x + t2.points[1].x + t2.points[2].x) / 3;
     return mid1 < mid2;
 }
 
+// aktuelles Subset aus den noch nicht platzierten Dreiecken löschen
+// und zu den platzierten hinzufügen
 void deleteUsedTriangles(){
+    // in absteigender Reihenfolge der Indexe -> sonst: Segfault
     sort(sol.begin(),sol.end(),greater<int>());
     for(auto index: sol){
         placedTriangles.push_back(triangles[index]);
@@ -104,6 +107,9 @@ void deleteUsedTriangles(){
     }
 }
 
+// Dreiecke eines Subsets so verschieben, dass sie
+// mit dem "besten" Punkt auf der x-Achse liegen
+// und so rotieren, dass sie direkt auf der Achse liegen
 void translateAndRotateToAxis(Point centerPoint){
     for(auto index : sol){
         auto &t = triangles[index];
@@ -119,6 +125,9 @@ void translateAndRotateToAxis(Point centerPoint){
     }
 }
 
+// für Anfügen auf der rechten Seite
+// Dreiecke so rotieren, dass sie sich nicht überlappen
+// anschließend an die bisherige Anordnung "randrehen"
 void rotateToPositionRight(Point centerPoint, double free_angle, bool rotateLeft){
     double triRotateAngle = 0;
     for(size_t i=0;i<sol.size();i++){
@@ -139,12 +148,14 @@ void rotateToPositionRight(Point centerPoint, double free_angle, bool rotateLeft
     }
 }
 
+// für Anfügen auf der linken Seite
+// wird bedingt durch Sortierung der Dreiecke normalerweise nie benutzt
 void rotateToPositionLeft(Point centerPoint, double free_angle){
     double triRotateAngle = 0;
     for(size_t i=0;i<sol.size();i++){
         auto &t = triangles[sol[i]];
         for(int j=0;j<=2;j++){
-            rotate_tri(centerPoint, t.points[j], M_PI - triRotateAngle);
+            rotate_tri(centerPoint, t.points[j], M_PI - triRotateAngle - bestAngleDouble[sol[i]]);
         }
         triRotateAngle += bestAngleDouble[sol[i]];
     }
@@ -157,6 +168,8 @@ void rotateToPositionLeft(Point centerPoint, double free_angle){
     }
 }
 
+// linkesten und rechtesten Punkt finden,
+// die zur Berechnung des Gesamtabstands herangezogen werden
 pair<double,double> calculateDistance(){
     double leftmost=300,rightmost=300;
     for(auto tri: placedTriangles){
@@ -173,6 +186,8 @@ pair<double,double> calculateDistance(){
     return {leftmost, rightmost};
 }
 
+// Anordnung so verschieben, dass der "linkeste" Punkt
+// auf der y-Achse liegt
 void moveToRightOfY(){
     double minx = 100000;
     for(auto t: placedTriangles){
@@ -180,19 +195,19 @@ void moveToRightOfY(){
             if(pnt.x < minx) minx = pnt.x;
         }
     }
-    if(minx < 0){
-        minx = abs(minx);
-        for(auto t: placedTriangles){
-            for(auto pnt: t.points){
-                pnt.x += minx;
-            }
+    for(auto &t: placedTriangles){
+        for(auto &pnt: t.points){
+            pnt.x -= minx;
         }
     }
 }
 
+// Hauptmethode des Algorithmus
 pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> i_triangles){
     triangles = i_triangles;
-    Point centerPoint = Point(300,0);
+    Point centerPoint = Point(300,0); // erster Anlegepunkt (willkürlich gewählt)
+
+    // kleinsten Winkel und entsprechenden Punkt der Dreiecke berechnen
     for(size_t i = 0; i<triangles.size(); i++){
         auto &t = triangles[i];
         int ind;
@@ -203,55 +218,67 @@ pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> i_triangles){
         bestAngleDouble.push_back(angle);
     }
 
+    // Subset-Sum ausführen und nach Dreiecke nach Seitenlänge ordnen
     subsetSum(bestAngle,(int) floor(10000*M_PI));
     sort(sol.begin(),sol.end(),lengthSortFunc);
 
+    // Dreiecke passend verschieben und rotieren
     translateAndRotateToAxis(centerPoint);
     rotateToPositionRight(centerPoint,M_PI,false);
     deleteUsedTriangles();
 
-    bool move = false;
+    // solange nicht alle Dreiecke platziert
     double leftmost, rightmost;
     while(!triangles.empty()){
+        // Punkte für die Berechnung der Gesamtdistanz
         tie(leftmost,rightmost) = calculateDistance();
-
-        double minx_above = 100000, miny_above = -1, maxx_above = 0, maxy_above = -1;
+        
+        // min./max. Punkt finden, an dem angelegt werden kann
+        // ist ein Punkt eines platzierten Dreiecks
         double minx_axis = 100000, maxx_axis = 0;
         for(auto t: placedTriangles){
             for(auto pnt: t.points){
                 if(pnt.y <= EPSILON){
-                    if(pnt.x < minx_axis) {minx_axis = (pnt.y > 0) ? floor(pnt.x) : pnt.x;}
-                    if(pnt.x > maxx_axis) {maxx_axis = (pnt.y > 0) ? ceil(pnt.x) : pnt.x;}
-                } else if(pnt.y > EPSILON) {
-                    if(pnt.x < minx_above) { minx_above = pnt.x; miny_above = pnt.y; }
-                    if(pnt.x > maxx_above) { maxx_above = pnt.x; maxy_above = pnt.y; }
+                    if(pnt.x < minx_axis) {minx_axis = (pnt.y > 0) ? pnt.x - pnt.y : pnt.x;}
+                    if(pnt.x > maxx_axis) {maxx_axis = (pnt.y > 0) ? pnt.x + pnt.y : pnt.x;}
                 }
             }
         }
 
-        Point newCenterRight = (move) ? Point(maxx_above,0) : Point(maxx_axis,0);
-        Point newCenterLeft = (move) ? Point(minx_above,0) : Point(minx_axis,0);
+        Point newCenterRight = Point(maxx_axis,0);
+        Point newCenterLeft = Point(minx_axis,0);
 
+        // freien Winkel (links/rechts) finden
+        // wird durch den Punkt bestimmt, der den geringsten Winkel/atan vom Anlegepunkt hat
+        Point minpnt_above, maxpnt_above;
+        double angle_left = M_PI, angle_right = M_PI;
+        for(auto t: placedTriangles){
+            for(auto pnt: t.points){
+                if(pnt.y == 0) continue;
+                if(atan_angle(newCenterRight,pnt) < angle_right) { angle_right = atan_angle(newCenterRight,pnt); maxpnt_above = pnt;}
+                if(atan180(newCenterLeft,pnt) < angle_left) {angle_left = atan_angle(newCenterLeft,pnt); minpnt_above = pnt;}
+            }
+        }
+
+        // links oder rechts platzieren - was ist besser?
+        // normalerweise rechts
         bool left = false;
         double free_angle = 0;
         if(leftmost - newCenterLeft.x < newCenterRight.x - rightmost){
             //place left
-            free_angle = atan180(newCenterLeft,Point(minx_above,miny_above));
+            free_angle = atan180(newCenterLeft,minpnt_above);
             left = true;
         } else {
             //place right
-            free_angle = atan_angle(newCenterRight,Point(maxx_above,maxy_above));
+            free_angle = atan_angle(newCenterRight,maxpnt_above);
         }
-        if(move) move = false;
 
-        subsetSum(bestAngle,(int) floor(10000*free_angle));
-        if(sol.size() == 0){
-            move = true;
-            continue;
-        }
-        
+        // Subset Sum + Sortieren (wie oben)
+        subsetSum(bestAngle,(int) floor(10000*free_angle));        
         sort(sol.begin(),sol.end(),lengthSortFunc);
 
+        // Links oder rechts platzieren
+        // Links zuerst Reihenfolge umdrehen
         if(left){
             reverse(sol.begin(),sol.end());
             translateAndRotateToAxis(newCenterLeft);
@@ -260,19 +287,14 @@ pair<vector<Triangle>,double> doAlgorithm(vector<Triangle> i_triangles){
             translateAndRotateToAxis(newCenterRight);
             rotateToPositionRight(newCenterRight,free_angle,true);
         }
-
         deleteUsedTriangles();
     }
 
+    // Distanz und zur Anzeige verschieben/sortieren
+    auto dpair = calculateDistance();
+    double dist = abs(dpair.second - dpair.first);
     moveToRightOfY();
     sort(placedTriangles.begin(),placedTriangles.end(),triangleSortFunc);
 
-    //TODO sortieren von beiden seiten wenn sinnvoll -> nach oben hin
-    //TODO ggf. spiegeln an seitenhalbierender
-    //TODO überlapp-cases (sweepline?) -> Beispiel 4!! (überall!!)
-    //TODO randrehen ist bei Beispiel 5 schlecht
-
-    auto dpair = calculateDistance();
-    double dist = dpair.second - dpair.first;
     return {placedTriangles,dist};
 }
