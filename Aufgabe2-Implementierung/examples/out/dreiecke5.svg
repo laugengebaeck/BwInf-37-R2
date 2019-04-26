@@ -1,7 +1,7 @@
-<svg version="1.1" viewBox="0 0 820 620" xmlns="http://www.w3.org/2000/svg"> 
+<svg version="1.1" viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg"> 
  <g transform="scale(1 -1)"> 
  <g transform="translate(0 -600)" fill="#ffcc99"> 
- <line id="x" x1="0" x2="820" y1="0" y2="0" stroke="#000000"/>
+ <line id="x" x1="0" x2="1000" y1="0" y2="0" stroke="#000000"/>
 <polygon id="D4" points="4.494 62.010 0.000 0.044 102.956 0.000" />
 <polygon id="D7" points="43.435 94.124 26.895 47.902 102.956 0.000" />
 <polygon id="D1" points="44.680 92.156 102.956 0.000 89.426 56.453" />

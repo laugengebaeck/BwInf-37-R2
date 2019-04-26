@@ -23,6 +23,8 @@ vector<Triangle> readInput(string inputFile){
 }
 
 // Ausgabedatei generieren
+// abs() wird benötigt, um negative Null abzufangen
+// C++-Doubles sind toll
 void writeOutput(vector<Triangle> triangles, string outputFile, double maxDistance){
     ofstream out(outputFile);
     out << "Gesamtabstand: " << fixed << setprecision(3) << maxDistance << " Meter\n";
@@ -38,7 +40,7 @@ void writeOutput(vector<Triangle> triangles, string outputFile, double maxDistan
 // SVG-Datei aus den Dreiecken generieren
 void writeSVG(vector<Triangle> triangles, string svgFile){
     ofstream out(svgFile);
-    out << "<svg version=\"1.1\" viewBox=\"0 0 820 620\" xmlns=\"http://www.w3.org/2000/svg\"> \n <g transform=\"scale(1 -1)\"> \n <g transform=\"translate(0 -600)\" fill=\"#ffcc99\"> \n <line id=\"x\" x1=\"0\" x2=\"820\" y1=\"0\" y2=\"0\" stroke=\"#000000\"/>\n"; //ViewBox ändern!
+    out << "<svg version=\"1.1\" viewBox=\"0 0 1000 620\" xmlns=\"http://www.w3.org/2000/svg\"> \n <g transform=\"scale(1 -1)\"> \n <g transform=\"translate(0 -600)\" fill=\"#ffcc99\"> \n <line id=\"x\" x1=\"0\" x2=\"1000\" y1=\"0\" y2=\"0\" stroke=\"#000000\"/>\n"; //ViewBox ändern!
     for(auto tri: triangles){
         out << "<polygon id=\"D" << tri.id << "\" ";
         out << "points=\"" << fixed << setprecision(3) << tri.points[0].x << " " << abs(tri.points[0].y) << " ";

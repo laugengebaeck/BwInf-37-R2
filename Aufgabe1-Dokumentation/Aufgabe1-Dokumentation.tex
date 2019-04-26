@@ -9,7 +9,7 @@
 \usepackage{wrapfig}
 \usepackage{color}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage[top=2cm, bottom=1.5cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage{fancyvrb}
 \usepackage{caption}
@@ -71,9 +71,9 @@
  
  \section{Lösungsidee}
  \subsection{Das Geometric-Shortest-Path-Problem}
- Das der Aufgabe zugrundeliegende Problem nennt sich \textit{Geometric Shortest Path} (GSP), auf Deutsch auch bekannt als Problem des geometrischen kürzesten Weges. Bei diesem Problem ist ein punktförmiger Roboter (oder auch eine Schülerin namens Lisa) gegeben, der/die sich an einer Startposition $p_{start}$ in einem kartesischen Koordinatensystem befindet. In diesem Koordinatensystem befinden sich mehrere als Polygone modellierte Hindernisse, wobei jedes einzelne Polygon durch seine Eckpunkte gegeben ist.\footnote{In dieser Dokumentation wird angenommen, dass die Punkte entgegen dem Uhrzeigersinn sortiert sind, sonst muss dies vorher geschehen.} Weiterhin ist eine Position $p_{ziel}$ gegeben. Nun soll ein möglichst kurzer Weg von $p_{start}$ zu $p_{ziel}$ gefunden werden, wobei dieser nicht durch Hindernisse führen soll.\footnote{Zumindest nicht, wenn Lisa als Zielposition nicht das Krankenhaus erreichen will.}\cite{Src:noem} \\ \\
+ Das der Aufgabe zugrundeliegende Problem nennt sich \textit{Geometric Shortest Path} (GSP) oder auch  \textit{Euclidean Shortest Path} und stammt aus dem Bereich des \textit{Motion Planning}. Bei diesem Problem ist ein punktförmiger Roboter (oder auch eine Schülerin namens Lisa) gegeben, der/die sich an einer Startposition $p_{start}$ in einem kartesischen Koordinatensystem befindet. In diesem Koordinatensystem befinden sich mehrere als Polygone modellierte Hindernisse, wobei jedes einzelne Polygon durch seine Eckpunkte gegeben ist.\footnote{In dieser Dokumentation wird angenommen, dass die Punkte entgegen dem Uhrzeigersinn sortiert sind, sonst muss dies vorher geschehen.} Weiterhin ist eine Position $p_{ziel}$ gegeben. Nun soll ein möglichst kurzer Weg von $p_{start}$ zu $p_{ziel}$ gefunden werden, wobei dieser nicht durch Hindernisse führen soll.\footnote{Zumindest nicht, wenn Lisa als Zielposition nicht das Krankenhaus erreichen will.}\cite{Src:noem} \\ \\
  Das hier gegebene Problem unterscheidet sich von GSP dadurch, dass keine Position $p_{ziel}$, sondern ein Strahl $s_{ziel}$ (in Form eines beliebigen Punktes auf dem Strahl) erreicht werden soll. In diesem Fall handelt es sich dabei um die y-Achse ($x=0$ mit $y \geq 0$). Zusätzlich soll nicht unbedingt der Weg optimiert werden, sondern die Startzeit, die abhängig von der Länge des Weges und der für jeden Punkt des Strahls unterschiedlichen Zielzeit ist. Diese Zielzeit kann mithilfe des Abstands des Punktes vom Ursprung berechnet werden. \\ \\
- Das Geometric-Shortest-Path-Problem wird im Allgemeinen in zwei Schritten gelöst: Zunächst wird ein Sichtbarkeitsgraph erstellt, auf welchem dann Dijkstras Algorithmus ausgeführt wird. Zur Lösung des hier gegebenen Problems wird jedoch ein zusätzlicher Schritt benötigt, der auf der Lösung des Problems ohne Hindernisse basiert. Diese drei Algorithmen sollen in den folgenden Abschnitten vorgestellt und näher erläutert werden.
+ Das Geometric-Shortest-Path-Problem wird im Allgemeinen in zwei Schritten gelöst: Zunächst wird ein Sichtbarkeitsgraph erstellt, auf welchem dann Dijkstras Algorithmus ausgeführt wird.\footnote{Es existieren natürlich auch andere Herangehensweisen wie eine Grid- oder Intervall-basierte Suche, die das Problem jedoch nicht exakt lösen können und deshalb hier nicht geeignet sind.} Zur Lösung des hier gegebenen Problems wird jedoch ein zusätzlicher Schritt benötigt, der auf der Lösung des Problems ohne Hindernisse basiert. Diese drei Algorithmen sollen in den folgenden Abschnitten vorgestellt und näher erläutert werden.
  \begin{figure}[H]
  	\centering \includegraphics[scale=0.35]{pics/gsp}
  	\caption{Illustration des GSP-Problems (aus \cite{Src:noem})}
@@ -322,7 +322,7 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
  \subsubsection{Das Problem im $\mathbb{R}^{3}$}
  Nehmen wir nun an, dass Lisa fliegen kann. Wie sie diese Fähigkeit erlangt hat, ist unwichtig. Möglicherweise ist sie mit Quax aus der letztjährigen 3. Aufgabe der 2. Runde befreundet und kann seinen Quadrocopter benutzen. Außerdem nehmen wir an, dass der Bus unendlich hoch ist. Inwiefern das sinnvoll ist, soll hier ebenfalls nicht betrachtet werden. \\ \\
  Dazu kann man das Koordinatensystem von einem $\mathbb{R}^{2}$ auf einen $\mathbb{R}^{3}$ erweitern, sodass ein dreidimensionales Koordinatensystem entsteht. In diesem sind die Hindernisse dann Körper und die Zielgerade eine Zielebene, genauer die $yz$-Ebene. Ein Ansatz dazu ist in \cite{Src:3dvis} beschrieben. \\ \\
- Ein solcher Sichtbarkeitsgraph ist dann jedoch ein Hypergraph, bei dem jede Kante 3 Knoten verbindet. Aus diesem Grund wurde die Erweiterung \textbf{nicht implementiert}. 
+ Ein solcher Sichtbarkeitsgraph ist dann jedoch ein Hypergraph, bei dem jede Kante 3 Knoten verbindet. In jedem Fall ist dieses Problem jedoch NP-schwer, kann also vermutlich nicht effizient gelöst werden.\cite{Src:3dhard} Aus diesem Grund wurde die Erweiterung \textbf{nicht implementiert}. 
 \begin{thebibliography}{xx}
 \bibitem[1] {Src:bit} Bittel, O. (HTWG Konstanz): Autonome Roboter - Wegekartenverfahren, SS 2016 (Präsentation), \url{http://www-home.htwg-konstanz.de/~bittel/msi_robo/Vorlesung/06_Planung_Wegekarten.pdf}
 \bibitem[2] {Src:noem} Nöllenburg, Martin (KIT): Vorlesung Algorithmische Geometrie - Sichtbarkeitsgraphen, 2011 (Präsentation), \url{https://i11www.iti.kit.edu/_media/teaching/sommer2011/compgeom/algogeom-ss11-vl14-printer.pdf}
@@ -333,11 +333,12 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
 \bibitem[7]{Src:LeeLee} Coleman, Dave (University of Colorado): Lee's Visibility Graph Algorithm - Implementation and Analysis, 2012, \url{https://github.com/davetcoleman/visibility_graph/blob/master/Visibility_Graph_Algorithm.pdf}
 \bibitem[8]{Src:arcvis} Hutchinson, Joan P. (Macalester College): Arc- and circle-visibility graphs, \url{https://pdfs.semanticscholar.org/d257/d8f5ea2f9bb32c555b4d5723fdcf1e97dc4f.pdf}
 \bibitem[9]{Src:minkowski} Skript der Uni Freiburg zur Minkowski-Summe, \url{http://algo.informatik.uni-freiburg.de/bibliothek/books/ad-buch/k7/slides/08.pdf}
+\bibitem[10]{Src:3dhard} Wikipedia-Artikel zur NP-Schwere des dreidimensionalen GSP, \url{https://en.wikipedia.org/wiki/Euclidean_shortest_path}
 \end{thebibliography}
 
 \section{Umsetzung}
 \subsection{Allgemeine Hinweise zur Benutzung}
-Das Programm wurde in der Programmiersprache Python 3.7 implementiert und unter Linux getestet. Zur Verwaltung und Erstellung des Sichtbarkeitsgraphen wurde die Bibliothek \texttt{pyvisgraph} von Christian Reksten-Monsen benutzt. Dabei kommt jedoch eine von mir erheblich veränderte Version zum Einsatz, die an das hier zu lösende Problem angepasst ist. Diese Version ist die einzige mit dem Programm kompatible und ist in die Einsendung integriert. \\ \\ Diese Bibliothek benötigt wiederum die Bibliothek tqdm (\texttt{sudo pip3 install tqdm}). Alle weiteren verwendeten Bibliotheken sind üblicherweise vorinstalliert. \\ \\
+Das Programm wurde in der Programmiersprache Python 3.7 implementiert und unter Linux getestet. Zur Verwaltung und Erstellung des Sichtbarkeitsgraphen wurde die Bibliothek \texttt{pyvisgraph} von Christian Reksten-Monsen benutzt\footnote{\texttt{https://github.com/TaipanRex/pyvisgraph/}}. Dabei kommt jedoch eine von mir erheblich veränderte Version zum Einsatz, die an das hier zu lösende Problem angepasst ist. Diese Version ist die einzige mit dem Programm kompatible und ist in die Einsendung integriert. \\ \\ Diese Bibliothek benötigt wiederum die Bibliothek tqdm (\texttt{sudo pip3 install tqdm}). Alle weiteren verwendeten Bibliotheken sind üblicherweise vorinstalliert. \\ \\
 Die Eingabe und Ausgabe des Programms erfolgt in Dateien, die mithilfe der Konsolenparameter frei gewählt werden können. Die weitere Bedienung sollte selbsterklärend sein. Es gibt folgende Konsolenparameter:
 \begin{verbatim}
 usage: main.py [-h] [-i INPUT] [-o OUTPUT] [-so SVG] [-d]
@@ -394,7 +395,7 @@ In dieser Datei wird die Funktion \texttt{visible\_vertices()} aus Abschnitt 1.2
 	\texttt{insort()} und \texttt{bisect()} & Diese beiden Funktionen sind für das Einfügen in den bzw. Suchen im binären Suchbaum, der die offenen Kanten beinhaltet, zuständig. Dafür nutzen sie \textit{*surprise*} binäre Suche.	\\
 \end{longtabu}
 \subsubsection{Die Datei \texttt{minkowski.py}}
-Hier wird die Erweiterung, in der Lisa als polygonal angenommen wird, implementiert. Dabei wird einfach der in Abschnitt 1.7.2 angegebene Algorithmus darauf ausgeführt.
+Hier wird die Erweiterung, in der Lisa als polygonal angenommen wird, implementiert. Dabei wird einfach der in Abschnitt 1.7.2 angegebene Algorithmus ausgeführt und anschließend der Hauptalgorithmus aufgerufen.
 \section{Beispiele}
 \subsection*{Laufzeiten}
  \begin{table}[H]
@@ -638,6 +639,7 @@ Für dieses Beispiel wurde die Geschwindigkeit des Busses bei 30 km/h belassen, 
 	commentchar=*        % comment character
 }
 \VerbatimInput{../Aufgabe1-Implementierung/examples/out/lisarennt-ext-out.txt}
+Hier wurde als Lisa-Polygon ein Rechteck der Maße \texttt{100 x 50} benutzt, dass der Implementierung als \texttt{lisas\_auto.txt} beigelegt ist. Es lässt sich eindeutig erkennen, dass das Dreieck aus Beispiel 1 durch die Berechnung der Minkowski-Summe verändert wurde und dadurch einige zusätzliche Kanten besitzt.
 \newpage
  \section{Quellcode}
  \renewcommand{\listingscaption}{Quellcode}
