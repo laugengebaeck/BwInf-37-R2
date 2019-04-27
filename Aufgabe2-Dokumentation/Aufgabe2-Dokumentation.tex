@@ -15,6 +15,7 @@
 \usepackage{caption}
 \usepackage{mathtools}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{gensymb}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
@@ -24,7 +25,7 @@
 \usepackage{microtype}
 
 \usepackage{tikz}
-\usetikzlibrary{patterns}
+\usetikzlibrary{patterns,arrows,calc,angles,quotes,babel}
 
 \usepackage{tabu}
 \usepackage{longtable}
@@ -34,6 +35,10 @@
 
 \usepackage[framemethod=tikz]{mdframed}
 \newmdtheoremenv{kasten}{Beobachtung}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\floatname{algorithm}{Algorithmus}
 
 \pagestyle{fancy}
 \lhead{Lukas Rost, Teilnahme-ID: 48125}
@@ -93,25 +98,223 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
  	\item \textbf{Dynamic Programming oder Greedy-Ansätze:} DP- und Greedy-Algorithmen sind zwar meistens laufzeiteffizient, jedoch nicht immer optimal. Aus diesem Grund sind sie für eine optimale Lösung dieses Problems nicht geeignet. Beispielsweise könnte die von einem Greedy-Algorithmus getroffene Entscheidung für den besten Folgezustand, also z.B. die Platzierung eines Dreiecks, zu einem nicht optimalen Gesamtergebnis führen. Es könnte dann beispielsweise nicht mehr möglich sein, andere Dreiecke dicht an das aktuelle anzulegen, wodurch der Gesamtabstand erhöht würde.
  	\item \textbf{Heuristiken und Approximationsalgorithmen:} Bei Heuristiken versucht man durch intelligentes Raten\footnote{Auf Englisch übrigens auch als \textit{ansatz} bekannt.} und zusätzliche Annahmen über die optimale Lösung zu einer guten Lösung zu gelangen. Eine speziell an das Problem angepasste Heuristik ist für dieses Problem das Mittel der Wahl. Dadurch kann man sowohl eine gute (also polynomielle oder pseudopolynomielle) Laufzeit als auch eine Lösung, die relativ nah am Optimum liegt, erreichen. Eine heuristische Herangehensweise an dieses Problem wird in den folgenden Abschnitten näher beschrieben.
  \end{itemize}
-  \subsection{Beschreibung der Lösungsidee}
+  \subsection{Beschreibung der Heuristik}
   \subsubsection{Beobachtungen bezüglich einer guten Lösung}  
   Da ein Dreieck sowohl durch seine Seitenlängen als auch durch seine Innenwinkel charakterisiert wird, scheint es sinnvoll zu sein, diese erst einmal zu berechnen. Sei nun $\varphi_i$ der kleinste Innenwinkel des Dreiecks $d_i$. Der Punkt des Dreiecks, an dem der Winkel anliegt, werde als \textbf{Optimalpunkt} bezeichnet. Ist die Summe $\sum_{i=1}^{n} \varphi_i \leq 180\degree$, dann ist eine optimale Lösung des Problems sehr leicht ersichtlich:
   \begin{kasten}
   	In diesem Fall genügt es, alle Dreiecke so zu platzieren, dass alle einen festen Punkt gemeinsam haben (dieser ist mit dem jeweiligen Optimalpunkt identisch) und sie um diesen herum halbkreisförmig angeordnet sind (siehe Abbildung). Dann ist der Gesamtabstand $0$, da sich alle Dreiecke einen Punkt teilen. Dieser Abstand muss optimal sein, da kein geringerer Abstand als $0$ möglich ist. \\
   	{\centering
-  		\includegraphics[width=0.6\textwidth]{pics/optimal-tri.png}
+  		\begin{tikzpicture}
+  		\draw (4,0)
+  		-- (5,3)
+  		-- (8,4)
+  		-- cycle;
+  		\draw (4,0) node{}
+  		-- (7,2) node{}
+  		-- (7.5,3.5) node{}
+  		-- cycle;
+  		\draw (4,0) node{}
+  		-- (7,2) node{}
+  		-- (7,1) node{}
+  		-- cycle;
+  		\draw (4,0) node{}
+  		-- (7.5,0) node{}
+  		-- (7,1) node{}
+  		-- cycle;
+  		\draw (4,0)
+  		-- (5,3)
+  		-- (2,4)
+  		-- cycle;
+  		\draw (4,0)
+  		-- (2.5,3)
+  		-- (2.5,2)
+  		-- cycle;
+  		\draw (4,0)
+  		-- (1,0)
+  		-- (2.5,2)
+  		-- cycle;
+  		\draw[->] (0,0) 
+  		-> (8,0) node[right]{x};
+  		\end{tikzpicture}
   		\captionof{figure}{Optimale Anordnung für eine Summe kleiner gleich $180\degree$}
   	\par}
   \end{kasten} ~\\
  Sollte die Summe jedoch größer sein, ist es nicht mehr so einfach, eine optimale Lösung zu finden. Genauer gesagt kann man ab diesem Punkt nur noch eine Heuristik einsetzen, die ein möglichst gutes Ergebnis liefert. Dabei stellt sich heraus:
  \begin{kasten}
- 	Es scheint sinnvoll zu sein, eine Teilmenge der Dreiecke zu finden, für die $\sum \varphi_i \leq 180\degree$ gilt. Für diese kann die in der vorherigen Beobachtung beschriebene Strategie angewandt werden. \\ \\
- 	Nun müssen aber noch die übriggebliebenen Dreiecke angeordnet werden. %TODO wie am besten?
+ 	Es scheint sinnvoll zu sein, eine Teilmenge der Dreiecke zu finden, für die $\sum \varphi_i \leq 180\degree$ gilt und $\sum \varphi_i$ maximal ist. Für diese kann die in der vorherigen Beobachtung beschriebene Strategie angewandt werden. \\ \\
+ 	Nun müssen aber noch alle weiteren Dreiecke angeordnet werden.
  \end{kasten}
+Auch dafür gibt es eine sinnvoll erscheinende Strategie:
+\begin{kasten}
+	Für das Anfügen der Dreiecke sollte man folgendermaßen vorgehen:
+	\begin{enumerate}
+		\item Finde zwei Punkte, die auf der x-Achse liegen\footnote{Oder nur wenig über der x-Achse. In diesem Fall muss man den Punkt aber ein wenig nach links/rechts und auf die x-Achse verschieben.}, zu einem platzierten Dreieck gehören und möglichst weit links (Punkt $L$ mit minimaler x-Koordinate) bzw. rechts (Punkt $R$ mit maximaler x-Koordinate) liegen.
+		\item Wähle von diesen beiden Punkten den aus, der die Gesamtdistanz weniger erhöht.
+		\item Berechne für diesen Punkt den von der x-Achse aus \textbf{freien Winkel} $\alpha$, in dem weitere Dreiecke platziert werden können.
+		\item Finde eine Teilmenge der noch nicht platzierten Dreiecke, für die $\sum \varphi_i \leq \alpha$ gilt und $\sum \varphi_i$ maximal ist. 
+		\item Platziere diese Dreiecke mittels Verschiebungen und Rotationen im freien Winkel, sodass der Optimalpunkt jeweils auf $L$ bzw. $R$ (je nachdem, welcher gewählt wurde) liegt.
+		\item Wiederhole diese Schritte, bis alle Dreiecke platziert sind.
+	\end{enumerate}
+\end{kasten}
+\begin{figure}[H]
+	\centering \begin{tikzpicture}
+	\coordinate (origo) at (1,1);
+	\coordinate (mary) at (0,1);
+	\coordinate (bob) at (2,5);
+	\coordinate (O) at(7.5,1);
+	\coordinate (M) at (8,5);
+	\coordinate (B) at (8,1);
+	\draw (4,1)
+	-- (5,4)
+	-- (8,5)
+	-- cycle;
+	\draw (4,1) node{}
+	-- (7,3) node{}
+	-- (7.5,4.5) node{}
+	-- cycle;
+	\draw (4,1) node{}
+	-- (7,3) node{}
+	-- (7,2) node{}
+	-- cycle;
+	\draw (4,1) node{}
+	-- (7.5,1) node[below]{$R$}
+	-- (7,2) node{}
+	-- cycle;
+	\draw (4,1)
+	-- (5,4)
+	-- (2,5)
+	-- cycle;
+	\draw (4,1)
+	-- (2.5,4)
+	-- (2.5,3)
+	-- cycle;
+	\draw (4,1)
+	-- (1,1) node[below]{$L$}
+	-- (2.5,3)
+	-- cycle;
+	\draw[dashed] (1,1)-- (2,5);
+	\draw[->] (0,1) 
+	-> (9,1) node[right]{$x$};
+	\draw[latex-latex] (1,0.5) 
+	-- node[below]{$l$} (4,0.5);
+	\draw[latex-latex] (7.5,0.5) 
+	-- node[below]{$r$} (4,0.5) ;
+	\draw[dashed] (O) -- (M);
+	\path (bob) -- (origo) -- (mary) pic[draw, ->, "$\alpha_L$", angle eccentricity=1.5] {angle = bob--origo--mary};
+	\path (B) -- (O) -- (M) pic[draw, ->, "$\alpha_R$", angle eccentricity=1.5] {angle = B--O--M};
+	\end{tikzpicture}
+	\caption{Veranschaulichung der Strategie}
+\end{figure}
+Die ersten beiden Schritte dienen dabei dazu, die Gesamtdistanz möglichst zu minimieren, während die restlichen Schritte Dreiecke finden, die optimal im freien Winkel platziert werden können. Die Funktionsweise der Strategie ist in obiger Abbildung veranschaulicht. \\ \\
+Die Gesamtdistanz ist dort 0 und kann entweder links um $l$ oder rechts um $r$ erweitert werden. Da in diesem Fall $l < r$, würden die Dreiecke auf der linken Seite im freien Winkel $\alpha_L$ angefügt werden.
 \subsubsection{Implementierte Verbesserungen}
+Diese Strategie lässt sich natürlich noch durch einige weitere Heuristiken verbessern. Als besonders erfolgreich haben sich dabei folgende herausgestellt, die deshalb auch implementiert wurden.
+\begin{proof}[Sortieren der Dreiecke]
+	Es ist sinnvoll, die Dreiecke des gewählten Subsets nach der längsten am Optimalpunkt anliegenden Seite zu sortieren. Dadurch befinden sich \glqq längere\grqq~ bzw. größere Dreiecke weiter links und kleinere Dreiecke weiter rechts. Dadurch wird der Gesamtabstand beim Anlegen auf der rechten Seite nur wenig erhöht und es steht dort bestenfalls ein größerer freier Winkel zur Verfügung. Insgesamt führte diese Strategie in Experimenten zu einer Verringerung der Gesamtdistanz. \\ \\
+	Nicht zum gewünschten Erfolg führte es dagegen, die Dreiecke so zu sortieren, dass Dreiecke mit langen anliegenden Seiten nach oben (d.h eher in y-Richtung) zeigen, während Dreiecke mit kurzen anliegenden Seiten nach links bzw. rechts (d.h eher in x-Richtung) zeigen. Deshalb ist diese Sortierung nicht in der endgültigen Implementierung enthalten.
+\end{proof}
+\begin{proof}[\glqq Randrehen\grqq~ der Dreiecke]
+	Es erwies sich auch als sinnvoll, die Dreiecke des ausgewählten Subsets so nah wie möglich an die bisherige Konstruktion heranzudrehen. Dadurch wird der freie Winkel nicht von unten, sondern von oben her mit Dreiecken aufgefüllt. Falls die Dreiecke den freien Winkel nicht komplett ausfüllen, bleibt unten (an der x-Achse) mehr Platz, um neue Dreiecke anzulegen, was ebenfalls zu einer Verringerung der Gesamtdistanz führte.
+\end{proof}
+\hspace*{-1em}Die erstgenannte Sortierheuristik führt jedoch dazu, dass links fast keine Dreiecke mehr angefügt werden. Dies ist dadurch begründet, dass durch die langen Dreiecke links die Gesamtdistanz im Vergleich zur rechten Seite unverhältnismäßig erhöht würde. Trotzdem erzeugt der Algorithmus mit Sortierheuristik nahezu immer bessere Ergebnisse als ohne.
+\begin{minipage}{0.45\textwidth}
+	\vspace*{2cm}
+	\begin{tikzpicture}
+	\draw (4,0)
+	-- (0,0)
+	-- (0,2)
+	-- cycle;
+	\draw (4,0)
+	-- (0.5,1.75)
+	-- (2,2)
+	-- cycle;
+	\draw (4,0)
+	-- (2,2)
+	-- (4,2)
+	-- cycle;
+	\draw (4,0)
+	-- (5,1.5)
+	-- (4,2)
+	-- cycle;
+	\draw (4,0)
+	-- (4.75,1)
+	-- (5.5,0)
+	-- cycle;
+	\draw[->] (0,0) 
+	-> (7,0) node[right]{x};
+	\end{tikzpicture}
+	\captionof{figure}{Sortieren von rechts nach links}
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}
+	\draw (4,0)
+	-- (5,3)
+	-- (8,4)
+	-- cycle;
+	\draw (4,0)
+	-- (7,2)
+	-- (7,3)
+	-- cycle;
+	\draw (4,0)
+	-- (6.5,1.7)
+	-- (7,1)
+	-- cycle;
+	\draw (4,0)
+	-- (6.5,0)
+	-- (6,0.7)
+	-- cycle;
+	\draw (4,0)
+	-- (5,3)
+	-- (2,4)
+	-- cycle;
+	\draw (4,0)
+	-- (2.5,3)
+	-- (2.5,2)
+	-- cycle;
+	\draw (4,0)
+	-- (2,0)
+	-- (2.75,1.7)
+	-- cycle;
+	\draw[->] (0,0) 
+	-> (8,0) node[right]{x};
+	\end{tikzpicture}
+	\captionof{figure}{Sortieren von unten nach oben}
+\end{minipage}
+\begin{center}
+\begin{tikzpicture}
+\draw (4,0)
+-- (5,3)
+-- (8,4)
+-- cycle;
+\draw (4,0)
+-- (7,1)
+-- (7,3)
+-- cycle;
+\draw (4,0)
+-- (5,3)
+-- (2,4)
+-- cycle;
+\draw[dashed] (3.9,0.1)
+-- (0,0.1)
+-- (0,4)
+-- (1.9,4)
+-- cycle;
+\draw[->] (0,0) 
+-> (8,0) node[right]{x};
+\end{tikzpicture}
+\captionsetup{justification=centering}
+\captionof{figure}{Herandrehen der Dreiecke \\ (der gepunktete Bereich stellt die bisherige Dreiecksanordnung dar)}
+\end{center}
 \subsubsection{Geometrische Berechnungen}
-  \subsubsection{Subset Sum und ein DP-Algorithmus}
-  Um anhand der Winkel der Dreiecke die jeweils (anfangs z.B. in einem Halbkreis) zu platzierenden Dreiecke zu ermitteln, muss man das Subset-Sum-Problem (Teilsummenproblem) lösen. Dabei ist eine Menge von ganzen Zahlen $I = \{w_1,...,w_n\} (w_i \in \mathbb{Z})$ gegeben. Nun wird eine Teilmenge $S$ mit maximaler Summe gesucht, die aber nicht größer als eine obere Schranke $c$ (in diesem Fall z.B. $180\degree$ bzw. $\pi$) ist. Formal erfüllt $S$ also folgende Eigenschaften:
+%TODO Berechnungen und evtl Tikz einfügen
+%berechnung freier winkel
+% evtl. min und max punkt finden
+% verschieben
+% alle 3 rotierschritte (winkel)
+% drehmatrix
+  \subsubsection{Der DP-Algorithmus für Subset Sum}
+  Um anhand der Winkel der Dreiecke die jeweils im freien Winkel (anfangs z.B. in einem Halbkreis) zu platzierenden Dreiecke zu ermitteln, muss man das Subset-Sum-Problem (Teilsummenproblem) lösen. Dabei ist eine Menge von ganzen Zahlen $I = \{w_1,...,w_n\} (w_i \in \mathbb{Z})$ gegeben. Nun wird eine Teilmenge $S$ mit maximaler Summe gesucht, die aber nicht größer als eine obere Schranke $c$ (in diesem Fall z.B. $180\degree$ bzw. $\pi$) ist. Formal erfüllt $S$ also folgende Eigenschaften:
   \begin{equation}
   S = \arg \max_{S \in 2^I} \sum_{w_j \in S} w_j
   \end{equation}
@@ -136,6 +339,16 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
   Mittels dieses Subset-Sum-Algorithmus ist es möglich, Dreiecke so auszuwählen, dass ihre kleinsten Winkel $\varphi_i$ einen gegebenen freien Winkel (z.B. den Halbkreis oberhalb der x-Achse) möglichst gut ausnutzen. Dadurch können die Dreiecke relativ dicht gepackt und der Gesamtabstand verkleinert werden. Entsprechend sind für diese Aufgabe die $w_i = \varphi_i$. \\ \\
    Da es sich bei den Winkeln in der Realität jedoch um Gleitkommazahlen handelt, müssen diese zunächst in Festkommazahlen mit wenigen Nachkommastellen umgewandelt und anschließend mit einem festen Faktor (eine entsprechende Zehnerpotenz) multipliziert werden, damit man natürliche Zahlen erhält, die vom Algorithmus verarbeitet werden können.
   \subsubsection{Der Algorithmus zur Platzierung der Dreiecke}
+  Die in den vorherigen Abschnitten gewonnenen Erkenntnisse können in folgendem Algorithmus zusammengefasst werden:
+  %TODO richtigen Algorithmus einfügen
+  \begin{algorithm}[H]
+  	\begin{algorithmic}
+  		\Function{doAlgorithm}{$T$}
+  		\State \Return $42$
+  		\EndFunction
+  	\end{algorithmic}
+  	\caption{Algorithmus zur Dreiecksplatzierung}
+  \end{algorithm}
   \subsection{Optimalität des Algorithmus und Verbesserungsmöglichkeiten}
   Bezüglich der Qualität des Verfahrens lässt sich feststellen, dass es viele typische Nachteile einer Heuristik besitzt. So muss die von diesem Verfahren erzeugte Dreiecksanordnung nicht unbedingt optimal sein. Um das zu erreichen, müsste man jedoch alle möglichen Lösungen mittels Backtracking durchprobieren. \\ \\
   Dies ist aber angesichts der zu erwartenden hohen Laufzeiten kein guter Ansatz. Für Beispiel 5 (mit $n = 37$) würde sich beispielsweise ergeben:
@@ -172,7 +385,7 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
 		\draw (0,0) 
 		-> (4,0) node[right]{x};
 		\end{tikzpicture}
-		\caption{Beispiel für die Notwendigkeit von Achsenspiegelungen}
+		\caption{Beispiel für die Sinnhaftigkeit von Achsenspiegelungen}
 	\end{figure}
 \end{minipage}
 \hspace{1cm}
@@ -217,7 +430,7 @@ Für die Gesamtlaufzeit einer Iteration der Schleife erhält man:
 T(n) = \mathcal{O}(n) + \mathcal{O}(n \cdot \log n) + \mathcal{O}(n) = \mathcal{O}(n \cdot \log n)
 \end{equation}
 Nehmen wir an, dass es $m$ Schleifendurchläufe gibt, erhalten wir $\mathcal{O}(m \cdot n \cdot \log n)$. Da die Anzahl der Schleifendurchläufe von der jeweiligen Rückgabe des Subset-Sum-Algorithmus abhängt, kann man nur feststellen, dass $m = \mathcal{O}(n)$ und $m = \Omega(1)$ ist.\footnote{Die geringste Anzahl tritt auf, wenn die Summe aller kleinsten Winkel $\leq 180\degree$ ist.} \\ \\
-Insgesamt erhält man für die Laufzeit also:\footnote{Da das $n$ nicht für jede Iteration der Schleife gleich ist, sondern kleiner wird, handelt es sich bei der Laufzeit in O-Notation nur um eine grobe Abschätzung nach oben.}
+Insgesamt erhält man für die Laufzeit also:\footnote{Da das $n$ nicht für jede Iteration der Schleife gleich ist, sondern kleiner wird, handelt es sich bei der Laufzeit in O-Notation nur um eine grobe Abschätzung nach oben. Die Laufzeit wird also in den meisten Fällen eher $\mathcal{O}(n \cdot \log n)$ sein.}
 \begin{equation}
 T_{gesamt}(n) = \mathcal{O}(n^2 \cdot \log n) \text{~und~} T_{gesamt}(n) = \Omega(n \cdot \log n)
 \end{equation}
@@ -233,6 +446,8 @@ Abschließend möchte ich bemerken, dass das Problem viel einfacher zu lösen w�
 	\bibitem[2]{Src:dpbacktrace} GeeksforGeeks-Artikel zum Backtracen bei der DP-Lösung, \url{https://www.geeksforgeeks.org/perfect-sum-problem-print-subsets-given-sum/}
 	\bibitem[3]{Src:pack} Wikipedia-Artikel zu Packproblemen, \url{https://en.wikipedia.org/wiki/Packing_problems}
 	\bibitem[4] {Src:dreh} Wikipedia-Artikel zu Drehmatrizen, \url{https://de.wikipedia.org/wiki/Drehmatrix} und Stack-Overflow-Antwort zur Umsetzung in C++, \url{https://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d}
+	\bibitem[5] {Src:wikisum} Wikipedia-Artikel zum Subset-Sum-Problem, \url{https://en.wikipedia.org/wiki/Subset_sum_problem}
+	\bibitem[6]{Src:clrs} Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford: \textit{Introduction to Algorithms}, Third Edition, MIT Press, 2009 (insbesondere Kapitel 34 zur NP-Vollständigkeit und Kapitel 34 und 35 zum Subset-Sum-Problem)
 \end{thebibliography}
 \section{Umsetzung}
 \subsection{Allgemeine Hinweise zur Benutzung}
