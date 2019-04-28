@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  25 APR 2019 13:12
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2019.4.9)  28 APR 2019 18:00
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -497,33 +497,26 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@headsep=\skip67
 \dth@everypar=\toks27
 )
+(/usr/share/texmf-dist/tex/latex/koma-script/scrlayer-scrpage.sty
+Package: scrlayer-scrpage 2019/02/01 v3.26b KOMA-Script package (end user inter
+face for scrlayer)
 
-Class scrartcl Warning: Usage of package `fancyhdr' together
-(scrartcl)              with a KOMA-Script class is not recommended.
-(scrartcl)              I'd suggest to use 
-(scrartcl)              package `scrlayer' or `scrlayer-scrpage', because
-(scrartcl)              they support KOMA-Script classes.
-(scrartcl)              With `fancyhdr' several features of class `scrartcl'
-(scrartcl)              like options `headsepline', `footsepline' or command
-(scrartcl)              `\MakeMarkcase' and the commands `\setkomafont' and
-(scrartcl)              `\addtokomafont' for the page style elements need
-(scrartcl)              explicite user intervention to work.
-(scrartcl)              Nevertheless, using requested
-(scrartcl)              package `fancyhdr' on input line 20.
-
-(/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
-s
-\f@nch@headwidth=\skip68
-\f@nch@O@elh=\skip69
-\f@nch@O@erh=\skip70
-\f@nch@O@olh=\skip71
-\f@nch@O@orh=\skip72
-\f@nch@O@elf=\skip73
-\f@nch@O@erf=\skip74
-\f@nch@O@olf=\skip75
-\f@nch@O@orf=\skip76
+(/usr/share/texmf-dist/tex/latex/koma-script/scrlayer.sty
+Package: scrlayer 2019/02/01 v3.26b KOMA-Script package (defining layers and pa
+ge styles)
+Package scrlayer Info: Using already defined \footheight
+(scrlayer)             hoping, that this is a length and
+(scrlayer)             not only a macro on input line 109.
+Package scrlayer Info: patching LaTeX kernel macro \pagestyle on input line 208
+3.
 )
+Package scrlayer-scrpage Info: Makeing stand-alone element `pagehead' from
+(scrlayer-scrpage)             alias to `pageheadfoot' on input line 1241.
+Package scrlayer-scrpage Info: deactivating warning for font element
+(scrlayer-scrpage)             `pagefoot' on input line 1268.
+)
+Package scrlayer-scrpage Info: auto-selection of `pagestyleset=KOMA-Script'.
+
 (/usr/share/texmf-dist/tex/latex/lastpage/lastpage.sty
 Package: lastpage 2015/03/29 v1.2m Refers to last page's name (HMM; JPG)
 )
@@ -556,13 +549,13 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \c@ALG@line=\count130
 \c@ALG@rem=\count131
 \c@ALG@nested=\count132
-\ALG@tlm=\skip77
-\ALG@thistlm=\skip78
+\ALG@tlm=\skip68
+\ALG@thistlm=\skip69
 \c@ALG@Lnr=\count133
 \c@ALG@blocknr=\count134
 \c@ALG@storecount=\count135
 \c@ALG@tmpcounter=\count136
-\ALG@tmplength=\skip79
+\ALG@tmplength=\skip70
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
 ) (/usr/share/texmf-dist/tex/latex/minted/minted.sty
@@ -683,7 +676,7 @@ LaTeX Info: Redefining \\ on input line 3056.
 \c@FV@TrueTabGroupLevel=\count145
 \c@FV@TrueTabCounter=\count146
 \FV@TabBox@Group=\box37
-\FV@TmpLength=\skip80
+\FV@TmpLength=\skip71
 \c@FV@HighlightLinesStart=\count147
 \c@FV@HighlightLinesStop=\count148
 \FV@LoopCount=\count149
@@ -865,7 +858,7 @@ Package: xstring 2019/02/06 v1.83 String manipulations (CT)
 )
 (/usr/share/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip81
+\OuterFrameSep=\skip72
 \fb@frw=\dimen156
 \fb@frh=\dimen157
 \FrameRule=\dimen158
@@ -906,12 +899,12 @@ Package: expl3 2019-02-15 L3 programming layer (code)
 \l_tmpb_dim=\dimen163
 \g_tmpa_dim=\dimen164
 \g_tmpb_dim=\dimen165
-\c_zero_skip=\skip82
-\c_max_skip=\skip83
-\l_tmpa_skip=\skip84
-\l_tmpb_skip=\skip85
-\g_tmpa_skip=\skip86
-\g_tmpb_skip=\skip87
+\c_zero_skip=\skip73
+\c_max_skip=\skip74
+\l_tmpa_skip=\skip75
+\l_tmpb_skip=\skip76
+\g_tmpa_skip=\skip77
+\g_tmpb_skip=\skip78
 \c_zero_muskip=\muskip12
 \c_max_muskip=\muskip13
 \l_tmpa_muskip=\muskip14
@@ -1361,10 +1354,10 @@ PDF mode.
 
 ) (/usr/share/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
-\LTleft=\skip88
-\LTright=\skip89
-\LTpre=\skip90
-\LTpost=\skip91
+\LTleft=\skip79
+\LTright=\skip80
+\LTpre=\skip81
+\LTpost=\skip82
 \LTchunksize=\count349
 \LTcapwidth=\dimen298
 \LT@head=\box72
@@ -1377,7 +1370,7 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
 \c@LT@chunks=\count353
 \LT@p@ftn=\toks46
 )
-Class scrartcl Info: longtable captions redefined on input line 34.
+Class scrartcl Info: longtable captions redefined on input line 33.
 
 (/usr/share/texmf-dist/tex/latex/tabu/tabu.sty
 Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
@@ -1388,8 +1381,8 @@ Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
 \ar@mcellbox=\box76
 \extrarowheight=\dimen300
 \NC@list=\toks47
-\extratabsurround=\skip92
-\backup@length=\skip93
+\extratabsurround=\skip83
+\backup@length=\skip84
 \ar@cellbox=\box77
 )
 (/usr/share/texmf-dist/tex/latex/varwidth/varwidth.sty
@@ -1420,7 +1413,7 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@arstrutbox=\box80
 \tabu@hleads=\box81
 \tabu@vleads=\box82
-\tabu@cellskip=\skip94
+\tabu@cellskip=\skip85
 )
 \colveccount=\count361
 runsystem(which pygmentize && touch Aufgabe1-Dokumentation.aex)...executed.
@@ -1431,32 +1424,32 @@ runsystem(rm Aufgabe1-Dokumentation.aex)...executed.
 (./Aufgabe1-Dokumentation.aux)
 \openout1 = `Aufgabe1-Dokumentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 65.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 65.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 66.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 66.
  (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    ... okay on input line 66.
 \AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring OFF on input line 65.
+Package hyperref Info: Link coloring OFF on input line 66.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -1465,9 +1458,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count362
 )
-LaTeX Info: Redefining \ref on input line 65.
-LaTeX Info: Redefining \pageref on input line 65.
-LaTeX Info: Redefining \nameref on input line 65.
+LaTeX Info: Redefining \ref on input line 66.
+LaTeX Info: Redefining \pageref on input line 66.
+LaTeX Info: Redefining \nameref on input line 66.
 
 (./Aufgabe1-Dokumentation.out) (./Aufgabe1-Dokumentation.out)
 \@outlinefile=\write6
@@ -1479,7 +1472,7 @@ Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           You can avoid loading `bookmark' with KOMA-Script option
 (scrartcl)           `bookmarkpackage=false' before \begin{document} and
 (scrartcl)           you can avoid this message with `\usepackage{bookmark}'
-(scrartcl)           before \begin{document} on input line 65.
+(scrartcl)           before \begin{document} on input line 66.
 
 (/usr/share/texmf-dist/tex/latex/oberdiek/bookmark.sty
 Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
@@ -1531,64 +1524,64 @@ Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
 Package caption Info: End \AtBeginDocument code.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 65.
+(lastpage)             ! on input line 66.
 
 Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
 (fontspec)             this).
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 65.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 65.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 65.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 65.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 65.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 65.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 65.
-LaTeX Font Info:    Redeclaring math accent \check on input line 65.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 65.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 65.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 65.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 65.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 65.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 66.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 66.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 66.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 66.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 66.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 66.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 66.
+LaTeX Font Info:    Redeclaring math accent \check on input line 66.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 66.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 66.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 66.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 66.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 66.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 65.
+(Font)              `operators' in the math version `normal' on input line 66.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 65.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 66.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 65.
+(Font)              `operators' in the math version `bold' on input line 66.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 65.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 66.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 65.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 66.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 65.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 66.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/bx/n on input line 65.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/bx/n on input line 66.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 65.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 66.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 65.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 66.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/bx/n on input line 65.
+(Font)                  TU/lmr/m/n --> TU/lmr/bx/n on input line 66.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/bx/it on input line 65.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/bx/it on input line 66.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/bx/n on input line 65.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/bx/n on input line 66.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/bx/n on input line 65.
-LaTeX Info: Redefining \microtypecontext on input line 65.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/bx/n on input line 66.
+LaTeX Info: Redefining \microtypecontext on input line 66.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -1604,7 +1597,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Try loading font information for U+msa on input line 68.
+LaTeX Font Info:    Try loading font information for U+msa on input line 69.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1612,7 +1605,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 68.
+LaTeX Font Info:    Try loading font information for U+msb on input line 69.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1624,7 +1617,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-Package tocbasic Info: character protrusion at toc deactivated on input line 68
+Package tocbasic Info: character protrusion at toc deactivated on input line 69
 .
 
 (./Aufgabe1-Dokumentation.toc
@@ -1646,89 +1639,89 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 File: pics/gsp.png Graphic file (type bmp)
 <pics/gsp.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--80
+Underfull \hbox (badness 10000) in paragraph at lines 75--81
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--80
+Underfull \hbox (badness 10000) in paragraph at lines 75--81
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--85
+Underfull \hbox (badness 10000) in paragraph at lines 83--86
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--85
+Underfull \hbox (badness 10000) in paragraph at lines 83--86
 
  []
 
 [1]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 107.
+put line 108.
 
-Underfull \hbox (badness 10000) in paragraph at lines 86--108
+Underfull \hbox (badness 10000) in paragraph at lines 87--109
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 111--127
+Underfull \hbox (badness 10000) in paragraph at lines 112--128
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--127
+Underfull \hbox (badness 10000) in paragraph at lines 112--128
 
  []
 
 File: pics/lee_figure1.png Graphic file (type bmp)
 <pics/lee_figure1.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--135
+Underfull \hbox (badness 10000) in paragraph at lines 129--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--135
+Underfull \hbox (badness 10000) in paragraph at lines 129--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--135
+Underfull \hbox (badness 10000) in paragraph at lines 129--136
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 177--201
+Underfull \hbox (badness 10000) in paragraph at lines 178--202
 
  []
 
 [4]
-Overfull \hbox (11.18195pt too wide) in paragraph at lines 202--203
+Overfull \hbox (11.18195pt too wide) in paragraph at lines 203--204
 []| \TU/lmr/m/n/12 Diese Funktion \TU/lmtt/m/n/12 visible \TU/lmr/m/n/12 prüft 
 dabei ganz einfach die Sichtbarkeit eines Knotens. $\OML/cmm/m/it/12 smallest\O
 T1/cmr/m/n/12 (\OML/cmm/m/it/12 T\OT1/cmr/m/n/12 )$
  []
 
 
-Overfull \hbox (18.31711pt too wide) in paragraph at lines 230--231
+Overfull \hbox (18.31711pt too wide) in paragraph at lines 231--232
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--231
+Underfull \hbox (badness 10000) in paragraph at lines 217--232
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--231
+Underfull \hbox (badness 10000) in paragraph at lines 217--232
 
  []
 
 [5] [6]
-Package svg Info: Calling Inkscape on input line 265.
+Package svg Info: Calling Inkscape on input line 266.
 runsystem(inkscape -z -D --export-latex  --file="pics/lisarennt-ha.svg" --expor
 t-pdf="lisarennt-ha_svg-tex.pdf" )...executed.
 
@@ -1741,180 +1734,180 @@ runsystem(mv "lisarennt-ha_svg-tex.pdf_tex" "./svg-inkscape/lisarennt-ha_svg-te
 x.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt-ha_svg-tex.pdf' is 1 o
-n input line 265.
+n input line 266.
  (./svg-inkscape/lisarennt-ha_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt-ha_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt-ha_svg-tex.pdf, page 1>
 )
-Underfull \hbox (badness 10000) in paragraph at lines 260--267
+Underfull \hbox (badness 10000) in paragraph at lines 261--268
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 260--267
+Underfull \hbox (badness 10000) in paragraph at lines 261--268
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 260--267
+Underfull \hbox (badness 10000) in paragraph at lines 261--268
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 268--270
+Underfull \hbox (badness 10000) in paragraph at lines 269--271
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 292--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--296
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--295
+Underfull \hbox (badness 10000) in paragraph at lines 293--296
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 297--317
+Underfull \hbox (badness 10000) in paragraph at lines 298--318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 297--317
+Underfull \hbox (badness 10000) in paragraph at lines 298--318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 320--322
+Underfull \hbox (badness 10000) in paragraph at lines 321--323
 
  []
 
 [9]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 322.
+(hyperref)                removing `math shift' on input line 323.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 322.
+(hyperref)                removing `superscript' on input line 323.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 322.
+(hyperref)                removing `math shift' on input line 323.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 323--326
+Underfull \hbox (badness 10000) in paragraph at lines 324--327
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 323--326
+Underfull \hbox (badness 10000) in paragraph at lines 324--327
 
  []
 
 
-Underfull \hbox (badness 3568) in paragraph at lines 327--328
+Underfull \hbox (badness 3568) in paragraph at lines 328--329
 \TU/lmr/m/n/12 2016 (Präsentation), []$[][][][] [] [] [] [][][][][][][][][] [] 
 [][][][][][][][][][][][][][] [] [][] [] [][][][][][][] [] [][][] [] [][][][] []
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 329--330
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
 []\TU/lmr/m/n/12 Reksten-Monsen, Christian: Distance Tables Part 1 - Defi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 329--330
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
 \TU/lmr/m/n/12 ning the Problem, []$[][][][][] [] [] [] [][][][][][][][][] [] [
 ][][][][][] [] [][] [] [][][][] [] [][] [] [][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 330--331
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
 []\TU/lmr/m/n/12 Reksten-Monsen, Christian: Distance Tables Part 2 - Lee’s Visi
 bi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 330--331
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
 \TU/lmr/m/n/12 lity Graph Algorithm, []$[][][][][] [] [] [] [][][][][][][][][] 
 [] [][][][][][] [] [][] [] [][][][] [] [][] [] [][] []
  []
 
 
-Underfull \hbox (badness 5652) in paragraph at lines 332--333
+Underfull \hbox (badness 5652) in paragraph at lines 333--334
 []\TU/lmr/m/n/12 Bygi, Mojtaba Nouri; Ghodsi, Mohammad (Sharif University of Te
 chno-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 332--333
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
 \TU/lmr/m/n/12 logy): 3D Visibility Graph, []$[][][][][] [] [] [] [][][][] [] [
 ][][][][][][][][][][][][][][] [] [][][] [] [][][][] []
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
+Underfull \hbox (badness 10000) in paragraph at lines 335--336
 [] [] [][][][] [] [][][][][][][][][][][][][][][] [] [][][] [] [][][][] [] [][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 4995) in paragraph at lines 335--336
+Underfull \hbox (badness 4995) in paragraph at lines 336--337
 []\TU/lmr/m/n/12 Skript der Uni Freiburg zur Minkowski-Summe, []$[][][][] [] []
  [] [][][][] [] [][][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 3601) in paragraph at lines 336--337
+Underfull \hbox (badness 3601) in paragraph at lines 337--338
 []\TU/lmr/m/n/12 Wikipedia-Artikel zur NP-Schwere des dreidimensionalen GSP, []
 $[][][][][] [] [] [] [][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 341--343
+Underfull \hbox (badness 10000) in paragraph at lines 342--344
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 341--343
+Underfull \hbox (badness 10000) in paragraph at lines 342--344
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 363--365
+Underfull \hbox (badness 10000) in paragraph at lines 364--366
 
  []
 
 
-Overfull \hbox (6.72527pt too wide) in paragraph at lines 363--365
+Overfull \hbox (6.72527pt too wide) in paragraph at lines 364--366
 \TU/lmr/m/n/12 In der Dokumentation sind nur Teile des Quellcodes aus \TU/lmtt/
 m/n/12 vis_graph.py\TU/lmr/m/n/12 , \TU/lmtt/m/n/12 shortest_path.py\TU/lmr/m/n
 /12 ,
  []
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 365.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 366.
 [12] [13]
-Overfull \hbox (9.9359pt too wide) in paragraph at lines 414--414
+Overfull \hbox (9.9359pt too wide) in paragraph at lines 415--415
   [][][]\TU/lmr/m/n/10 siehe z.B. []$[][][][][] [] [] [] [][][][][][][][][][][]
 [][] [] [][][] [] [][][][][][][][][] [] [][][][][][] [] [][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]$[]| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 413--416
+Underfull \hbox (badness 10000) in paragraph at lines 414--417
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 413--416
+Underfull \hbox (badness 10000) in paragraph at lines 414--417
 
  []
 
-Package svg Info: Calling Inkscape on input line 419.
+Package svg Info: Calling Inkscape on input line 420.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/debug/lisarennt1-visgraph.svg" --export-pdf="lisarennt1-visgraph_svg
 -tex.pdf" )...executed.
@@ -1928,12 +1921,12 @@ runsystem(mv "lisarennt1-visgraph_svg-tex.pdf_tex" "./svg-inkscape/lisarennt1-v
 isgraph_svg-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt1-visgraph_svg-tex.pdf'
- is 1 on input line 419.
+ is 1 on input line 420.
 (./svg-inkscape/lisarennt1-visgraph_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt1-visgraph_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt1-visgraph_svg-tex.pdf, page 1>
 )
-Package svg Info: Calling Inkscape on input line 425.
+Package svg Info: Calling Inkscape on input line 426.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/lisarennt1.svg" --export-pdf="lisarennt1_svg-tex.pdf" )...executed.
 
@@ -1946,18 +1939,18 @@ runsystem(mv "lisarennt1_svg-tex.pdf_tex" "./svg-inkscape/lisarennt1_svg-tex.pd
 f_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt1_svg-tex.pdf' is 1 on 
-input line 425.
+input line 426.
 
 (./svg-inkscape/lisarennt1_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt1_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt1_svg-tex.pdf, page 1>
 )
-Underfull \hbox (badness 1708) in paragraph at lines 426--426
+Underfull \hbox (badness 1708) in paragraph at lines 427--427
 [][][]|\TU/lmr/m/n/12 Die optimale Route für
  []
 
 [14]
-Package svg Info: Calling Inkscape on input line 448.
+Package svg Info: Calling Inkscape on input line 449.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/debug/lisarennt2-visgraph.svg" --export-pdf="lisarennt2-visgraph_svg
 -tex.pdf" )...executed.
@@ -1971,12 +1964,12 @@ runsystem(mv "lisarennt2-visgraph_svg-tex.pdf_tex" "./svg-inkscape/lisarennt2-v
 isgraph_svg-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt2-visgraph_svg-tex.pdf'
- is 1 on input line 448.
+ is 1 on input line 449.
  (./svg-inkscape/lisarennt2-visgraph_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt2-visgraph_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt2-visgraph_svg-tex.pdf, page 1>
 )
-Package svg Info: Calling Inkscape on input line 454.
+Package svg Info: Calling Inkscape on input line 455.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/lisarennt2.svg" --export-pdf="lisarennt2_svg-tex.pdf" )...executed.
 
@@ -1989,18 +1982,18 @@ runsystem(mv "lisarennt2_svg-tex.pdf_tex" "./svg-inkscape/lisarennt2_svg-tex.pd
 f_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt2_svg-tex.pdf' is 1 on 
-input line 454.
+input line 455.
 
 (./svg-inkscape/lisarennt2_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt2_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt2_svg-tex.pdf, page 1>
 )
-Underfull \hbox (badness 1708) in paragraph at lines 455--455
+Underfull \hbox (badness 1708) in paragraph at lines 456--456
 [][][]|\TU/lmr/m/n/12 Die optimale Route für
  []
 
 [15]
-Package svg Info: Calling Inkscape on input line 477.
+Package svg Info: Calling Inkscape on input line 478.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/debug/lisarennt3-visgraph.svg" --export-pdf="lisarennt3-visgraph_svg
 -tex.pdf" )...executed.
@@ -2014,12 +2007,12 @@ runsystem(mv "lisarennt3-visgraph_svg-tex.pdf_tex" "./svg-inkscape/lisarennt3-v
 isgraph_svg-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt3-visgraph_svg-tex.pdf'
- is 1 on input line 477.
+ is 1 on input line 478.
  (./svg-inkscape/lisarennt3-visgraph_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt3-visgraph_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt3-visgraph_svg-tex.pdf, page 1>
 )
-Package svg Info: Calling Inkscape on input line 483.
+Package svg Info: Calling Inkscape on input line 484.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/lisarennt3.svg" --export-pdf="lisarennt3_svg-tex.pdf" )...executed.
 
@@ -2032,18 +2025,18 @@ runsystem(mv "lisarennt3_svg-tex.pdf_tex" "./svg-inkscape/lisarennt3_svg-tex.pd
 f_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt3_svg-tex.pdf' is 1 on 
-input line 483.
+input line 484.
 
 (./svg-inkscape/lisarennt3_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt3_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt3_svg-tex.pdf, page 1>
 )
-Underfull \hbox (badness 1708) in paragraph at lines 484--484
+Underfull \hbox (badness 1708) in paragraph at lines 485--485
 [][][]|\TU/lmr/m/n/12 Die optimale Route für
  []
 
 [16]
-Package svg Info: Calling Inkscape on input line 506.
+Package svg Info: Calling Inkscape on input line 507.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/debug/lisarennt4-visgraph.svg" --export-pdf="lisarennt4-visgraph_svg
 -tex.pdf" )...executed.
@@ -2057,16 +2050,16 @@ runsystem(mv "lisarennt4-visgraph_svg-tex.pdf_tex" "./svg-inkscape/lisarennt4-v
 isgraph_svg-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt4-visgraph_svg-tex.pdf'
- is 1 on input line 506.
+ is 1 on input line 507.
  (./svg-inkscape/lisarennt4-visgraph_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt4-visgraph_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt4-visgraph_svg-tex.pdf, page 1>
 )
-Underfull \hbox (badness 10000) in paragraph at lines 507--507
+Underfull \hbox (badness 10000) in paragraph at lines 508--508
 [][][]|\TU/lmr/m/n/12 Der Sichtbarkeitsgraph
  []
 
-Package svg Info: Calling Inkscape on input line 512.
+Package svg Info: Calling Inkscape on input line 513.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/lisarennt4.svg" --export-pdf="lisarennt4_svg-tex.pdf" )...executed.
 
@@ -2079,12 +2072,12 @@ runsystem(mv "lisarennt4_svg-tex.pdf_tex" "./svg-inkscape/lisarennt4_svg-tex.pd
 f_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt4_svg-tex.pdf' is 1 on 
-input line 512.
+input line 513.
 (./svg-inkscape/lisarennt4_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt4_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt4_svg-tex.pdf, page 1>
 ) [17]
-Package svg Info: Calling Inkscape on input line 535.
+Package svg Info: Calling Inkscape on input line 536.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/debug/lisarennt5-visgraph.svg" --export-pdf="lisarennt5-visgraph_svg
 -tex.pdf" )...executed.
@@ -2098,17 +2091,17 @@ runsystem(mv "lisarennt5-visgraph_svg-tex.pdf_tex" "./svg-inkscape/lisarennt5-v
 isgraph_svg-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt5-visgraph_svg-tex.pdf'
- is 1 on input line 535.
+ is 1 on input line 536.
 
 (./svg-inkscape/lisarennt5-visgraph_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt5-visgraph_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt5-visgraph_svg-tex.pdf, page 1>
 )
-Underfull \hbox (badness 10000) in paragraph at lines 536--536
+Underfull \hbox (badness 10000) in paragraph at lines 537--537
 [][][]|\TU/lmr/m/n/12 Der Sichtbarkeitsgraph
  []
 
-Package svg Info: Calling Inkscape on input line 541.
+Package svg Info: Calling Inkscape on input line 542.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/lisarennt5.svg" --export-pdf="lisarennt5_svg-tex.pdf" )...executed.
 
@@ -2121,12 +2114,12 @@ runsystem(mv "lisarennt5_svg-tex.pdf_tex" "./svg-inkscape/lisarennt5_svg-tex.pd
 f_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt5_svg-tex.pdf' is 1 on 
-input line 541.
+input line 542.
 (./svg-inkscape/lisarennt5_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt5_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt5_svg-tex.pdf, page 1>
 ) [18]
-Package svg Info: Calling Inkscape on input line 564.
+Package svg Info: Calling Inkscape on input line 565.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/debug/reg1000-visgraph.svg" --export-pdf="reg1000-visgraph_svg-tex.p
 df" )...executed.
@@ -2140,17 +2133,17 @@ runsystem(mv "reg1000-visgraph_svg-tex.pdf_tex" "./svg-inkscape/reg1000-visgrap
 h_svg-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/reg1000-visgraph_svg-tex.pdf' is
- 1 on input line 564.
+ 1 on input line 565.
 
 (./svg-inkscape/reg1000-visgraph_svg-tex.pdf_tex
 File: ./svg-inkscape/reg1000-visgraph_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/reg1000-visgraph_svg-tex.pdf, page 1>
 )
-Underfull \hbox (badness 10000) in paragraph at lines 565--565
+Underfull \hbox (badness 10000) in paragraph at lines 566--566
 [][][]|\TU/lmr/m/n/12 Der Sichtbarkeitsgraph
  []
 
-Package svg Info: Calling Inkscape on input line 570.
+Package svg Info: Calling Inkscape on input line 571.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/reg1000.svg" --export-pdf="reg1000_svg-tex.pdf" )...executed.
 
@@ -2163,12 +2156,12 @@ runsystem(mv "reg1000_svg-tex.pdf_tex" "./svg-inkscape/reg1000_svg-tex.pdf_tex"
 )...executed.
 
 Package svg Info: Last page of `./svg-inkscape/reg1000_svg-tex.pdf' is 1 on inp
-ut line 570.
+ut line 571.
 (./svg-inkscape/reg1000_svg-tex.pdf_tex
 File: ./svg-inkscape/reg1000_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/reg1000_svg-tex.pdf, page 1>
 ) [19]
-Package svg Info: Calling Inkscape on input line 595.
+Package svg Info: Calling Inkscape on input line 596.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/debug/lisarennt2-vel-visgraph.svg" --export-pdf="lisarennt2-vel-visg
 raph_svg-tex.pdf" )...executed.
@@ -2182,14 +2175,14 @@ runsystem(mv "lisarennt2-vel-visgraph_svg-tex.pdf_tex" "./svg-inkscape/lisarenn
 t2-vel-visgraph_svg-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt2-vel-visgraph_svg-tex.
-pdf' is 1 on input line 595.
+pdf' is 1 on input line 596.
 
 (./svg-inkscape/lisarennt2-vel-visgraph_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt2-vel-visgraph_svg-tex.pdf Graphic file (type pdf
 )
 <use ./svg-inkscape/lisarennt2-vel-visgraph_svg-tex.pdf, page 1>
 )
-Package svg Info: Calling Inkscape on input line 601.
+Package svg Info: Calling Inkscape on input line 602.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/lisarennt2-vel.svg" --export-pdf="lisarennt2-vel_svg-tex.pdf" )...ex
 ecuted.
@@ -2203,13 +2196,13 @@ runsystem(mv "lisarennt2-vel_svg-tex.pdf_tex" "./svg-inkscape/lisarennt2-vel_sv
 g-tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt2-vel_svg-tex.pdf' is 1
- on input line 601.
+ on input line 602.
 
 (./svg-inkscape/lisarennt2-vel_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt2-vel_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/lisarennt2-vel_svg-tex.pdf, page 1>
 ) [20]
-Package svg Info: Calling Inkscape on input line 623.
+Package svg Info: Calling Inkscape on input line 624.
 runsystem(inkscape -z -D --export-latex  --file="../Aufgabe1-Implementierung/ex
 amples/out/lisarennt-ext.svg" --export-pdf="lisarennt-ext_svg-tex.pdf" )...exec
 uted.
@@ -2223,7 +2216,7 @@ runsystem(mv "lisarennt-ext_svg-tex.pdf_tex" "./svg-inkscape/lisarennt-ext_svg-
 tex.pdf_tex")...executed.
 
 Package svg Info: Last page of `./svg-inkscape/lisarennt-ext_svg-tex.pdf' is 1 
-on input line 623.
+on input line 624.
 
 (./svg-inkscape/lisarennt-ext_svg-tex.pdf_tex
 File: ./svg-inkscape/lisarennt-ext_svg-tex.pdf Graphic file (type pdf)
@@ -2237,7 +2230,7 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 4.
  [23] [24])
 Package hyperref Info: bookmark level for unknown listing defaults to 0 on inpu
-t line 649.
+t line 650.
 
 (./_minted-Aufgabe1-Dokumentation/EE42A4538A7D886DAF1A516AE6F42643B856D14EF2F2C
 76D1DBF693CA65E9A04.pygtex [25])
@@ -2252,23 +2245,23 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 FCF96CDC570F263BC73.pygtex [33]) 
 AED: lastpage setting LastPage
 [34]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 663.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 663.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 664.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 664.
  (./Aufgabe1-Dokumentation.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 663.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 663.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 664.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 664.
 Package rerunfilecheck Info: File `Aufgabe1-Dokumentation.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 663.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 664.
  ) 
 Here is how much of TeX's memory you used:
- 42633 strings out of 492933
- 832821 string characters out of 6138668
- 1112917 words of memory out of 5000000
- 45990 multiletter control sequences out of 15000+600000
- 542368 words of font info for 92 fonts, out of 8000000 for 9000
+ 44001 strings out of 492933
+ 884770 string characters out of 6138668
+ 1181708 words of memory out of 5000000
+ 47354 multiletter control sequences out of 15000+600000
+ 542376 words of font info for 93 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 64i,16n,60p,9151b,762s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,20n,85p,9151b,815s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on Aufgabe1-Dokumentation.pdf (35 pages).

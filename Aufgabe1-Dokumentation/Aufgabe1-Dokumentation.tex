@@ -4,7 +4,6 @@
 \subtitle{37. Bundeswettbewerb Informatik 2018/19 - 2. Runde \\~\\}
 \date{29. April 2019}
 \usepackage[ngerman]{babel}
-%\usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{color}
@@ -16,7 +15,7 @@
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{fancyhdr}
+\usepackage{scrlayer-scrpage}
 \usepackage{lastpage}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -33,10 +32,12 @@
 \usepackage{longtable}
 \usepackage{tabu}
 
-\pagestyle{fancy}
-\lhead{Lukas Rost, Teilnahme-ID: 48125}
-\rhead{Aufgabe 1, Seite \thepage ~von \pageref{LastPage}}
-\cfoot{ }
+\KOMAoptions{
+	headsepline = true,
+}
+\clearpairofpagestyles
+\ihead{Lukas Rost, Teilnahme-ID: 48125}
+\ohead{Aufgabe 1, Seite \thepage ~von \pageref{LastPage}}
 
 \newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
@@ -83,7 +84,7 @@
  Für eine Polygonmenge $S$ mit Knotenmenge $V(S)$ sei dieser definiert als $G_{vis}(S) = (V(S),E_{vis}(S))$. Dabei ist $E_{vis}(S)$ die Menge der Knotenpaare von $S$, sodass die dazwischenliegende Strecke kein Polygon (bzw. das Innere eines Polygons) schneidet. Mathematisch ausgedrückt bedeutet das $E_{vis}(S) = \{ uv | u,v \in V(S)$ und $\overline{uv} \subset C_{free} = \mathbb{R}^{2} \setminus \bigcup S \}$. Das Gewicht einer Kante sei dabei als euklidischer Abstand der beiden Endpunkte definiert. \\ \\
  Wenn man $S^{*}$ als $S \cup \{s\}$ definiert (bei normalen Sichtbarkeitsgraphen wird auch $t$ hinzugefügt) und den Sichtbarkeitsgraphen dafür analog, kann man damit das GSP-Problem lösen. Nun entspricht der kürzeste $s$-$t$-Weg, der Hindernisse vermeidet, einem kürzesten Weg in $G_{vis}(S^{*})$.
  \subsubsection{Naiver Ansatz}
- $G_{vis}(S^{*})$ lässt sich nun naiv in $\mathcal{O}(n^3)$ berechnen, wobei $n = |V(S^*)|$. Dazu bestimmt man für jeden Knoten $u \in V(S*)$ die von ihm sichtbaren Knoten $v$. Dabei muss man für jede Strecke $\overline{uv}$ prüfen, ob sie eine der $|E_{vis}(S^*)| = \mathcal{O}(n)$ in Frage kommenden Hinderniskanten schneidet. Die Bestimmung der von $u$ sichtbaren Knoten ist somit in $\mathcal{O}(n^2)$ durchführbar und insgesamt ergibt sich eine Laufzeit von $O(n^3)$. \\ \\
+ $G_{vis}(S^{*})$ lässt sich nun naiv in $\mathcal{O}(n^3)$ berechnen, wobei $n = |V(S^*)|$. Dazu bestimmt man für jeden Knoten $u \in V(S^*)$ die von ihm sichtbaren Knoten $v$. Dabei muss man für jede Strecke $\overline{uv}$ prüfen, ob sie eine der $|E_{vis}(S^*)| = \mathcal{O}(n)$ in Frage kommenden Hinderniskanten schneidet. Die Bestimmung der von $u$ sichtbaren Knoten ist somit in $\mathcal{O}(n^2)$ durchführbar und insgesamt ergibt sich eine Laufzeit von $O(n^3)$. \\ \\
  Die Funktionsweise des naiven Algorithmus wird auch in folgendem Pseudocode deutlich: 
  \begin{algorithm}[H]
  \begin{algorithmic}
@@ -125,7 +126,7 @@
  \end{algorithmic}
  \caption{Der Algorithmus von Lee}
  \end{algorithm}
- Der Algorithmus in der Methode \texttt{visible\_vertices} benutzt dabei eine sogenannte rotierende \emph{Sweep line} beziehungsweise \emph{Scan line}. Diese Sweep line fegt (\glqq sweept\grqq) den zweidimensionalen Raum aus, wobei sie durch den gesamten Raum bewegt wird, bis alle Objekte (in diesem Fall die Knoten) besucht und verarbeitet wurden. Im Falle von Lees Algorithmus rotiert die Sweep line (mathematisch gesehen ein Strahl) um dem Startpunkt $v$ gegen den Uhrzeigersinn. \\ \\
+ Der Algorithmus in der Methode \texttt{visible\_vertices} benutzt dabei eine sogenannte rotierende \emph{Sweep line} beziehungsweise \emph{Scan line}. Diese Sweep line fegt (\glqq sweept\grqq) den zweidimensionalen Raum aus, wobei sie durch den gesamten Raum bewegt wird, bis alle Objekte (in diesem Fall die Knoten) besucht und verarbeitet wurden. Im Falle von Lees Algorithmus rotiert die Sweep line (mathematisch gesehen ein Strahl) um den Startpunkt $v$ gegen den Uhrzeigersinn. \\ \\
  Am Anfang zeigt die Sweep line nach rechts (parallel zur x-Achse) und rotiert so lange gegen den Uhrzeigersinn, bis sie einen Punkt trifft, der auf Sichtbarkeit überprüft werden muss. Dazu wird eine Liste der offenen Kanten geführt, mit denen sich die Sweep line aktuell überhaupt schneiden kann und die damit relevant sind.\cite{Src:pyvistwo} Anfangs werden dabei einmal alle Kanten daraufhin überprüft, ob sie sich mit der Sweep line (in der Anfangsstellung) schneiden. Entsprechend wird dann diese Liste initialisiert. \\ \\
  Trifft die Sweep line auf einen Punkt $a$, werden deshalb alle Kanten überprüft, deren Endpunkt $a$ ist. Liegt eine Kante bezüglich der Sweep line im Uhrzeigersinn (\emph{clockwise side}), kann sie, sofern sie enthalten ist, aus der Liste der offenen Kanten entfernt werden, da die Sweep line bei Bewegung gegen den Uhrzeigersinn nie wieder mit ihr in Berührung kommt. Liegt die Kante dagegen entgegen des Uhrzeigersinns (\emph{counter-clockwise side}), so muss sie zu den offenen Kanten hinzugefügt werden, da sich die Sweep line im Folgenden mit ihr schneiden kann. \\ \\
  So werden in diesem Beispiel (siehe nächste Seite) am Punkt $a$ die Kanten $\overline{ab}$ und $\overline{ac}$ hinzugefügt, da sie bezüglich der Sweep line gegen den Uhrzeigersinn (auf ihrer linken Seite) liegen. In Punkt $b$ kann $\overline{ab}$ dagegen wieder entfernt werden, da sie rechts der Sweep line liegt. Hier wird dann jedoch $\overline{bc}$ hinzugefügt.
@@ -174,7 +175,7 @@ Es lässt sich zeigen, dass sogar nur diejenige offene Kante geprüft werden mus
 \end{algorithmic}
 \caption{Bestimmung der sichtbaren Knoten bzw. Punkte im Lee-Algorithmus}
 \end{algorithm}
-Das Sortieren der Knoten erfolgt dabei anhand ihrer Polarkoordinaten relativ zu $v$. Dabei wird zuerst nach kleinerem Winkel zu $s$ und dann, falls dieser gleich sein sollte nach kleinerem Abstand zu $v$ sortiert. Die Formulierung \emph{links} im Pseudocode bedeutet entgegengesetzt dem Uhrzeigersinn und \emph{rechts} bedeutet im Uhrzeigersinn. \\
+Das Sortieren der Knoten erfolgt dabei anhand ihrer Polarkoordinaten relativ zu $v$. Dabei wird zuerst nach kleinerem Winkel zu $s$ und dann, falls dieser gleich sein sollte, nach kleinerem Abstand zu $v$ sortiert. Die Formulierung \emph{links} im Pseudocode bedeutet entgegengesetzt dem Uhrzeigersinn und \emph{rechts} bedeutet im Uhrzeigersinn. \\
 \begin{algorithm}[H]
 \begin{algorithmic}
 	\Function{visible}{$w_i$}
@@ -255,7 +256,7 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
  b^2 &= \frac{v_L^2}{v_B^2} \cdot \frac{1}{(1 - \frac{v_L^2}{v_B^2})} \cdot x^2 \\
  b &= \frac{v_L}{v_B} \cdot \frac{1}{\sqrt{1 - \frac{v_L^2}{v_B^2}}} \cdot x
  \end{align}
- Für den optimalen Zielpunkt $C$ gilt somit $x_c = 0$ und $y_c = y_p + \frac{v_L}{v_B} \cdot \frac{1}{\sqrt{1 - \frac{v_L^2}{v_B^2}}} \cdot x_p$. \footnote{Ich habe keine Ahnung, warum das wie der Lorentzfaktor aus der Relativitätstheorie aussieht.} Setzt man die in der Aufgabenstellung gegebenen Geschwindigkeiten ein. ergibt sich: $y_c = y_p + \frac{\sqrt{3}}{3} \cdot x_p$
+ Für den optimalen Zielpunkt $C$ gilt somit $x_c = 0$ und $y_c = y_p + \frac{v_L}{v_B} \cdot \frac{1}{\sqrt{1 - \frac{v_L^2}{v_B^2}}} \cdot x_p$. \footnote{Ich habe keine Ahnung, warum das wie der Lorentzfaktor aus der Relativitätstheorie aussieht.} Setzt man die in der Aufgabenstellung gegebenen Geschwindigkeiten ein, ergibt sich: $y_c = y_p + \frac{\sqrt{3}}{3} \cdot x_p$
  \subsection{Kombination der Ansätze}
  Um das Problem nun lösen zu können, muss man beide Ansätze (mit und ohne Hindernisse) kombinieren. Dazu bestimmt man zu jedem Knoten/Punkt $p$ in der Eingabe einen (von mir so bezeichneten) \textit{Companion}-Punkt $c$, indem man die im vorigen Abschnitt berechnete Gleichung auf diesen Punkt anwendet. Dieser Punkt $c$ ist dann der optimale Punkt, um von $p$ aus die y-Achse zu erreichen und dabei möglichst spät starten zu müssen. \\ \\
  Da es jedoch sein kann, dass $c$ von $p$ nicht sichtbar ist (ein Hindernis liegt dazwischen), muss man eine Sichtbarkeitsprüfung durchführen. Dazu betrachtet man $c$ einfach bei der Erstellung des Sichtbarkeitsgraphen, genauer bei der Ermittlung der sichtbaren Punkte von $p$ aus (und nur dabei, denn für alle anderen Punkte hat $c$ keine Relevanz). \\ \\
@@ -272,9 +273,9 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
  \begin{proof}[Algorithmus von Lee]
  	Die Funktion \texttt{visible\_vertices} im Algorithmus von Lee läuft offensichtlich in $\mathcal{O}(n \cdot \log n)$. Der Grund dafür ist, dass die einzelnen Schritte folgende Laufzeiten haben:
  	\begin{itemize}
- 		\item \textbf{Sortieren der Knoten}: kann in $\mathcal{O}(n \cdot \log n)$ erfolgen (mit z.B. Quicksort), wobei $\Omega(n \cdot \log n)$ wie allgemein bekannt auch die Untergrenze für die Worst-Case-Laufzeit eines Sortieralgorithmus ist.
+ 		\item \textbf{Sortieren der Knoten}: kann in $\mathcal{O}(n \cdot \log n)$ erfolgen (mit z.B. Mergesort oder Quicksort), wobei $\Omega(n \cdot \log n)$ wie allgemein bekannt auch die Untergrenze für die Worst-Case-Laufzeit eines Sortieralgorithmus ist.
  		\item  \textbf{Schnittprüfung von Sweep line und Kanten}: Diese muss anfangs für $n$ Polygonkanten durchgeführt werden, hier ergibt sich also $\mathcal{O}(n)$.
- 		\item  \textbf{Überprüfen aller Knoten}: Dies wird für alle $\mathcal{O}(n)$ Knoten durchgeführt. Dabei benötigt die Sichtbarkeitsprüfung $\mathcal{O}(\log n)$ (durch die Verwendung eines Suchbaumes). Danach müssen noch konstant viele Kanten dem Baum hinzugefügt bzw. entfernt werden\footnote{Normalerweise höchstens 2, in Sonderfällen können es aber auch bis zu 4 sein. Diese Sonderfälle treten dann auf, wenn sich zwei Polygone eine Kante oder einen Knoten teilen.} Das Hinzufügen bzw. Entfernen benötigt wieder $\mathcal{O}(\log n)$. Insgesamt ergibt sich also auch hier wieder $\mathcal{O}(n \cdot \log n)$.
+ 		\item  \textbf{Überprüfen aller Knoten}: Dies wird für alle $\mathcal{O}(n)$ Knoten durchgeführt. Dabei benötigt die Sichtbarkeitsprüfung $\mathcal{O}(\log n)$ (durch die Verwendung eines Suchbaumes). Danach müssen noch konstant viele Kanten dem Baum hinzugefügt bzw. entfernt werden.\footnote{Normalerweise höchstens 2, in Sonderfällen können es aber auch bis zu 4 sein. Diese Sonderfälle treten dann auf, wenn sich zwei Polygone eine Kante oder einen Knoten teilen.} Das Hinzufügen bzw. Entfernen benötigt wieder $\mathcal{O}(\log n)$. Insgesamt ergibt sich also auch hier wieder $\mathcal{O}(n \cdot \log n)$.
  	\end{itemize}
  	Wie eindeutig sichtbar ist, dominiert hier $\mathcal{O}(n \cdot \log n)$. Da die Funktion für alle $n$ Knoten aufgerufen wird, ergibt sich für den Gesamtalgorithmus eine Laufzeit in $\mathcal{O}(n^2 \cdot \log n)$
  \end{proof}
@@ -282,7 +283,7 @@ Der Dijkstra-Algorithmus hat eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log
 	Der Dijkstra-Algorithmus hat bei der allgemein übliche Implementierung mit einer Priority Queue eine Laufzeit von $\mathcal{O}((|V|+|E|) \cdot \log |V|)$, wobei $V$ die Knotenmenge und $E$ die Kantenmenge ist. Da in diesem Fall $|V| \in \mathcal{O}(n)$ und $|E| \in \mathcal{O}(n^2)$ gilt, ergibt sich hier eine Laufzeit in $\mathcal{O}(n^2 \cdot \log n)$.
 \end{proof}
 \begin{proof}[Kombination der Ansätze]
-	Da bei der Berechnung des Companion-Punktes nur einfache Grundrechenoperationen durchgeführt werden, kann dieser in konstanter Zeit, also $\mathcal{O}(1)$ berechnet werden. Für die $n$ Punkte bzw. Knoten ergibt sich dann $\mathcal{O}(n)$. Alle weiteren Schritte aus dem Abschnitt \emph{Kombination der Ansätze} sind in die Algorithmen von Dijkstra bzw. Lee integriert, tragen also nicht weiter zur Laufzeit bei. Nur die Berechnung der Startzeit muss für jeden Punkt noch separat erfolgen, hier ergibt sich wieder $\mathcal{O}(n)$.
+	Da bei der Berechnung des Companion-Punktes nur einfache Rechenoperationen durchgeführt werden, kann dieser in konstanter Zeit, also $\mathcal{O}(1)$ berechnet werden. Für die $n$ Punkte bzw. Knoten ergibt sich dann $\mathcal{O}(n)$. Alle weiteren Schritte aus dem Abschnitt \emph{Kombination der Ansätze} sind in die Algorithmen von Dijkstra bzw. Lee integriert, tragen also nicht weiter zur Laufzeit bei. Nur die Berechnung der Startzeit muss für jeden Punkt noch separat erfolgen, hier ergibt sich wieder $\mathcal{O}(n)$.
 \end{proof}
 Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}(n^2 \cdot \log n + n^2 \cdot \log n + n) = \mathcal{O}(n^2 \cdot \log n)$.
  \subsection{Mögliche und implementierte Erweiterungen}
@@ -296,7 +297,7 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
  A + B := \{a+b\,|\,a \in A, b \in B\}
  \end{equation}
  Sie ist also die Menge aller Elemente, die Summen von je einem Element aus $A$ und einem aus $B$ sind.\cite{Src:minkowski} Dies entspricht im Prinzip dem Entlangfahren des Lisa-Polygons am Rand des Hindernispolygons. Dabei wird das Hindernis so verbreitert, dass Lisa nun wieder als punktförmig angenommen und der ursprüngliche Algorithmus ausgeführt werden kann. \\ \\
- Seien nun das Hindernispolygon $P = (v_1,...,v_k)$ und der Kopie des Lisa-Polygons $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten. Für diese zwei Polygone im $\mathbb{R}^{2}$ kann die Minkowski-Summe (bzw. deren konvexe Hülle) wie folgt berechnet werden: \\ \\
+ Seien nun das Hindernispolygon $P = (v_1,...,v_k)$ und die Kopie des Lisa-Polygons $L = (w_1,...,w_m)$ mit $v_i$ und $w_i$ als Eckpunkten. Für diese zwei Polygone im $\mathbb{R}^{2}$ kann die Minkowski-Summe (bzw. deren konvexe Hülle) wie folgt berechnet werden: \\ \\
  Zunächst berechnet man die Minkowski-Summe $S = P + L$ nach der oben angegebenen Definition. Anschließend kann man deren konvexe Hülle mit einem Algorithmus wie dem Graham Scan berechnen:
  \begin{algorithm}[H]
 \begin{algorithmic}
@@ -315,7 +316,7 @@ Insgesamt ergibt sich für die Laufzeit aller drei Algorithmen also $\mathcal{O}
 \end{algorithmic}
 \caption{Bestimmung der konvexen Hülle der Minkowski-Summe}
 \end{algorithm}
-\hspace*{-1em}Dabei gibt die Funktion $ccw(a,b,c)$ an, ob $c$ links von $AB$ ist (Rückgabe ist positiv) oder rechts von $AB$ (Rückgabe ist negativ). Der Graham-Scan-Algorithmus läuft für $n$ Punkte in $\mathcal{O}(n \cdot \log n)$. Da die Minkowski-Summe nach Definition $\mathcal{O}(k \cdot m)$ Punkte hat, ergibt sich in diesem Fall $\mathcal{O}(km \cdot \log km)$. Für alle Polygone zusammen ergibt sich eine Laufzeit von $\mathcal{O}(k_{max}m \cdot \log k_{max}m)$ mit $k_{max}$ als maximaler Eckpunktanzahl. Da $k_{max} \in \mathcal{O}(n)$ mit $n$ als Anzahl aller Eckpunkte, hat man eine Laufzeit von $\mathcal{O}(nm \cdot \log nm)$. Diese Erweiterung wurde \textbf{implementiert}.
+\hspace*{-1em}Dabei gibt die Funktion $ccw(a,b,c)$ an, ob $c$ links von $\overrightarrow{AB}$ ist (Rückgabe ist positiv) oder rechts von $\overrightarrow{AB}$ (Rückgabe ist negativ). Der Graham-Scan-Algorithmus läuft für $n$ Punkte in $\mathcal{O}(n \cdot \log n)$. Da die Minkowski-Summe nach Definition $\mathcal{O}(k \cdot m)$ Punkte hat, ergibt sich in diesem Fall $\mathcal{O}(km \cdot \log km)$. Für alle Polygone zusammen ergibt sich eine Laufzeit von $\mathcal{O}(k_{max}m \cdot \log k_{max}m)$ mit $k_{max}$ als maximaler Eckpunktanzahl. Da $k_{max} \in \mathcal{O}(n)$ mit $n$ als Anzahl aller Eckpunkte, hat man eine Laufzeit von $\mathcal{O}(nm \cdot \log nm)$. Diese Erweiterung wurde \textbf{implementiert}.
  \subsubsection{Nicht-polygonale Hindernisse}
  Es wäre auch möglich, die Art der Hindernisse auf Flächen, die keine Polygone sind, zu erweitern. Dies könnten beispielsweise Ovale oder Kreise sein. Eine Möglichkeit, den Sichtbarkeitsgraph darauf zu erweitern, ist in \cite{Src:arcvis} beschrieben. Dabei muss man anstelle des klassischen Sichtbarkeitsgraphen einen Tangenten-Sichtbarkeitsgraphen verwenden. Da dies jedoch relativ kompliziert ist, wird an dieser Stelle nicht genauer darauf eingegangen. Außerdem lässt sich eine gute Näherung dafür erreichen, wenn man anstelle eines Kreises ein Polygon mit sehr vielen Ecken verwendet (siehe Beispiele). \\ \\
  Diese Erweiterung wurde \textbf{nicht implementiert}.
@@ -390,7 +391,7 @@ In dieser Datei wird die Funktion \texttt{visible\_vertices()} aus Abschnitt 1.2
 	\texttt{angle()} & Wird für das Sortieren der Kanten am Anfang des Algorithmus genutzt. Berechnet den Winkel, den eine Kante $\overline{cp}$ zur positiven x-Achse besitzt.\\ \hline
 	\texttt{angle2()} & Berechnet mithilfe des Cosinussatzes einen gesuchten Winkel in einem Dreieck.\\ \hline
 	\texttt{ccw()} & Überprüft, ob ein Punkt $c$ gegen den Uhrzeigersinn bezüglich eines Strahls $ab$ liegt. Dazu wird eine Version der Gaußschen Trapezformel (Shoelace formula) verwendet.\\ \hline
-	\texttt{on\_segment()} & Überprüft, ob ein Punkt $q$ auf einer Strecke $pr$ liegt. Das ist genau dann der Fall, wenn sowohl der x-Wert als auch der y-Wet von $q$ zwischen den x- bzw. y-Werten der beiden anderen Punkte liegen.\\ \hline
+	\texttt{on\_segment()} & Überprüft, ob ein Punkt $q$ auf einer Strecke $pr$ liegt. Das ist genau dann der Fall, wenn sowohl der x-Wert als auch der y-Wert von $q$ zwischen den x- bzw. y-Werten der beiden anderen Punkte liegen.\\ \hline
 	\texttt{edge\_intersect()} & Überprüft, ob zwei Strecken sich schneiden. \\ \hline
 	\texttt{insort()} und \texttt{bisect()} & Diese beiden Funktionen sind für das Einfügen in den bzw. Suchen im binären Suchbaum, der die offenen Kanten beinhaltet, zuständig. Dafür nutzen sie \textit{*surprise*} binäre Suche.	\\
 \end{longtabu}

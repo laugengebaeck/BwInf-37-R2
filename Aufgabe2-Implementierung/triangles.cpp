@@ -176,7 +176,7 @@ double atan180(Point center, Point p){
 }
 
 // Lage Punkt c von ab aus
-// CCW: < 0, CW: >0
+// CCW: > 0, CW: < 0
 double ccw(Point a, Point b, Point c){
     return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
 }
@@ -184,29 +184,29 @@ double ccw(Point a, Point b, Point c){
 // Punkt finden, von dem aus Drehwinkel bestimmt wird
 // (beim Drehen auf die x-Achse)
 int findAngleCalcPoint(Triangle &t, int bestPoint){
-    //just return the point that is counterclockwise from line between other points
+    //just return the point that is clockwise from line between other points
     switch(bestPoint) {
         case 0: if(ccw(t.points[0],t.points[1],t.points[2]) > 0){
-                    //point 2 is clockwise
+                    //point 2 is counterclockwise
                     return 1;
                 } else {
-                    //point 2 is counterclockwise
+                    //point 2 is clockwise
                     return 2;
                 }
                 break;
         case 1: if(ccw(t.points[1],t.points[0],t.points[2]) > 0){
-                    //point 2 is clockwise
+                    //point 2 is counterclockwise
                     return 0;
                 } else {
-                    //point 2 is counterclockwise
+                    //point 2 is clockwise
                     return 2;
                 }
                 break;
         case 2: if(ccw(t.points[2],t.points[1],t.points[0]) > 0){
-                    //point 0 is clockwise
+                    //point 0 is counterclockwise
                     return 1;
                 } else {
-                    //point 0 is counterclockwise
+                    //point 0 is clockwise
                     return 0;
                 }
                 break;

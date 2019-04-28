@@ -6,20 +6,20 @@
 \contentsline {subsubsection}{\numberline {1.3.1}Beobachtungen bezüglich einer guten Lösung}{3}{subsubsection.1.3.1}% 
 \contentsline {subsubsection}{\numberline {1.3.2}Implementierte Verbesserungen}{4}{subsubsection.1.3.2}% 
 \contentsline {subsubsection}{\numberline {1.3.3}Geometrische Berechnungen}{5}{subsubsection.1.3.3}% 
-\contentsline {subsubsection}{\numberline {1.3.4}Der DP-Algorithmus für Subset Sum}{5}{subsubsection.1.3.4}% 
-\contentsline {subsubsection}{\numberline {1.3.5}Der Algorithmus zur Platzierung der Dreiecke}{6}{subsubsection.1.3.5}% 
-\contentsline {subsection}{\numberline {1.4}Optimalität des Algorithmus und Verbesserungsmöglichkeiten}{7}{subsection.1.4}% 
-\contentsline {subsection}{\numberline {1.5}Laufzeitbetrachtung und NP-Vollständigkeit}{8}{subsection.1.5}% 
-\contentsline {section}{\numberline {2}Umsetzung}{10}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Allgemeine Hinweise zur Benutzung}{10}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Struktur des Programms und Implementierung der Algorithmen}{11}{subsection.2.2}% 
-\contentsline {subsubsection}{\numberline {2.2.1}Die Datei \texttt {main.cpp}}{11}{subsubsection.2.2.1}% 
-\contentsline {subsubsection}{\numberline {2.2.2}Die Datei \texttt {triangles.cpp}}{11}{subsubsection.2.2.2}% 
-\contentsline {subsubsection}{\numberline {2.2.3}Die Datei \texttt {triangleAlgorithm.cpp}}{12}{subsubsection.2.2.3}% 
-\contentsline {section}{\numberline {3}Beispiele}{13}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}Beispiel 1}{13}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Beispiel 2}{14}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}Beispiel 3}{15}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}Beispiel 4}{15}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Beispiel 5}{16}{subsection.3.5}% 
-\contentsline {section}{\numberline {4}Quellcode}{17}{section.4}% 
+\contentsline {subsubsection}{\numberline {1.3.4}Der DP-Algorithmus für Subset Sum}{8}{subsubsection.1.3.4}% 
+\contentsline {subsubsection}{\numberline {1.3.5}Der Algorithmus zur Platzierung der Dreiecke}{9}{subsubsection.1.3.5}% 
+\contentsline {subsection}{\numberline {1.4}Optimalität des Algorithmus und Verbesserungsmöglichkeiten}{10}{subsection.1.4}% 
+\contentsline {subsection}{\numberline {1.5}Laufzeitbetrachtung und NP-Vollständigkeit}{12}{subsection.1.5}% 
+\contentsline {section}{\numberline {2}Umsetzung}{13}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Allgemeine Hinweise zur Benutzung}{13}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Struktur des Programms und Implementierung der Algorithmen}{14}{subsection.2.2}% 
+\contentsline {subsubsection}{\numberline {2.2.1}Die Datei \texttt {main.cpp}}{14}{subsubsection.2.2.1}% 
+\contentsline {subsubsection}{\numberline {2.2.2}Die Datei \texttt {triangles.cpp}}{14}{subsubsection.2.2.2}% 
+\contentsline {subsubsection}{\numberline {2.2.3}Die Datei \texttt {triangleAlgorithm.cpp}}{15}{subsubsection.2.2.3}% 
+\contentsline {section}{\numberline {3}Beispiele}{16}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Beispiel 1}{16}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Beispiel 2}{17}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Beispiel 3}{18}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Beispiel 4}{18}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Beispiel 5}{19}{subsection.3.5}% 
+\contentsline {section}{\numberline {4}Quellcode}{20}{section.4}% 

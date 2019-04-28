@@ -177,7 +177,7 @@
 \PYG{p}{\PYGZcb{}}
 
 \PYG{c+c1}{// Lage Punkt c von ab aus}
-\PYG{c+c1}{// CCW: \PYGZlt{} 0, CW: \PYGZgt{}0}
+\PYG{c+c1}{// CCW: \PYGZgt{} 0, CW: \PYGZlt{} 0}
 \PYG{k+kt}{double} \PYG{n}{ccw}\PYG{p}{(}\PYG{n}{Point} \PYG{n}{a}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{b}\PYG{p}{,} \PYG{n}{Point} \PYG{n}{c}\PYG{p}{)\PYGZob{}}
     \PYG{k}{return} \PYG{p}{(}\PYG{n}{b}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{b}\PYG{p}{.}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{c}\PYG{p}{.}\PYG{n}{x} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{x}\PYG{p}{);}
 \PYG{p}{\PYGZcb{}}
@@ -185,29 +185,29 @@
 \PYG{c+c1}{// Punkt finden, von dem aus Drehwinkel bestimmt wird}
 \PYG{c+c1}{// (beim Drehen auf die x\PYGZhy{}Achse)}
 \PYG{k+kt}{int} \PYG{n}{findAngleCalcPoint}\PYG{p}{(}\PYG{n}{Triangle} \PYG{o}{\PYGZam{}}\PYG{n}{t}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{bestPoint}\PYG{p}{)\PYGZob{}}
-    \PYG{c+c1}{//just return the point that is counterclockwise from line between other points}
+    \PYG{c+c1}{//just return the point that is clockwise from line between other points}
     \PYG{k}{switch}\PYG{p}{(}\PYG{n}{bestPoint}\PYG{p}{)} \PYG{p}{\PYGZob{}}
         \PYG{k}{case} \PYG{l+m+mi}{0}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
-                    \PYG{c+c1}{//point 2 is clockwise}
+                    \PYG{c+c1}{//point 2 is counterclockwise}
                     \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
-                    \PYG{c+c1}{//point 2 is counterclockwise}
+                    \PYG{c+c1}{//point 2 is clockwise}
                     \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{break}\PYG{p}{;}
         \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
-                    \PYG{c+c1}{//point 2 is clockwise}
+                    \PYG{c+c1}{//point 2 is counterclockwise}
                     \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
-                    \PYG{c+c1}{//point 2 is counterclockwise}
+                    \PYG{c+c1}{//point 2 is clockwise}
                     \PYG{k}{return} \PYG{l+m+mi}{2}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{break}\PYG{p}{;}
         \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{o}{:} \PYG{k}{if}\PYG{p}{(}\PYG{n}{ccw}\PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{t}\PYG{p}{.}\PYG{n}{points}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
-                    \PYG{c+c1}{//point 0 is clockwise}
+                    \PYG{c+c1}{//point 0 is counterclockwise}
                     \PYG{k}{return} \PYG{l+m+mi}{1}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
-                    \PYG{c+c1}{//point 0 is counterclockwise}
+                    \PYG{c+c1}{//point 0 is clockwise}
                     \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
                 \PYG{p}{\PYGZcb{}}
                 \PYG{k}{break}\PYG{p}{;}

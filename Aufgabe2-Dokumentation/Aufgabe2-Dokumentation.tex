@@ -1,10 +1,9 @@
-\documentclass[a4paper, notitlepage, 12pt]{scrartcl}
+\documentclass[a4paper, notitlepage, 12pt,headinclude]{scrartcl}
 \author{Lukas Rost \\ \small{Teilnahme-ID: 48125}}
 \title{Aufgabe 2 \\ \glqq Dreiecksbeziehungen\grqq  - Dokumentation}
 \subtitle{37. Bundeswettbewerb Informatik 2018/19 - 2. Runde \\~\\}
 \date{29. April 2019}
 \usepackage[ngerman]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{color}
@@ -17,7 +16,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{gensymb}
-\usepackage{fancyhdr}
+\usepackage{scrlayer-scrpage}
 \usepackage{lastpage}
 \usepackage{svg}
 
@@ -29,6 +28,7 @@
 
 \usepackage{tabu}
 \usepackage{longtable}
+\tabulinesep=0.7mm
 
 \usepackage{minted}
 \fvset{breaklines=true}
@@ -40,10 +40,12 @@
 \usepackage{algpseudocode}
 \floatname{algorithm}{Algorithmus}
 
-\pagestyle{fancy}
-\lhead{Lukas Rost, Teilnahme-ID: 48125}
-\rhead{Aufgabe 2, Seite \thepage ~von \pageref{LastPage}}
-\cfoot{ }
+\KOMAoptions{
+	headsepline = true,
+}
+\clearpairofpagestyles
+\ihead{Lukas Rost, Teilnahme-ID: 48125}
+\ohead{Aufgabe 2, Seite \thepage ~von \pageref{LastPage}}
 
 \newenvironment{longlisting}{\captionsetup{type=listing}}{}
 
@@ -86,7 +88,7 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
 	\begin{equation}
 	\max_{d_i \in D' ~ d_j \in D'} \min_{n \in N_i ~ m \in N_j} | n.x - m.x |
 	\end{equation}
-	Der Minimums-Term bildet dabei den Abstand zwischen zwei Dreiecken als minimalen Abstand der Straßenecken, während der Maximums-Term den maximalen solchen Abstand berechnet.
+	Die Minimums-Funktion bildet dabei den Abstand zwischen zwei Dreiecken als minimalen Abstand der Straßenecken, während die Maximums-Funktion den maximalen solchen Abstand berechnet.
 \end{itemize}
  Die (möglichst) optimale Dreiecksanordnung $D'$ bildet die Ausgabe des Algorithmus, der $f(D)$ möglichst effizient berechnen soll.
  \subsection{Wahl eines geeigneten Algorithmus}
@@ -138,7 +140,7 @@ Nun ist eine Dreiecksanordnung $D'$ gesucht, die \textbf{optimal} ist. Eine opti
   		\end{tikzpicture}
   		\captionof{figure}{Optimale Anordnung für eine Summe kleiner gleich $180\degree$}
   	\par}
-  \end{kasten} ~\\
+  \end{kasten}
  Sollte die Summe jedoch größer sein, ist es nicht mehr so einfach, eine optimale Lösung zu finden. Genauer gesagt kann man ab diesem Punkt nur noch eine Heuristik einsetzen, die ein möglichst gutes Ergebnis liefert. Dabei stellt sich heraus:
  \begin{kasten}
  	Es scheint sinnvoll zu sein, eine Teilmenge der Dreiecke zu finden, für die $\sum \varphi_i \leq 180\degree$ gilt und $\sum \varphi_i$ maximal ist. Für diese kann die in der vorherigen Beobachtung beschriebene Strategie angewandt werden. \\ \\
@@ -208,15 +210,11 @@ Auch dafür gibt es eine sinnvoll erscheinende Strategie:
 Die ersten beiden Schritte dienen dabei dazu, die Gesamtdistanz möglichst zu minimieren, während die restlichen Schritte Dreiecke finden, die optimal im freien Winkel platziert werden können. Die Funktionsweise der Strategie ist in obiger Abbildung veranschaulicht. \\ \\
 Die Gesamtdistanz ist dort 0 und kann entweder links um $l$ oder rechts um $r$ erweitert werden. Da in diesem Fall $l < r$, würden die Dreiecke auf der linken Seite im freien Winkel $\alpha_L$ angefügt werden.
 \subsubsection{Implementierte Verbesserungen}
-Diese Strategie lässt sich natürlich noch durch einige weitere Heuristiken verbessern. Als besonders erfolgreich haben sich dabei folgende herausgestellt, die deshalb auch implementiert wurden.
-\begin{proof}[Sortieren der Dreiecke]
-	Es ist sinnvoll, die Dreiecke des gewählten Subsets nach der längsten am Optimalpunkt anliegenden Seite zu sortieren. Dadurch befinden sich \glqq längere\grqq~ bzw. größere Dreiecke weiter links und kleinere Dreiecke weiter rechts. Dadurch wird der Gesamtabstand beim Anlegen auf der rechten Seite nur wenig erhöht und es steht dort bestenfalls ein größerer freier Winkel zur Verfügung. Insgesamt führte diese Strategie in Experimenten zu einer Verringerung der Gesamtdistanz. \\ \\
-	Nicht zum gewünschten Erfolg führte es dagegen, die Dreiecke so zu sortieren, dass Dreiecke mit langen anliegenden Seiten nach oben (d.h eher in y-Richtung) zeigen, während Dreiecke mit kurzen anliegenden Seiten nach links bzw. rechts (d.h eher in x-Richtung) zeigen. Deshalb ist diese Sortierung nicht in der endgültigen Implementierung enthalten.
-\end{proof}
-\begin{proof}[\glqq Randrehen\grqq~ der Dreiecke]
-	Es erwies sich auch als sinnvoll, die Dreiecke des ausgewählten Subsets so nah wie möglich an die bisherige Konstruktion heranzudrehen. Dadurch wird der freie Winkel nicht von unten, sondern von oben her mit Dreiecken aufgefüllt. Falls die Dreiecke den freien Winkel nicht komplett ausfüllen, bleibt unten (an der x-Achse) mehr Platz, um neue Dreiecke anzulegen, was ebenfalls zu einer Verringerung der Gesamtdistanz führte.
-\end{proof}
-\hspace*{-1em}Die erstgenannte Sortierheuristik führt jedoch dazu, dass links fast keine Dreiecke mehr angefügt werden. Dies ist dadurch begründet, dass durch die langen Dreiecke links die Gesamtdistanz im Vergleich zur rechten Seite unverhältnismäßig erhöht würde. Trotzdem erzeugt der Algorithmus mit Sortierheuristik nahezu immer bessere Ergebnisse als ohne.
+Diese Strategie lässt sich natürlich noch durch einige weitere Heuristiken verbessern. Als besonders erfolgreich haben sich dabei folgende herausgestellt, die deshalb auch implementiert wurden. \\ \\
+\textbf{Sortieren der Dreiecke} \quad Es ist sinnvoll, die Dreiecke des gewählten Subsets nach der längsten am Optimalpunkt anliegenden Seite zu sortieren. Dadurch befinden sich \glqq längere\grqq~ bzw. größere Dreiecke weiter links und kleinere Dreiecke weiter rechts.\footnote{Beim Anfügen auf der linken Seite wäre es natürlich umgekehrt.} So wird der Gesamtabstand beim Anlegen auf der rechten Seite nur wenig erhöht und es steht dort bestenfalls ein größerer freier Winkel zur Verfügung. Insgesamt führte diese Strategie in Experimenten zu einer Verringerung der Gesamtdistanz. \\ \\
+Nicht zum gewünschten Erfolg führte es dagegen, die Dreiecke so zu sortieren, dass Dreiecke mit langen anliegenden Seiten nach oben (d.h eher in y-Richtung) zeigen, während Dreiecke mit kurzen anliegenden Seiten nach links bzw. rechts (d.h eher in x-Richtung) zeigen. Deshalb ist diese Sortierung nicht in der endgültigen Implementierung enthalten. \\
+\textbf{\glqq Randrehen\grqq~ der Dreiecke} \quad Es erwies sich auch als sinnvoll, die Dreiecke des ausgewählten Subsets so nah wie möglich an die bisherige Konstruktion heranzudrehen.\footnote{Für das allererste Subset (mit $\alpha = 180\degree$) ist dieser Schritt ntürlich nicht sinnvoll.} Dadurch wird der freie Winkel nicht von unten, sondern von oben her mit Dreiecken aufgefüllt. Falls die Dreiecke den freien Winkel nicht komplett ausfüllen, bleibt unten (an der x-Achse) mehr Platz, um neue Dreiecke anzulegen, was ebenfalls zu einer Verringerung der Gesamtdistanz führte. \\ \\ 
+Die erstgenannte Sortierheuristik führt jedoch dazu, dass links fast keine Dreiecke mehr angefügt werden. Dies ist dadurch begründet, dass durch die langen Dreiecke links die Gesamtdistanz im Vergleich zur rechten Seite unverhältnismäßig erhöht würde. Trotzdem erzeugt der Algorithmus mit Sortierheuristik nahezu immer bessere Ergebnisse als ohne.
 \begin{minipage}{0.45\textwidth}
 	\vspace*{2cm}
 	\begin{tikzpicture}
@@ -307,12 +305,142 @@ Diese Strategie lässt sich natürlich noch durch einige weitere Heuristiken ver
 \captionof{figure}{Herandrehen der Dreiecke \\ (der gepunktete Bereich stellt die bisherige Dreiecksanordnung dar)}
 \end{center}
 \subsubsection{Geometrische Berechnungen}
-%TODO Berechnungen und evtl Tikz einfügen
-%berechnung freier winkel
-% evtl. min und max punkt finden
-% verschieben
-% alle 3 rotierschritte (winkel)
-% drehmatrix
+Für den Algorithmus werden einige geometrische Berechnungen und Beziehungen benötigt, die im folgenden erläutert werden sollen. Dabei sei $T_{pl}$ die Menge der bereits platzierten Dreiecke. \\ \\
+\textbf{Innenwinkel eines Dreiecks} \quad Die Innenwinkel eines beliebigen Dreiecks können mithilfe der Vektorrechnung bestimmt werden. Die Standardmethode dazu führt über die Definition des Skalarprodukts:
+\begin{equation}
+\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos \alpha
+\end{equation}
+Daraus ergibt sich:
+\begin{equation}
+\cos \alpha = \frac{|\vec{a} \cdot \vec{b}|}{|\vec{a}| \cdot |\vec{b}|}
+\end{equation}
+Hierbei ist $\alpha$ der zu bestimmende Winkel zwischen den beiden Vektoren (in diesem Fall den Dreiecksseiten). Der Betrag des Skalarprodukts muss genommen werden, da man den Innenwinkel, also den kleineren der beiden Winkel zwischen den Vektoren bestimmen möchte.
+\begin{figure}[H]
+\centering \begin{tikzpicture}
+\coordinate (A) at (0,0);
+\coordinate (B) at (3,0);
+\coordinate (C) at (2,2);
+\draw (A) node[left]{$A$}
+-- (B) node[right]{$B$}
+-- (C) node[above]{$C$}
+-- cycle;
+\path (B) -- (A) -- (C) pic[draw, ->, "$\alpha$", angle eccentricity=1.5] {angle = B--A--C};
+\path (C) -- (B) -- (A) pic[draw, ->, "$\beta$", angle eccentricity=1.5] {angle = C--B--A};
+\path (A) -- (C) -- (B) pic[draw, ->, "$\gamma$", angle eccentricity=1.5] {angle = A--C--B};
+\end{tikzpicture}
+\caption{Innenwinkel eines Dreiecks}
+\end{figure}
+\textbf{Berechnung des freien Winkels} \quad Auf der rechten Seite ist der freie Winkel $\alpha_R$ der Winkel des Vektors zwischen $R$ und einem Punkt eines der platzierten Dreiecke zur positiven x-Achse. Insbesondere ist $\alpha_R$ der kleinste solche Winkel. Es gilt also:
+\begin{equation}
+\alpha_R = \min_{P \in T_{pl}} atan2(\Delta y, \Delta x)
+\end{equation}
+Dabei ist $\Delta y$ der y-Anteil des Vektors $\overrightarrow{RP}$ und $\Delta x$ der x-Anteil. Für $\alpha_L$ wiederum gilt (wobei $\Delta y$ und $\Delta x$ über $\overrightarrow{LP}$ definiert werden):
+\begin{equation}
+\alpha_L = \min_{P \in T_{pl}} 180\degree - atan2(\Delta y, \Delta x)
+\end{equation}
+\begin{figure}[H]
+	\centering \begin{tikzpicture}
+	\coordinate (A) at (2,0);
+	\coordinate (B) at (1,2);
+	\coordinate (C) at (4,0);
+	\draw[->] (A) node[below]{$R$}
+	-- (B) node[right]{$P$};
+	\draw[->] (0,0) 
+	-> (C) node[right]{x};
+	\path (C) -- (A) -- (B) pic[draw, ->, "$\alpha$", angle eccentricity=1.5] {angle = C--A--B};
+	\end{tikzpicture}
+	\caption{Definition des atan-Winkels zur x-Achse}
+\end{figure}
+\textbf{Drehen eines Punkts um ein Zentrum} \quad Im Algorithmus taucht immer wieder die Notwendigkeit auf, einen Punkt um einen anderen Punkt zu rotieren. Um dies programmatisch umzusetzen, verwendet man sogenannte Drehmatrizen.\cite{Src:dreh} Multipliziert man nun diese mit dem Ortsvektor des Punktes, so wird dieser um den Winkel $\alpha$ gegen den Uhrzeigersinn um den Ursprung gedreht.
+\begin{align}
+\begin{pmatrix} x' \\ y' \end{pmatrix} &= \begin{pmatrix} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha\end{pmatrix} \cdot \begin{pmatrix} x \\y \end{pmatrix} \\
+x' &= x \cdot \cos \alpha - y \cdot \sin \alpha \\
+y' &= x \cdot \sin \alpha + y \cdot \cos \alpha
+\end{align}
+Da man jedoch meist nicht um den Ursprung, sondern um einen anderen Punkt drehen will, muss man vorher das Koordinatensystem so transformieren, dass das Drehzentrum dem Ursprung entspricht. Dazu zieht man die Koordinaten des Zentrums von denen des Punkts ab. Nach der Drehung muss dann eine Rücktransformation erfolgen, wozu man die Koordinaten des Zentrums wieder addiert. \\
+\textbf{Verschieben eines Punktes} \quad Das Verschieben eines Punktes $P$ um einen Vektor $\vec{x}$ lässt sich mithilfe von Vektorrechnung ebenfalls sehr einfach umsetzen. Es gilt (mit $\overrightarrow{OP}$ als Ortsvektor von $P$):
+\begin{equation}
+\overrightarrow{OP'} = \overrightarrow{OP} + \vec{x}
+\end{equation}
+\textbf{Rotieren eines Dreiecks an seine endgültige Position} \quad Sobald ein Dreieck so verschoben wurde, dass der Optimalpunkt auf der x-Achse liegt, muss es noch so um den Optimalpunkt gedreht werden, dass es an seine richtige Position gelangt und sich mit keinem anderen Dreieck überlappt. Das erfolgt in drei Schritten:
+\begin{enumerate}
+	\item \textit{Drehen auf die x-Achse}: Das Dreieck wird so gedreht, dass eine Seite auf der postiven x-Achse liegt und der Rest des Dreiecks über der x-Achse. Dazu wird jeder Punkt um folgenden Winkel (gegen den Uhrzeigersinn) gedreht.\footnote{atan2 - Dein Freund und Helfer!}
+	\begin{equation}
+	\beta = 360\degree - atan2(\Delta y, \Delta x)
+	\end{equation}
+	$\Delta y$ und $\Delta x$ beziehen sich auf den Vektor zwischen dem Optimalpunkt $A$ und dem Punkt $P$. $P$ ist dabei der Punkt, der im Uhrzeigersinn bezüglich des Vektors aus dem Optimalpunkt und dem dritten Punkt des Dreiecks liegt.
+	\item \textit{Überlappungen beseitigen}: Nach dem ersten Schritt überlappen sich die Dreiecke noch. Um dies zu beseitigen, rotiert man das Dreieck um die Summe aller $\varphi_i$ der Dreiecke des Subsets, die in der Längensortierung vor ihm kommen, also um
+	\begin{equation}
+	\beta_i = \sum_{d \in S, d < i} \varphi_d
+	\end{equation}
+	Fügt man links an, ändert sich dieser Ausdruck auf:
+	\begin{equation}
+	\beta_i = 180\degree - \sum_{d \in S, d \leq i} \varphi_d
+	\end{equation}
+	\item \textit{Herandrehen an die bisherige Anordnung}: Dazu dreht man alle Dreiecke des Subsets nun um folgenden Winkel:
+	\begin{equation}
+	\beta = \alpha - \sum_{d \in S} \varphi_d
+	\end{equation}
+	wobei $\alpha$ der freie Winkel ist und die Summe dem Winkel, der von diesem Subset insgesamt belegt wird, entspricht. Auf der linken Seite rotiert man das Dreieck um diesen Winkel in die andere Richtung (im Uhrzeigersinn).
+\end{enumerate}
+\begin{figure}[H]
+	\centering \begin{tikzpicture}
+	\coordinate (A) at (2,0);
+	\coordinate (B) at (4,0);
+	\coordinate (C) at (6,0);
+	\draw (4,0)
+	-- (6,0)
+	-- (4,2)
+	-- cycle;
+	\draw (4,0)
+	-- (2,0)
+	-- (4,-2)
+	-- cycle;
+	\draw[->] (0,0) 
+	-> (7,0) node[right]{x};
+	\path (A) -- (B) -- (C) pic[draw, ->, "\quad$\beta$", angle eccentricity=1.5] {angle = A--B--C};
+	\end{tikzpicture}
+	\caption{Berechnung der Drehwinkel, Schritt 1}
+\end{figure}
+\begin{figure}[H]
+	\centering \begin{tikzpicture}
+	\coordinate (A) at (6,0);
+	\coordinate (B) at (4,0);
+	\coordinate (C) at (6,1);
+	\draw (4,0)
+	-- (6,0)
+	-- (6,1)
+	-- cycle;
+	\draw (4,0)
+	-- (6,1)
+	-- (4,2)
+	-- cycle;
+	\draw[->] (0,0) 
+	-> (7,0) node[right]{x};
+	\path (A) -- (B) -- (C) pic[draw, ->, "\quad$\beta$", angle eccentricity=1.5] {angle = A--B--C};
+	\end{tikzpicture}
+	\caption{Berechnung der Drehwinkel, Schritt 2}
+\end{figure}
+\begin{figure}[H]
+	\centering \begin{tikzpicture}
+	\coordinate (A) at (4,2);
+	\coordinate (B) at (4,0);
+	\coordinate (C) at (2,2);
+	\draw (4,0)
+	-- (6,0)
+	-- (4,2)
+	-- cycle;
+	\draw[dashed] (4,0)
+	-- (0,0)
+	-- (0,2)
+	-- (2,2)
+	-- cycle;
+	\draw[->] (0,0) 
+	-> (7,0) node[right]{x};
+	\path (A) -- (B) -- (C) pic[draw, ->, "$\beta$", angle eccentricity=1.5] {angle = A--B--C};
+	\end{tikzpicture}
+	\caption{Berechnung der Drehwinkel, Schritt 3}
+\end{figure}
   \subsubsection{Der DP-Algorithmus für Subset Sum}
   Um anhand der Winkel der Dreiecke die jeweils im freien Winkel (anfangs z.B. in einem Halbkreis) zu platzierenden Dreiecke zu ermitteln, muss man das Subset-Sum-Problem (Teilsummenproblem) lösen. Dabei ist eine Menge von ganzen Zahlen $I = \{w_1,...,w_n\} (w_i \in \mathbb{Z})$ gegeben. Nun wird eine Teilmenge $S$ mit maximaler Summe gesucht, die aber nicht größer als eine obere Schranke $c$ (in diesem Fall z.B. $180\degree$ bzw. $\pi$) ist. Formal erfüllt $S$ also folgende Eigenschaften:
   \begin{equation}
@@ -322,16 +450,16 @@ Diese Strategie lässt sich natürlich noch durch einige weitere Heuristiken ver
   \sum_{w_j \in S} \leq c
   \end{equation}
   Leider ist das Subset-Sum-Problem aber NP-vollständig und somit grundsätzlich nicht effizient lösbar. Ist $c$ jedoch klein genug, existiert ein Dynamic-Programming-Algorithmus zur Lösung des Problems in pseudopolynomieller Zeit.\cite{Src:dpsum} Dazu lässt sich eine DP-Funktion definieren, die mittels einer DP-Tabelle effizient berechnet werden kann:
-  \begin{equation}
+  \begin{equation*}
   dp(i,sum) = 
   \begin{cases}
-  true & sum = 0 \vee (i = 0 \wedge sum = w_1) \\
+  true & sum = 0 \\
   false & sum > 0 \wedge i = 0 \\
   dp(i-1,sum) \vee dp(i-1,sum-w_i) & \, \text{sonst}
   \end{cases}
-  \end{equation}
+  \end{equation*}
   Diese Funktion gibt an, ob sich eine Summe von $sum$ mit den ersten $i$ Elementen der Menge erreichen lässt. Die Funktion baut darauf auf, dass es an jeder Stelle genau zwei Möglichkeiten gibt: Entweder das aktuelle Element wird nicht in das Subset aufgenommen (dann muss man die Summe mit den anderen $i-1$ Elementen erreichen) oder das Element wird in das Subset aufgenommen (dann muss man mit $i-1$ Elementen nur noch eine um $w_i$ verringerte Summe erreichen). \\ \\
-  Nun gibt $dp(n-1,c)$ an, ob es möglich ist, mit allen Elementen die Summe $c$ zu erreichen. Doch da diese Summe oft nicht exakt erreicht werden kann, muss man $c$ entsprechend oft dekrementieren, bis $dp(n-1,c) = true$ ist und es möglich ist, diese Summe zu erreichen. \\ \\
+  Nun gibt $dp(n,c)$ an, ob es möglich ist, mit allen Elementen die Summe $c$ zu erreichen. Doch da diese Summe oft nicht exakt erreicht werden kann, muss man $c$ entsprechend oft dekrementieren, bis $dp(n,c) = true$ ist und es möglich ist, diese Summe zu erreichen. \\ \\
   Um aus der DP-Tabelle nun das eigentliche Subset zu erhalten, muss man die Lösung backtracen.\footnote{Hiermit ist das Rückverfolgen einer Lösung bei DP-Algorithmen gemeint und nicht Backtracking.}\cite{Src:dpbacktrace} Dabei betrachtet man für jedes Element $w_i$ einerseits die Möglichkeit, dass das Element enthalten ist, und andererseits, dass das Element nicht enthalten ist. Wenn eine dieser Möglichkeiten laut DP-Tabelle möglich ist, kann man rekursiv eine Lösung für das entsprechende Feld für $i-1$ generieren und dann das aktuelle Element anhängen oder nicht (je nachdem). Am Ende erhält man dann ein mögliches Subset.
   \\ \\
   Da man eine DP-Tabelle mit $n \cdot c$ Elementen ausfüllt, ergibt sich für diesen Algorithmus somit auch eine Laufzeit in $\mathcal{O}(n \cdot c)$, also in pseudopolynomieller Zeit.
@@ -339,15 +467,49 @@ Diese Strategie lässt sich natürlich noch durch einige weitere Heuristiken ver
   Mittels dieses Subset-Sum-Algorithmus ist es möglich, Dreiecke so auszuwählen, dass ihre kleinsten Winkel $\varphi_i$ einen gegebenen freien Winkel (z.B. den Halbkreis oberhalb der x-Achse) möglichst gut ausnutzen. Dadurch können die Dreiecke relativ dicht gepackt und der Gesamtabstand verkleinert werden. Entsprechend sind für diese Aufgabe die $w_i = \varphi_i$. \\ \\
    Da es sich bei den Winkeln in der Realität jedoch um Gleitkommazahlen handelt, müssen diese zunächst in Festkommazahlen mit wenigen Nachkommastellen umgewandelt und anschließend mit einem festen Faktor (eine entsprechende Zehnerpotenz) multipliziert werden, damit man natürliche Zahlen erhält, die vom Algorithmus verarbeitet werden können.
   \subsubsection{Der Algorithmus zur Platzierung der Dreiecke}
-  Die in den vorherigen Abschnitten gewonnenen Erkenntnisse können in folgendem Algorithmus zusammengefasst werden:
-  %TODO richtigen Algorithmus einfügen
+  Die in den vorherigen Abschnitten gewonnenen Erkenntnisse können in folgendem Algorithmus zusammengefasst werden. Dabei gibt $\{\varphi_T\}$ die Menge aller $\varphi_i$ der Dreiecksmenge $T$ an.
   \begin{algorithm}[H]
+  	\caption{Algorithmus zur Dreiecksplatzierung (Teil 1)}
   	\begin{algorithmic}
-  		\Function{doAlgorithm}{$T$}
-  		\State \Return $42$
+  		\Function{doAlgorithm}{$D$}
+  		\State $T_{pl} \gets \emptyset$
+  		\ForAll{$d_i \in D$}
+  		\State Berechne den Optimalpunkt und $\varphi_i$
+  		\EndFor
+  		\State $S \gets$ \Call{subsetSum}{$\{\varphi_T\},180\degree$}
+  		\Comment{allererstes Subset (kann an beliebigem Punkt platziert werden)}
+  		\State Sortiere $S$ nach längster anliegender Seite
+  		\ForAll{$d_i \in S$}
+  		\State Verschiebe und rotiere $d_i$ wie beschrieben
+  		\EndFor
+  		\State $T \gets T\setminus S$ ; $T_{pl} \gets T_{pl} \cup S$
+  		\While{T $\neq \emptyset$}
+  		\State Finde die möglichen Anlegepunkte $L$ und $R$ sowie die Abstände $l$ und $r$
+  		\State Berechne die freien Winkel $\alpha_L$ und $\alpha_R$
+  		\If{$l < r$}
+  		\State $\alpha = \alpha_L$
+  		\Else
+  		\State $\alpha = \alpha_R$
+  		\EndIf
+  		\algstore{myalg}
+  	\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+	\ContinuedFloat
+	\begin{algorithmic}
+		\algrestore{myalg}
+  		\State $S \gets$ \Call{subsetSum}{$\{\varphi_T\},\alpha$}
+  		\State Sortiere $S$ nach längster anliegender Seite
+  		\ForAll{$d_i \in S$}
+  		\State Verschiebe und rotiere $d_i$ wie beschrieben
+  		\Comment{je nachdem links oder rechts}
+  		\EndFor
+  		\State $T \gets T\setminus S$ ; $T_{pl} \gets T_{pl} \cup S$
+  		\EndWhile
+  		\State \Return $T_{pl}$
   		\EndFunction
   	\end{algorithmic}
-  	\caption{Algorithmus zur Dreiecksplatzierung}
+  	\caption{Algorithmus zur Dreiecksplatzierung (Teil 2)}
   \end{algorithm}
   \subsection{Optimalität des Algorithmus und Verbesserungsmöglichkeiten}
   Bezüglich der Qualität des Verfahrens lässt sich feststellen, dass es viele typische Nachteile einer Heuristik besitzt. So muss die von diesem Verfahren erzeugte Dreiecksanordnung nicht unbedingt optimal sein. Um das zu erreichen, müsste man jedoch alle möglichen Lösungen mittels Backtracking durchprobieren. \\ \\
@@ -364,7 +526,7 @@ Diese Strategie lässt sich natürlich noch durch einige weitere Heuristiken ver
   	\item Theoretisch könnte es nicht nur ein Subset mit der maximalen Summe, sondern auch mehrere geben. Da sich die einzelnen ausgewählten Dreiecke in den Seitenlängen unterscheiden können, kann bei einem anderen Subset möglicherweise auch ein anderer Gesamtabstand herauskommen. Für eine bessere Lösung könnte man also alle möglichen maximalen Subsets ausprobieren. Da dadurch für das Backtracen jedoch im Extremfall eine exponentielle Laufzeit in $\mathcal{O}(2^n)$ entstehen könnte, habe ich dies nicht implementiert.
   	\item Im Algorithmus werden bisher keine Achsenspiegelungen betrachtet. Dadurch lässt sich jedoch möglicherweise ein besseres Ergebnis erzeugen. Insbesondere kann es nötig sein, ein Dreieck an der Seitenhalbierenden, welche durch den Optimalpunkt verläuft, zu spiegeln. \\ \\ Dadurch lässt sich in dem unten dargestellten Fall die längere Seite des schraffierten Dreiecks nach oben spiegeln und die kürzere nach unten. Gegebenenfalls lässt sich dadurch ein größerer freier Winkel für den nächsten Anlegeschritt erreichen. Die so erreichten Vorteile haben jedoch nur einen sehr geringen Einfluss, weshalb auch dieser Schritt nicht implementiert wurde.
   	\item Teilweise füllt der Algorithmus nicht alle Lücken zwischen Dreiecken auf. Dies ist insbesondere im unten dargestellten Beispiel zu sehen. Die gepunktete Lücke enthält kein Dreieck, obwohl dort Platz für eines wäre. Dies ist durch den verwendeten Algorithmus bedingt, welcher im Subset-Sum-Schritt die Seitenlängen der Dreiecke nicht berücksichtigt. So kann es vorkommen, dass ein Dreieck mit dem gleichen kleinsten Winkel wie das hier platzierte so lange Seiten hat, dass es überhaupt nicht in diese Lücke passen würde. Aus diesem Grund werden solche Lücken nicht aufgefüllt, was verbesserungswürdig ist.
-  	\item Es wäre denkbar, andere Arten von Heuristiken verwenden, insbesondere \textit{evolutionäre Algorithmen} oder \textit{selbstlernende neuronale Netzwerke}. Damit ließen sich möglicherweise noch bessere Ergebnisse erzielen. Diese beiden Arten von Heuristiken sind jedoch in etwa das Äquivalent von Magie in der Informatik. Man kann weder Aussagen darüber treffen, ob und warum die Heuristik vermutlich gute Ergebnisse produziert noch darüber, was während der Ausführung des Algorithmus genau passiert oder welche Laufzeit er (in Landau-Notation) hat. \\ \\
+  	\item Es wäre denkbar, andere Arten von Heuristiken verwenden, insbesondere \textit{evolutionäre Algorithmen} oder \textit{selbstlernende neuronale Netzwerke}. Damit ließen sich möglicherweise noch bessere Ergebnisse erzielen. Diese beiden Arten von Heuristiken sind jedoch in etwa das Äquivalent von Magie in der Informatik. Man kann weder Aussagen darüber treffen, ob und warum die Heuristik vermutlich gute Ergebnisse produziert noch darüber, was während der Ausführung des Algorithmus genau passiert oder welche Laufzeit er (in O-Notation) hat. \\ \\
   	Zudem variieren die Ergebnisse solcher Heuristiken zufällig abhängig von den verwendeten Startwerten. Da ich mit dieser Einsendung nicht am trimagischen Turnier, sondern am Bundeswettbewerb Informatik teilnehmen will, habe ich mich gegen die Implementierung einer solchen Heuristik entschieden.
   \end{itemize}
 \begin{minipage}{0.45\linewidth}
@@ -429,7 +591,7 @@ Für die Gesamtlaufzeit einer Iteration der Schleife erhält man:
  \begin{equation}
 T(n) = \mathcal{O}(n) + \mathcal{O}(n \cdot \log n) + \mathcal{O}(n) = \mathcal{O}(n \cdot \log n)
 \end{equation}
-Nehmen wir an, dass es $m$ Schleifendurchläufe gibt, erhalten wir $\mathcal{O}(m \cdot n \cdot \log n)$. Da die Anzahl der Schleifendurchläufe von der jeweiligen Rückgabe des Subset-Sum-Algorithmus abhängt, kann man nur feststellen, dass $m = \mathcal{O}(n)$ und $m = \Omega(1)$ ist.\footnote{Die geringste Anzahl tritt auf, wenn die Summe aller kleinsten Winkel $\leq 180\degree$ ist.} \\ \\
+Nehmen wir an, dass es $m$ Schleifendurchläufe gibt, erhalten wir $\mathcal{O}(m \cdot n \cdot \log n)$. Da die Anzahl der Schleifendurchläufe von der jeweiligen Rückgabe des Subset-Sum-Algorithmus abhängt, kann man nur feststellen, dass $m = \mathcal{O}(n)$ und $m = \Omega(1)$ ist.\footnote{Die geringste Anzahl tritt auf, wenn die Summe aller kleinsten Winkel $\leq 180\degree$ ist.} \\
 Insgesamt erhält man für die Laufzeit also:\footnote{Da das $n$ nicht für jede Iteration der Schleife gleich ist, sondern kleiner wird, handelt es sich bei der Laufzeit in O-Notation nur um eine grobe Abschätzung nach oben. Die Laufzeit wird also in den meisten Fällen eher $\mathcal{O}(n \cdot \log n)$ sein.}
 \begin{equation}
 T_{gesamt}(n) = \mathcal{O}(n^2 \cdot \log n) \text{~und~} T_{gesamt}(n) = \Omega(n \cdot \log n)
@@ -437,7 +599,7 @@ T_{gesamt}(n) = \mathcal{O}(n^2 \cdot \log n) \text{~und~} T_{gesamt}(n) = \Omeg
  Eine Frage, die sich hierbei auch stellt, ist diejenige, ob es für dieses Problem einen in Polynomialzeit terminierenden Algorithmus geben kann, der eine optimale Lösung liefert. Dies entspricht der Frage, ob das Problem in der Klasse $NPC$\footnote{Genaugenommen ist diese Klasse nur für Entscheidungsprobleme definiert, daher handelt es sich bei diesem Suchproblem um NP-Äquivalenz.} (NP-vollständig bzw. NP-complete) liegt. Ich vermute, dass dies der Fall ist, kann es jedoch nicht beweisen. \\ \\
  Zum Beweis, dass ein Problem in $NPC$ liegt, werden zwei Voraussetzungen benötigt:
  \begin{enumerate}
- 	\item Eine deterministisch arbeitende Turingmaschine benötigt nur Polynomialzeit, um zu entscheiden, ob eine z.B. von einer Orakel-Turingmaschine vorgeschlagene Lösung tatsächlich eine Lösung des Problems ist. Dies ist hier der Fall, denn wenn eine Lösung vorgeschlagen wird, kann man in Polynomialzeit überprüfen, ob es sich dabei um eine erlaubte Dreiecksanordnung handelt. \\ \\ Dazu überprüft man alle vier Bedingungen dafür. Die ersten beiden Bedingungen lassen sich einfach für jedes Dreieck in konstanter Zeit, insgesamt also in $\mathcal{O}(n)$, überprüfen. Für die dritte Bedingung (Kongruenz) ist dies mithilfe von Kongruenzsätzen ebenfalls in linearer Zeit möglich. Bei der vierte Bedingung  (keine Überlappung) muss man alle Dreieckspaare, insgesamt also $\mathcal{O}(n^2)$, auf Überlappung überprüfen. Insgesamt erhält man mit $\mathcal{O}(n^2)$ also Polynomialzeit.
+ 	\item Eine deterministisch arbeitende Turingmaschine benötigt nur Polynomialzeit, um zu entscheiden, ob eine z.B. von einer Orakel-Turingmaschine vorgeschlagene Lösung tatsächlich eine Lösung des Problems ist. Dies ist hier der Fall, denn wenn eine Lösung vorgeschlagen wird, kann man in Polynomialzeit überprüfen, ob es sich dabei um eine erlaubte Dreiecksanordnung handelt. \\ \\ Dazu überprüft man alle vier Bedingungen dafür. Die ersten beiden Bedingungen lassen sich einfach für jedes Dreieck in konstanter Zeit, insgesamt also in $\mathcal{O}(n)$, überprüfen. Für die dritte Bedingung (Kongruenz) ist dies mithilfe von Kongruenzsätzen ebenfalls in linearer Zeit möglich. Bei der vierten Bedingung  (keine Überlappung) muss man alle Dreieckspaare, insgesamt also $\mathcal{O}(n^2)$, auf Überlappung überprüfen. Insgesamt erhält man mit $\mathcal{O}(n^2)$ also Polynomialzeit.
  	\item Das Problem ist NP-schwer. Das bedeutet, dass alle anderen NP-schweren Probleme auf dieses Problem in Polynomialzeit zurückgeführt werden können. Es ist also eine Polynomialzeitreduktion notwendig. Dabei ist ein Problem aus NPC als Ausgangsproblem nötig, wie z.B. 3-Satisfiability. Eine solche Reduktion zu vollziehen, ist mir jedoch nicht möglich.\footnote{Auch wenn eine Beziehung zwischen \textit{3}-SAT und \textit{Drei}ecken natürlich naheliegt.}
  \end{enumerate}
 Abschließend möchte ich bemerken, dass das Problem viel einfacher zu lösen wäre, wenn sich die Trianguläre einfach für rechteckige Grundstücksformen entscheiden würden. Bei diesen ließe sich einfach die kürzere Seite an die Küstenstraße anlegen. Die Beschreibung der Trianguläre als \glqq seltsam\grqq~ist also offensichtlich gerechtfertigt.
@@ -466,9 +628,9 @@ Usage: ./main --input INPUT --svg SVG --output OUTPUT
 	\item Die \texttt{Vektor}-Klasse, die einen Vektor in ebendiesem Koordinatensystem repräsentiert.\footnote{Hier wurde nicht die englische Bezeichnung verwendet, um Verwechslungen mit der STL-Klasse \texttt{vector} auszuschließen.} Außerdem gibt es eine Funktion, die den Betrag des Vektors berechnet.
 	\item Die \texttt{Triangle}-Klasse, die ein Dreieck repräsentiert. Dabei werden eine ID für die Ausgabe, die drei Eckpunkte sowie die Vektoren zwischen ihnen gespeichert. Weiterhin kann mittels eine Funktion die längste an einem Punkt des Dreieck anliegende Seite bestimmt werden, was für das Sortieren der Dreiecke vor der Platzierung notwendig ist.
 \end{itemize}
-Weiterhin gibt es folgende Methoden:
-\begin{longtabu} to \linewidth {lX}
-	Funktion & Beschreibung \\ \hline \hline \endhead
+Weiterhin gibt es folgende Methoden: \\
+{\begin{tabu} to \linewidth {lX}
+	Funktion & Beschreibung \\ \hline
 	\texttt{addVektor()} & Addiert einen Vektor zu einem Punkt. \\ \hline
 	\texttt{dotProduct()} & Berechnet das Skalarprodukt zweier Vektoren. ($a \cdot b = a.x \cdot b.x + a.y \cdot b.y$) \\ \hline
 	\texttt{angle()} & Berechnet den Winkel zwischen zwei Vektoren wie in der Lösungsidee beschrieben.\\ \hline
@@ -476,12 +638,12 @@ Weiterhin gibt es folgende Methoden:
 	\texttt{rotate\_tri()} & Rotiert einen Punkt $p$ um einen Winkel $\alpha$ um das Drehzentrum $c$. (siehe Lösungsidee)\\ \hline
 	\texttt{atan\_angle()}& Berechnet den Winkel, den ein Vektor zwischen zwei Punkten zur positiven x-Achse besitzt. \texttt{atan180()} und \texttt{atan360()} sind Shortcuts für das Subtrahieren des Winkels von 180 bzw. 360 Grad. \\ \hline
 	\texttt{ccw()} & Berechnet, ob ein Punkt gegen den Uhrzeigersinn bezüglich des Vektors zwischen zwei anderen Punkten liegt (siehe Lösungsidee).\\ \hline
-	\texttt{findAngleCalcPoint()} & Findet den Punkt, der für die Bestimmung des Winkels zur x-Achse beim Drehen maßgeblich ist. Dies ist immer der Punkt, der gegen Uhrzeigersinn bezüglich des Vektors aus dem Optimalpunkt und dem dritten Punkt des Dreiecks liegt.\\
-\end{longtabu}
+	\texttt{findAngleCalcPoint()} & Findet den Punkt, der für die Bestimmung des Winkels zur x-Achse beim Drehen maßgeblich ist. Dies ist immer der Punkt, der im Uhrzeigersinn bezüglich des Vektors aus dem Optimalpunkt und dem dritten Punkt des Dreiecks liegt.\\
+\end{tabu}}
 \subsubsection{Die Datei \texttt{triangleAlgorithm.cpp}}
-\texttt{triangleAlgorithm.cpp} enthält den eigentlichen Algorithmus, der aus folgenden Methoden besteht:
-\begin{longtabu} to \linewidth {lX}
-	Funktion & Beschreibung \\ \hline \hline \endhead
+\texttt{triangleAlgorithm.cpp} enthält den eigentlichen Algorithmus, der aus folgenden Methoden besteht: \\ \\
+{\begin{tabu} to \linewidth {lX}
+	Funktion & Beschreibung \\ \hline
 	\texttt{getSubsetsRec()} & Ist für das Backtracen des maximalen Subsets aus dem DP-Array verantwortlich. \\ \hline
 	\texttt{subsetSum()} & Berechnet die Werte des DP-Arrays nach der in der Lösungsidee angegebenen Rekursionsgleichung. \\ \hline
 	\texttt{lengthSortFunc()} & Wird als Vergleichsfunktion beim Sortieren der Dreiecke eines Subsets verwendet. Dabei wird die Länge der längsten am Optimalpunkt anliegenden Seite verglichen.\\ \hline
@@ -492,7 +654,7 @@ Weiterhin gibt es folgende Methoden:
 	\texttt{calculateDistance()} & Berechnet den Gesamtabstand der Dreiecksanordnung. Dabei werden der linkeste und der rechteste Punkt auf der x-Achse, die für die Berechnung zählen, bestimmt.\\ \hline
 	\texttt{moveToRightOfY()} & Verschiebt die Anordnung so, dass der linkeste Punkt genau auf der y-Achse liegt.\\ \hline
 	\texttt{doAlgorithm()} & Setzt den in der Lösungsidee vorgeschlagenen Algorithmus um, wobei die Dreiecksanordnung vom willkürlich gewählten Punkt $(300|0)$ aufgebaut wird.\\
-\end{longtabu}
+\end{tabu}}
 Außerdem werden in dieser Datei mehrere globale Listen (\texttt{vector}) benutzt. Dies sind:
 \begin{itemize}
 	\item \texttt{bestPointIndex}: Speichert für jedes Dreieck den Index des Optimalpunktes in der internen Punkteliste des Dreiecks.
